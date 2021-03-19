@@ -7,6 +7,6 @@ class Index extends BaseController
 {
     public function index()
     {
-        echo '小程序接口';
+        echo '小程序接口调用成功';
     }
 }
