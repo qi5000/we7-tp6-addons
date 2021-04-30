@@ -5,5 +5,9 @@
 return [
     // 指令定义
     'commands' => [
+        // 创建基础库类文件
+        'lib'   => command\Lib::class,
+        // 创建逻辑层类文件
+        'logic' => command\Logic::class,
     ],
 ];
