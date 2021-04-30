@@ -6,10 +6,10 @@ namespace app\api\controller;
 class Login
 {
     /**
-     * 登陆接口
+     * 登录接口
      */
     public function index()
     {
-        echo '登陆接口 success';
+        echo '登录接口 success';
     }
 }

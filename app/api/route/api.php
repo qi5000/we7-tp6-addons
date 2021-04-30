@@ -6,5 +6,5 @@
 
 use think\facade\Route;
 
-// 登陆接口
+// 登录接口
 Route::get('login', 'login/index');
