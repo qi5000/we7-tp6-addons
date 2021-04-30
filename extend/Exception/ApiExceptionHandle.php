@@ -1,5 +1,7 @@
 <?php
 
+namespace Exception;
+
 use think\db\exception\DataNotFoundException;
 use think\db\exception\ModelNotFoundException;
 use think\exception\Handle;
