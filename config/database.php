@@ -1,5 +1,9 @@
 <?php
 
+// 引入微擎配置
+defined('IN_IA') or define('IN_IA', '');
+IN_IA && require __DIR__ . '/../../../data/config.php';
+
 return [
     // 默认使用的数据库连接配置
     'default'         => env('database.driver', 'mysql'),
@@ -21,21 +25,21 @@ return [
             // 数据库类型
             'type'            => env('database.type', 'mysql'),
             // 服务器地址
-            'hostname'        => env('database.hostname', '127.0.0.1'),
+            'hostname'        => env('database.hostname', $config['db']['master']['host'] ?? '127.0.0.1'),
             // 数据库名
-            'database'        => env('database.database', ''),
+            'database'        => env('database.database', $config['db']['master']['database'] ?? ''),
             // 用户名
-            'username'        => env('database.username', 'root'),
+            'username'        => env('database.username', $config['db']['master']['username'] ?? 'root'),
             // 密码
-            'password'        => env('database.password', ''),
+            'password'        => env('database.password', $config['db']['master']['password'] ?? ''),
             // 端口
-            'hostport'        => env('database.hostport', '3306'),
+            'hostport'        => env('database.hostport', $config['db']['master']['port'] ?? '3306'),
             // 数据库连接参数
             'params'          => [],
-            // 数据库编码默认采用utf8
-            'charset'         => env('database.charset', 'utf8'),
+            // 数据库编码默认采用utf8mb4
+            'charset'         => env('database.charset', 'utf8mb4'),
             // 数据库表前缀
-            'prefix'          => env('database.prefix', ''),
+            'prefix'          => env('database.prefix', isset($config['db']['master']['tablepre']) ? $config['db']['master']['tablepre'] . 'overlord_' : ''),
 
             // 数据库部署方式:0 集中式(单一服务器),1 分布式(主从服务器)
             'deploy'          => 0,
