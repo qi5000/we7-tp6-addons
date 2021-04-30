@@ -103,21 +103,21 @@
     ),
     'symfony/var-dumper' => 
     array (
-      'pretty_version' => 'v4.4.20',
-      'version' => '4.4.20.0',
+      'pretty_version' => 'v4.4.21',
+      'version' => '4.4.21.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'a1eab2f69906dc83c5ddba4632180260d0ab4f7f',
+      'reference' => '0da0e174f728996f5d5072d6a9f0a42259dbc806',
     ),
     'topthink/framework' => 
     array (
-      'pretty_version' => 'v6.0.7',
-      'version' => '6.0.7.0',
+      'pretty_version' => 'v6.0.8',
+      'version' => '6.0.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'db8fe22520a9660dd5e4c87e304034ac49e39270',
+      'reference' => '4789343672aef06d571d556da369c0e156609bce',
     ),
     'topthink/think' => 
     array (
@@ -148,12 +148,12 @@
     ),
     'topthink/think-orm' => 
     array (
-      'pretty_version' => 'v2.0.39',
-      'version' => '2.0.39.0',
+      'pretty_version' => 'v2.0.40',
+      'version' => '2.0.40.0',
       'aliases' => 
       array (
       ),
-      'reference' => '39a9d0a0e52d9b8bad9d98484d8484cdf5b683a7',
+      'reference' => '1119d979b850849f3725856460cf108eec1c3eb8',
     ),
     'topthink/think-trace' => 
     array (
