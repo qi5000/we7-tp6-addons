@@ -38,3 +38,16 @@ function page(int $page = 1, int $limit = 10)
 {
     return [input('page', 1, 'intval') ?? $page, input('limit',10, 'intval') ?? $limit];
 }
+
+// +----------------------------------------------------------------------
+// | 微擎相关功能函数
+// +----------------------------------------------------------------------
+
+/**
+ * 获取当前模块标识
+ */
+function module()
+{
+	global $_W;
+	return $_W['current_module']['name'];
+}
