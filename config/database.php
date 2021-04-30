@@ -1,6 +1,6 @@
 <?php
 
-// 引入微擎配置
+// 引入微擎配置文件
 defined('IN_IA') or define('IN_IA', '');
 IN_IA && require __DIR__ . '/../../../data/config.php';
 
