@@ -3,15 +3,21 @@ ThinkPHP 6.0.8
 
 > 运行环境要求PHP7.2+，兼容PHP8.0。
 
-## 先将项目拉取到本地, 再安装composer依赖, 然后将框架根目录所有文件放入微擎小程序模块根目录
+## 将仓库拉取到本地
 
 ~~~dos
 git clone https://gitee.com/holyking/wetp6_0.git
+~~~
 
+## 进入框架根目录, 安装composer依赖
+
+~~~dos
 cd /wetp6_0
 
 composer install
 ~~~
+
+## 将框架文件放入微擎小程序模块根目录
 
 #### 1. 修改 site.php 文件
 
