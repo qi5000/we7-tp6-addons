@@ -12,7 +12,7 @@ git clone https://gitee.com/holyking/wetp6_0.git
 ## 进入框架根目录, 安装composer依赖
 
 ~~~dos
-cd /wetp6_0
+cd wetp6_0
 
 composer install
 ~~~
@@ -41,6 +41,10 @@ public function __call($name, $arguments)
 <uninstall><![CDATA[uninstall.php]]></uninstall>
 <upgrade><![CDATA[upgrade.php]]></upgrade>
 ~~~
+
+## 接口调用示例
+
+#### 小程序前端接口
 
 ~~~
 http://me.cy/app/index.php?c=entry&a=wxapp&i=6&m=lingchi_bn&do=api&s=/index/index
