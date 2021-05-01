@@ -51,3 +51,23 @@ function module()
 	global $_W;
 	return $_W['current_module']['name'];
 }
+
+/**
+ * 返回包含uniacid的数组
+ * 
+ * @param array $data 附加数据
+ */
+function uniacid(array $data = [])
+{
+	global $_W;
+	return array_merge(['uniacid' => $_W['uniacid']], $data);
+}
+
+/**
+ * 获取微擎平台uniacid
+ */
+function getUniacid()
+{
+	global $_W;
+	return $_W['uniacid'];
+}
