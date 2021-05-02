@@ -10,6 +10,8 @@ return [
     // Session初始化
     // \think\middleware\SessionInit::class,
 
+    // 初始化数据
+    \app\middleware\Config::class,
     // 跨域请求支持
     // \think\middleware\AllowCrossDomain::class,
 ];

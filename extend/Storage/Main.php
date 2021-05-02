@@ -8,7 +8,9 @@ namespace Storage;
 class Main
 {
     /**
-     * 文件存储在本地服务器
+     * 文件上传
+     * 
+     * return app(\Storage\Main::class)->upload('image');
      */
     public function upload(string $name, string $type = 'image')
     {
