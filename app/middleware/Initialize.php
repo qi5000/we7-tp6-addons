@@ -7,7 +7,11 @@ namespace app\middleware;
 use think\facade\Cache;
 use app\common\model\Storage;
 
-class Config
+/**
+ * 初始化数据
+ * 全局中间件
+ */
+class Initialize
 {
     // 初始化配置版本号
     private $version = '1.0.0';
@@ -23,23 +27,23 @@ class Config
     {
         if (Cache::store('file')->get('version') != $this->version) {
             // 初始化配置入口
-            $this->initialize();
+            $this->run();
             // 本次版本初始化纪录存入缓存
             Cache::store('file')->set('version', $this->version);
         }
     }
 
     /**
-     * 初始化方法入口
+     * 初始化入口
      */
-    public function initialize()
+    public function run()
     {
         // 云存储
         $this->storage();
     }
 
     // +-------------------------------------------------------------
-    // | 初始化操作方法
+    // | 初始化操作
     // +-------------------------------------------------------------
 
     /**
@@ -56,7 +60,7 @@ class Config
     }
 
     // +-------------------------------------------------------------
-    // | 初始化操作方法
+    // | 功能封装
     // +-------------------------------------------------------------
 
     /**
