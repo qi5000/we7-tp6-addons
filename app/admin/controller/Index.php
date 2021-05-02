@@ -5,6 +5,7 @@ namespace app\admin\controller;
 use app\BaseController;
 
 /**
+ * admin 应用
  * 后台管理系统
  */
 class Index extends BaseController
