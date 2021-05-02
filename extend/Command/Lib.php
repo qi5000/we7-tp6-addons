@@ -3,9 +3,9 @@
 // +---------------------------------------------------------
 // | 自定义命令创建基础库类文件
 // +---------------------------------------------------------
-// | php think lib Alipay
+// | php think make:lib Alipay
 // +---------------------------------------------------------
-// | php think lib api@WechatPay
+// | php think make:lib api@WechatPay
 // +---------------------------------------------------------
 
 namespace command;
@@ -19,7 +19,7 @@ class Lib extends Make
     protected function configure()
     {
         parent::configure();
-        $this->setName('lib')
+        $this->setName('make:lib')
             ->setDescription('Create a new lib class');
     }
 

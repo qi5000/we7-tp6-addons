@@ -3,9 +3,9 @@
 // +---------------------------------------------------------
 // | 自定义命令创建逻辑层类文件
 // +---------------------------------------------------------
-// | php think logic User
+// | php think make:logic User
 // +---------------------------------------------------------
-// | php think logic api@User
+// | php think make:logic api@User
 // +---------------------------------------------------------
 
 namespace command;
@@ -19,7 +19,7 @@ class Logic extends Make
     protected function configure()
     {
         parent::configure();
-        $this->setName('logic')
+        $this->setName('make:logic')
             ->setDescription('Create a new logic class');
     }
 
