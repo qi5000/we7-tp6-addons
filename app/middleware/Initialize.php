@@ -31,6 +31,7 @@ class Initialize
             // 本次版本初始化纪录存入缓存
             Cache::store('file')->set('version', $this->version);
         }
+        return $next($request);
     }
 
     /**
