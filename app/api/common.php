@@ -9,5 +9,5 @@
  */
 function wxappImg($img)
 {
-	return request()->domain() . '/addons/' . module() . '/public/static/wxapp/' . $img;
+    return request()->domain() . '/addons/' . module() . '/public/static/wxapp/' . $img;
 }

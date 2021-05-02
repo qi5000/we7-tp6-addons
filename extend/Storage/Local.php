@@ -1,4 +1,5 @@
 <?php
+
 namespace Storage;
 
 use think\facade\Filesystem;
