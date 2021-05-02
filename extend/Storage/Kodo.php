@@ -25,7 +25,7 @@ class Kodo extends Base
     /**
      * 图片上传到七牛云对象存储 Kodo
      */
-    public function upload(string $name)
+    public function upload(string $name, string $type = 'image')
     {
         // 配置参数
         $bucket    = $this->config['bucket'];
@@ -35,6 +35,14 @@ class Kodo extends Base
         // 判断是否有文件上传
         $file = $this->isUpload($name);
         if (!$file instanceof \think\file\UploadedFile) return $file;
+        // 上传验证
+        if ($type == 'image') {
+            try {
+                validate(\app\validate\Upload::class)->check(['image' => $file]);
+            } catch (\think\exception\ValidateException $e) {
+                return $this->fail($e->getMessage());
+            }
+        }
         // 将文件上传到七牛云
         try {
             // 初始化鉴权对象

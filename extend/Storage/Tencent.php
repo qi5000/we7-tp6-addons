@@ -24,7 +24,7 @@ class Tencent extends Base
     /**
      * 将文件上传到腾讯云对象存储 COS
      */
-    public function upload($name)
+    public function upload($name, string $type = 'image')
     {
         // 配置参数
         //存储桶名称 格式：BucketName-APPID
@@ -40,6 +40,14 @@ class Tencent extends Base
         // 判断是否有文件上传
         $file = $this->isUpload($name);
         if (!$file instanceof \think\file\UploadedFile) return $file;
+        // 上传验证
+        if ($type == 'image') {
+            try {
+                validate(\app\validate\Upload::class)->check(['image' => $file]);
+            } catch (\think\exception\ValidateException $e) {
+                return $this->fail($e->getMessage());
+            }
+        }
         $cosClient = new Client(
             [
                 'region' => $region,

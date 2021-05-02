@@ -10,7 +10,7 @@ class Main
     /**
      * 文件存储在本地服务器
      */
-    public function upload(string $name)
+    public function upload(string $name, string $type = 'image')
     {
         // $config = [
         //     'type' => 1,

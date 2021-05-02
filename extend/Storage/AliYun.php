@@ -25,7 +25,7 @@ class AliYun extends Base
     /**
      * 文件上传到阿里云对象存储 OSS
      */
-    public function upload($name)
+    public function upload($name, string $type = 'image')
     {
         // 配置参数
         $bucket    = $this->config['bucket'];
@@ -36,6 +36,14 @@ class AliYun extends Base
         // 判断是否有文件上传
         $file = $this->isUpload($name);
         if (!$file instanceof \think\file\UploadedFile) return $file;
+        // 上传验证
+        if ($type == 'image') {
+            try {
+                validate(\app\validate\Upload::class)->check(['image' => $file]);
+            } catch (\think\exception\ValidateException $e) {
+                return $this->fail($e->getMessage());
+            }
+        }
         // 将文件上传到阿里云
         try {
             // 实例化对象

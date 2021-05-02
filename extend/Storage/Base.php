@@ -60,8 +60,8 @@ abstract class Base
         // if ( ! $file instanceof \think\file\UploadedFile ) return $file;
         try {
             $file = request()->file($name);
-            if (!$file) throw new Exception('没有文件上传');
-        } catch (Exception $e) {
+            if (!$file) throw new \Exception('没有文件上传');
+        } catch (\Exception $e) {
             return $this->fail($e->getMessage());
         }
         return $file;
