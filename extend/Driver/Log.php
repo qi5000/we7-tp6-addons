@@ -17,7 +17,7 @@ class Log implements LogHandlerInterface
     public function __construct()
     {
         // 获取日志通道配置信息
-        $this->config = \think\facade\Log::getChannelConfig('log');
+        $this->config = \think\facade\Log::getChannelConfig('W7');
     }
 
     /**
