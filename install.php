@@ -5,6 +5,18 @@
 
 $sql = "
 
+CREATE TABLE `ims_liang_config` (
+    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `uniacid` int(11) DEFAULT NULL COMMENT '平台ID',
+    `type` varchar(60) DEFAULT NULL COMMENT '配置分组',
+    `key` varchar(255) NOT NULL COMMENT '配置键',
+    `value` text COMMENT '配置值',
+    `delete_time` int(11) DEFAULT NULL COMMENT '软删除',
+    `create_time` int(11) NOT NULL COMMENT '创建时间',
+    `update_time` int(11) DEFAULT NULL COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE
+  ) ENGINE=InnoDB DEFAULT COMMENT='系统配置表';
+
 CREATE TABLE `ims_liang_storage` (
     `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键且自增',
     `uniacid` int(11) NOT NULL COMMENT '平台ID',
