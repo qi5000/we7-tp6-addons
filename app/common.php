@@ -27,6 +27,18 @@ function fault(string $msg = "", int $code = 1)
 }
 
 /**
+ * 返回数据
+ *
+ * @param array   $data
+ * @param string  $msg
+ * @param integer $code
+ */
+function data(array $data, string $msg = "获取成功", int $code = 0)
+{
+    return json(compact('code', 'msg', 'data'));
+}
+
+/**
  * 获取分页参数
  *
  * @param integer $page  默认页码

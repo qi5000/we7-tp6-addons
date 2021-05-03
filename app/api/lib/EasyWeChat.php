@@ -81,6 +81,31 @@ class EasyWeChat
         $this->payment = Factory::payment($config);
     }
 
+    // +-------------------------------------------------------------------------------------
+    // | 小程序登录
+    // +-------------------------------------------------------------------------------------
+    // | https://www.easywechat.com/docs/5.x/mini-program/auth
+    // +-------------------------------------------------------------------------------------
+
+    /**
+     * 根据 jsCode 获取用户 session 信息
+     *
+     * @param string $code
+     */
+    public function login(string $code)
+    {
+        // 返回示例
+        // $res = [
+        //     'session_key' => '5qpyH6pz1Xjuyg3rZ0KD8A==',
+        //     'openid'      => 'oNiWa5CB9VFKgr-TqssteGoieibY',
+        // ];
+        // $res = [
+        //     'errcode' => '40029',
+        //     'errmsg'  => 'invalid code, hints: [ req_id: 3Ibcf2LnRa-lgVExa ]',
+        // ];
+        return $this->miniProgram->auth->session($code);
+    }
+
     // +-----------------------------------------------------------------------------
     // | 小程序码
     // +-----------------------------------------------------------------------------
