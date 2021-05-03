@@ -9,7 +9,7 @@ use app\api\model\User as UserModel;
 class User
 {
     /**
-     * 小程序登录逻辑
+     * 小程序登录
      *
      * @param string $code
      */
@@ -37,5 +37,26 @@ class User
             'userinfo' => $user->toArray(),
         ];
         return $data;
+    }
+
+    /**
+     * 更新用户信息
+     *
+     * @param int   $id   用户id
+     * @param array $data 更新的数据
+     */
+    public static function update(int $id, array $data)
+    {
+        $user = UserModel::findOrEmpty($id);
+        $user->isEmpty() && fault('用户不存在');
+        $user->startTrans();
+        try {
+            $user->save($data);
+            $user->commit();
+        } catch (\Exception $e) {
+            $user->rollback();
+            // fault('更新失败');
+            fault($e->getMessage());
+        }
     }
 }

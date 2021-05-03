@@ -5,6 +5,20 @@
 
 $sql = "
 
+CREATE TABLE `ims_liang_user` (
+    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
+    `uniacid` int(11) NOT NULL DEFAULT '0' COMMENT '平台id',
+    `unionid` varchar(30) NOT NULL DEFAULT '' COMMENT '开发平台唯一标识',
+    `openid` varchar(50) NOT NULL DEFAULT '' COMMENT '用户openid',
+    `nickName` varchar(255) NOT NULL DEFAULT '' COMMENT '微信昵称',
+    `gender` tinyint(1) NOT NULL DEFAULT '0' COMMENT '性别 0 未知 1 男 2 女',
+    `avatarUrl` varchar(255) NOT NULL DEFAULT '' COMMENT '微信头像',
+    `create_time` int(11) NOT NULL COMMENT '添加时间',
+    `update_time` int(11) DEFAULT NULL COMMENT '修改时间',
+    `delete_time` int(11) DEFAULT NULL COMMENT '软删除',
+    PRIMARY KEY (`id`) USING BTREE
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+
 CREATE TABLE `ims_liang_config` (
     `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `uniacid` int(11) DEFAULT NULL COMMENT '平台ID',
