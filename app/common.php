@@ -36,11 +36,25 @@ function fault(string $msg = "", int $code = 1)
  */
 function page(int $page = 1, int $limit = 10)
 {
-    return [input('page', 1, 'intval') ?? $page, input('limit',10, 'intval') ?? $limit];
+    return [input('page', 1, 'intval') ?? $page, input('limit', 10, 'intval') ?? $limit];
 }
 
 // +----------------------------------------------------------------------
-// | 微擎相关功能函数
+// | EasyWeChat
+// +----------------------------------------------------------------------
+
+/**
+ * 获取小程序页面路径
+ *
+ * @param string $name
+ */
+function getMiniPage(string $name)
+{
+    return config("pages.{$name}");
+}
+
+// +----------------------------------------------------------------------
+// | 微擎相关
 // +----------------------------------------------------------------------
 
 /**
@@ -48,8 +62,8 @@ function page(int $page = 1, int $limit = 10)
  */
 function module()
 {
-	global $_W;
-	return $_W['current_module']['name'];
+    global $_W;
+    return $_W['current_module']['name'];
 }
 
 /**
@@ -59,8 +73,8 @@ function module()
  */
 function uniacid(array $data = [])
 {
-	global $_W;
-	return array_merge(['uniacid' => $_W['uniacid']], $data);
+    global $_W;
+    return array_merge(['uniacid' => $_W['uniacid']], $data);
 }
 
 /**
@@ -68,6 +82,6 @@ function uniacid(array $data = [])
  */
 function getUniacid()
 {
-	global $_W;
-	return $_W['uniacid'];
+    global $_W;
+    return $_W['uniacid'];
 }

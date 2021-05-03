@@ -91,41 +91,72 @@ class EasyWeChat
 
     /**
      * 生成小程序码
-     *
-     * @param string $scene
+     * 
      * @param string $page
+     * @param mixed  $scene
      */
-    public function getAppCode(string $scene, string $page)
+    public function miniCode(string $page, $scene, string $type = '')
     {
+        // 小程序码存放目录
+        $path = $this->getStoragePath($type);
+        // 数组数据转为查询字符串
+        if (is_array($scene)) $scene = $this->queryString($scene);
+        // 小程序码已存在就不再重复生成
+        if (file_exists($path . '/' . $scene . '.jpg')) {
+            $filename = $scene . '.jpg';
+            return $this->getCodeUrl($filename, $type);
+        }
+        // 小程序码不存在时就生成
         try {
             $response = $this->miniProgram->app_code->getUnlimit($scene, [
                 'page'  => $page,
             ]);
-            // 保存小程序码到文件
             if ($response instanceof \EasyWeChat\Kernel\Http\StreamResponse) {
-                $path = Filesystem::getDiskConfig('miniCode', 'root');
-                $filename = $response->save($path);
-                return Filesystem::getDiskConfig('miniCode', 'url') . $filename;
+                // 保存小程序码到本地服务器
+                $filename = $response->save($path, $scene);
+                // 返回可访问的小程序码URL地址
+                return $this->getCodeUrl(strval($filename), $type);
             } else {
-                fault(json_encode($response));
+                fault($response['errmsg'], $response['errcode']);
             }
         } catch (\Exception $e) {
-            fault($e->getMessage());
+            fault($e->getMessage(), $e->getCode());
         }
+    }
 
-        // $response = $app->app_code->getUnlimit('scene-value', [
-        //     'page'  => 'path/to/page',
-        //     'width' => 600,
-        // ]);
-        // // $response 成功时为 EasyWeChat\Kernel\Http\StreamResponse 实例，失败为数组或你指定的 API 返回类型
+    /**
+     * 获取小程序码存放目录
+     *
+     * @param string $type
+     */
+    private function getStoragePath(string $type)
+    {
+        return Filesystem::getDiskConfig('miniCode', 'root') . ($type ? '/' . $type : '');
+    }
 
-        // // 保存小程序码到文件
-        // if ($response instanceof \EasyWeChat\Kernel\Http\StreamResponse) {
-        //     $filename = $response->save('/path/to/directory');
-        // }
-        // // 或
-        // if ($response instanceof \EasyWeChat\Kernel\Http\StreamResponse) {
-        //     $filename = $response->saveAs('/path/to/directory', 'appcode.png');
-        // }
+    /**
+     * 返回小程序码URL地址
+     *
+     * @param string $filename
+     * @param string $type
+     */
+    private function getCodeUrl(string $filename, string $type)
+    {
+        $type =  $type ? ltrim($type, '/') . '/' : '';
+        return Filesystem::getDiskConfig('miniCode', 'url') . $type . $filename;
+    }
+
+    /**
+     * 数组数据转为查询字符串
+     *
+     * @param array $data
+     */
+    private function queryString(array $data)
+    {
+        $link = '';
+        foreach ($data as $key => $value) {
+            $link .= $key . '=' . $value . '&';
+        }
+        return rtrim($link, '&');
     }
 }
