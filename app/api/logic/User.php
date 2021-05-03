@@ -55,8 +55,7 @@ class User
             $user->commit();
         } catch (\Exception $e) {
             $user->rollback();
-            // fault('更新失败');
-            fault($e->getMessage());
+            fault('更新失败');
         }
     }
 }
