@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace app\api\lib;
 
 use EasyWeChat\Factory;
+use think\facade\Filesystem;
 
 /**
  * EasyWeChat 功能封装
@@ -80,5 +81,51 @@ class EasyWeChat
             'notify_url'         => '默认的订单回调地址',     // 你也可以在下单时单独设置来想覆盖它
         ];
         $this->payment = Factory::payment($config);
+    }
+
+    // +---------------------------------------------------------------
+    // | 小程序码
+    // +---------------------------------------------------------------
+    // | https://www.easywechat.com/docs/4.x/mini-program/app_code
+    // +---------------------------------------------------------------
+
+    /**
+     * 生成小程序码
+     *
+     * @param string $scene
+     * @param string $page
+     */
+    public function getAppCode(string $scene, string $page)
+    {
+        try {
+            $response = $this->miniProgram->app_code->getUnlimit($scene, [
+                'page'  => $page,
+            ]);
+            // 保存小程序码到文件
+            if ($response instanceof \EasyWeChat\Kernel\Http\StreamResponse) {
+                $path = Filesystem::getDiskConfig('miniCode', 'root');
+                $filename = $response->save($path);
+                return Filesystem::getDiskConfig('miniCode', 'url') . $filename;
+            } else {
+                fault(json_encode($response));
+            }
+        } catch (\Exception $e) {
+            fault($e->getMessage());
+        }
+
+        // $response = $app->app_code->getUnlimit('scene-value', [
+        //     'page'  => 'path/to/page',
+        //     'width' => 600,
+        // ]);
+        // // $response 成功时为 EasyWeChat\Kernel\Http\StreamResponse 实例，失败为数组或你指定的 API 返回类型
+
+        // // 保存小程序码到文件
+        // if ($response instanceof \EasyWeChat\Kernel\Http\StreamResponse) {
+        //     $filename = $response->save('/path/to/directory');
+        // }
+        // // 或
+        // if ($response instanceof \EasyWeChat\Kernel\Http\StreamResponse) {
+        //     $filename = $response->saveAs('/path/to/directory', 'appcode.png');
+        // }
     }
 }

@@ -34,5 +34,14 @@ return [
             // 可见性
             'visibility' => 'public',
         ],
+        // 小程序码
+        'miniCode' => [
+            // 磁盘类型
+            'type'       => 'local',
+            // 磁盘路径
+            'root'       => ATTACHMENT_ROOT . module() . '/' . getUniacid() . '/miniCode',
+            // 磁盘路径对应的外部URL路径
+            'url'        => implode('/', [request()->domain(), 'attachment', module(), getUniacid(), 'miniCode', '']),
+        ],
     ],
 ];
