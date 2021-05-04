@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\middleware;
 
 use think\facade\Cache;
+use app\common\model\Config;
 use app\common\model\Storage;
 
 /**
@@ -39,6 +40,8 @@ class Initialize
      */
     public function run()
     {
+        // 系统配置
+        $this->config();
         // 云存储
         $this->storage();
     }
@@ -46,6 +49,21 @@ class Initialize
     // +-------------------------------------------------------------
     // | 初始化操作
     // +-------------------------------------------------------------
+
+    /**
+     * 系统配置初始化
+     */
+    private function config()
+    {
+        // 读取系统配置
+        $config = $this->getInitialConfig('config');
+        foreach ($config as $value) {
+            // 根据配置键查询配置
+            $data = Config::key($value['key'])->findOrEmpty();
+            // 配置项不存在就添加一个配置项
+            $data->isEmpty() && $data->save($value);
+        }
+    }
 
     /**
      * 云存储配置初始化
