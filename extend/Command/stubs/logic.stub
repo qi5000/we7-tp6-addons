@@ -6,5 +6,10 @@ namespace {%namespace%};
 
 class {%className%}
 {
-    //
+    /**
+     * 静态方法示例
+     */
+    public static function demo()
+    {
+    }
 }
