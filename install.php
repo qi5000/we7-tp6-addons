@@ -29,8 +29,7 @@ CREATE TABLE `ims_liang_user` (
     `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
     `update_time` int(11) DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
-    UNIQUE KEY `unique_key` (`uniacid`,`key`) USING BTREE,
-    UNIQUE KEY `unique_type` (`uniacid`,`type`) USING BTREE
+    UNIQUE KEY `unique_key` (`uniacid`,`key`) USING BTREE
   ) ENGINE=InnoDB DEFAULT COMMENT='系统配置表';
 
 CREATE TABLE `ims_liang_storage` (
