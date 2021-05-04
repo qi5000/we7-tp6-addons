@@ -115,9 +115,10 @@ class EasyWeChat
 
     /**
      * 生成小程序码
-     * 
-     * @param string $page
-     * @param mixed  $scene
+     *
+     * @param string $page         页面路径
+     * @param string|array $scene  场景(额外参数)
+     * @param string $type         小程序码类型(目录名)
      */
     public function miniCode(string $page, $scene, string $type = '')
     {
