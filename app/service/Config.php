@@ -14,7 +14,7 @@ class Config extends \think\Service
     public function register()
     {
         // 加载扩展配置
-        \think\facade\Config::load('extra/pages', 'pages');
+        \think\facade\Config::load('extra/page', 'page');
     }
 
     /**

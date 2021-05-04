@@ -62,7 +62,7 @@ function page(int $page = 1, int $limit = 10)
  */
 function getMiniPage(string $name)
 {
-    return config("pages.{$name}");
+    return config("page.{$name}");
 }
 
 // +----------------------------------------------------------------------
