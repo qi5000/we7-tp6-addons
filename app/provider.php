@@ -1,4 +1,5 @@
 <?php
+
 use app\ExceptionHandle;
 use app\Request;
 
@@ -6,4 +7,6 @@ use app\Request;
 return [
     'think\Request'          => Request::class,
     'think\exception\Handle' => ExceptionHandle::class,
+    // EasyWeChat 功能封装
+    'EasyWeChat' => \app\common\lib\EasyWeChat::class,
 ];

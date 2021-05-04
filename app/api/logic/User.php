@@ -8,8 +8,12 @@ use app\api\model\User as UserModel;
 
 class User
 {
+    // +----------------------------------------------------------------------
+    // | wx.login 小程序登录
+    // +----------------------------------------------------------------------
+
     /**
-     * 小程序登录
+     * 小程序登录逻辑
      *
      * @param string $code
      */
@@ -32,15 +36,36 @@ class User
             fault('登录失败');
         }
         $data  = [
-            'token'    => md5(strval($user->id)),
-            'uid'      => $user->id,
             'userinfo' => $user->toArray(),
+            'token'    => self::getToken($user->id),
         ];
         return $data;
     }
 
     /**
-     * 更新用户信息
+     * 根据用户id生成token
+     *
+     * @param  integer $uid   用户id
+     * @return string  $token JWT加密字符串
+     */
+    private static function getToken(int $uid)
+    {
+        // 附加数据
+        $build = ['uid' => $uid];
+        // 生成token
+        $token = app('jwt')->encode($build);
+        // 将token存入缓存
+        app('jwt')->cache($uid, $token);
+        // 返回加密token
+        return $token;
+    }
+
+    // +----------------------------------------------------------------------
+    // | wx.getUserProfile 获取用户昵称、头像等信息
+    // +----------------------------------------------------------------------
+
+    /**
+     * 更新用户信息逻辑
      *
      * @param int   $id   用户id
      * @param array $data 更新的数据

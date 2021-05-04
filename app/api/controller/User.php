@@ -6,11 +6,12 @@ namespace app\api\controller;
 
 use app\api\logic\User as UserLogic;
 
-class User
+class User extends JwtAuth
 {
     /**
-     * 用户授权
-     * 更新用户信息
+     * wx.getUserProfile
+     * 
+     * 用户授权更新用户信息接口
      */
     public function update(array $data)
     {

@@ -12,9 +12,10 @@
 
 declare(strict_types=1);
 
-namespace app\api\lib;
+namespace app\common\lib;
 
 use EasyWeChat\Factory;
+use EasyWeChat\Kernel\Messages\Image;
 use think\facade\Filesystem;
 
 /**
@@ -181,6 +182,56 @@ class EasyWeChat
             $link .= $key . '=' . $value . '&';
         }
         return rtrim($link, '&');
+    }
+
+    // +-----------------------------------------------------------------------------
+    // | 客服消息
+    // +-----------------------------------------------------------------------------
+    // | https://www.easywechat.com/docs/4.x/official-account/messages
+    // +-----------------------------------------------------------------------------
+
+    /**
+     * 消息推送接入验证
+     * 开发者服务器接收消息推送
+     */
+    public function checkSignature(string $token)
+    {
+        $nonce     = $_GET["nonce"] ?? '';
+        $signature = $_GET["signature"] ?? '';
+        $timestamp = $_GET["timestamp"] ?? '';
+        $tmpArr = array($token, $timestamp, $nonce);
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode('', $tmpArr);
+        $tmpStr = trim(sha1($tmpStr));
+        if (empty($token)) die('未设置消息推送token令牌');
+        if (empty($signature) || empty($tmpStr) || empty($nonce)) die('非法请求！！！');
+        if ($tmpStr != $signature) die('签名验证错误');
+        isset($_GET['echostr']) ? die($_GET['echostr']) : new self;
+    }
+
+    /**
+     * 回复文本消息
+     *
+     * @param string $openid 接收者openid
+     * @param string $text   回复的文本内容
+     */
+    public function replyText(string $openid, string $text)
+    {
+        $this->miniProgram->customer_service->message($text)->to($openid)->send();
+    }
+
+    /**
+     * 回复图片消息
+     *
+     * @param string $openid 接收者openid
+     * @param string $image  图片绝对路径
+     */
+    public function replyImg(string $openid, string $image)
+    {
+        // 上传临时素材
+        $result = $this->miniProgram->media->uploadImage($image);
+        $content = new Image($result['media_id']);
+        $this->miniProgram->customer_service->message($content)->to($openid)->send();
     }
 
     // +-----------------------------------------------------------------------------

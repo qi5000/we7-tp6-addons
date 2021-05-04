@@ -6,11 +6,6 @@ namespace app\service;
 
 class Config extends \think\Service
 {
-    public $bind = [
-        // EasyWeChat 功能封装
-        'EasyWeChat' => \app\api\lib\EasyWeChat::class,
-    ];
-
     /**
      * 注册服务
      *
