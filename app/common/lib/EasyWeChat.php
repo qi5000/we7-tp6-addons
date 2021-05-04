@@ -211,6 +211,17 @@ class EasyWeChat
     }
 
     /**
+     * 获取客服消息会话接口地址
+     */
+    public function replyApi()
+    {
+        $module  = module();
+        $uniacid = getUniacid();
+        $domain  = request()->domain();
+        return "{$domain}/app/index.php?i={$uniacid}&c=entry&m={$module}&a=wxapp&do=api&s=/customer/index";
+    }
+
+    /**
      * 回复文本消息
      *
      * @param string $openid 接收者openid

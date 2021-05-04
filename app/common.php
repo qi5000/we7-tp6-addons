@@ -38,6 +38,10 @@ function data(array $data, string $msg = "获取成功", int $code = 0)
     return json(compact('code', 'msg', 'data'));
 }
 
+// +----------------------------------------------------------------------
+// | 功能相关
+// +----------------------------------------------------------------------
+
 /**
  * 获取分页参数
  *
@@ -49,6 +53,22 @@ function data(array $data, string $msg = "获取成功", int $code = 0)
 function page(int $page = 1, int $limit = 10)
 {
     return [input('page', 1, 'intval') ?? $page, input('limit', 10, 'intval') ?? $limit];
+}
+
+/**
+ * 生成指定长度的随机字符串
+ *
+ * @param integer $length
+ * @return string 随机英文数字符串
+ */
+function getRandString(int $length)
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    return $randomString;
 }
 
 // +----------------------------------------------------------------------
