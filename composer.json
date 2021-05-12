@@ -28,7 +28,8 @@
         "aliyuncs/oss-sdk-php": "^2.4",
         "qcloud/cos-sdk-v5": "^2.1",
         "overtrue/wechat": "~4.0",
-        "firebase/php-jwt": "^5.2"
+        "firebase/php-jwt": "^5.2",
+        "shinyboys/helper": "^0.0.1"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
