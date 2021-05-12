@@ -6,5 +6,5 @@
 
 return [
     // 首页
-    'homepage' => 'pages/index/index',
+    'index' => 'pages/index/index',
 ];

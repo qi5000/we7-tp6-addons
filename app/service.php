@@ -6,6 +6,4 @@ use app\AppService;
 // 服务在完成全局初始化之后执行
 return [
     AppService::class,
-    // 加载扩展配置
-    app\service\Config::class,
 ];

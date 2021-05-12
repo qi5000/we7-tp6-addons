@@ -7,6 +7,9 @@ use app\Request;
 return [
     'think\Request'          => Request::class,
     'think\exception\Handle' => ExceptionHandle::class,
-    // EasyWeChat 功能封装
-    'EasyWeChat' => \app\common\lib\EasyWeChat::class,
+
+    // EasyWeChat 微信支付功能封装
+    'Payment' => app\common\lib\easywechat\Payment::class,
+    // EasyWeChat 小程序功能封装
+    'MiniProgram' => app\common\lib\easywechat\MiniProgram::class,
 ];

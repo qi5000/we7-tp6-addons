@@ -1,52 +1,28 @@
 <?php
 
 // +---------------------------------------------------------------
-// | EasyWeChat 功能封装 已通过服务系统绑定到容器
+// | EasyWeChat 小程序相关功能封装
 // +---------------------------------------------------------------
 // | Author: liang <23426945@qq.com>
-// +---------------------------------------------------------------
-// | $app = app('EasyWeChat')->payment; //微信支付实例
-// +---------------------------------------------------------------
-// | $app = app('EasyWeChat')->miniProgram;//微信小程序实例
 // +---------------------------------------------------------------
 
 declare(strict_types=1);
 
-namespace app\common\lib;
+namespace app\common\lib\easywechat;
 
 use EasyWeChat\Factory;
 use EasyWeChat\Kernel\Messages\Image;
 use think\facade\Filesystem;
 
-/**
- * EasyWeChat 功能封装
- */
-class EasyWeChat
+class MiniProgram
 {
     // 微信支付
-    public $payment;
-    // 小程序相关
-    public $miniProgram;
+    public $app;
 
     /**
      * 构造方法生成相关操作实例
      */
     public function __construct()
-    {
-        // 微信支付
-        $this->getPayment();
-        // 小程序相关
-        $this->getMiniProgram();
-    }
-
-    // +-----------------------------------------------------------------------------
-    // | 获取 EasyWeChat 相关操作的实例
-    // +-----------------------------------------------------------------------------
-
-    /**
-     * 小程序相关操作所需实例
-     */
-    private function getMiniProgram()
     {
         global $_W;
         $config = [
@@ -60,26 +36,9 @@ class EasyWeChat
                 // 'file' => __DIR__ . '/wechat.log',
             ],
         ];
-        $this->miniProgram = Factory::miniProgram($config);
-    }
+        $this->app = Factory::miniProgram($config);
 
-    /**
-     * 微信支付相关操作所需实例
-     */
-    private function getPayment()
-    {
-        $config = [
-            // 必要配置
-            'app_id'             => 'xxxx',
-            'mch_id'             => 'your-mch-id',
-            'key'                => 'key-for-signature',   // API 密钥
-            // 如需使用敏感接口（如退款、发送红包等）需要配置 API 证书路径(登录商户平台下载 API 证书)
-            'cert_path'          => 'path/to/your/cert.pem', // XXX: 绝对路径！！！！
-            'key_path'           => 'path/to/your/key',      // XXX: 绝对路径！！！！
-
-            'notify_url'         => '默认的订单回调地址',     // 你也可以在下单时单独设置来想覆盖它
-        ];
-        $this->payment = Factory::payment($config);
+        \think\facade\Config::load('extra/page', 'page');
     }
 
     // +-------------------------------------------------------------------------------------
@@ -104,7 +63,7 @@ class EasyWeChat
         //     'errcode' => '40029',
         //     'errmsg'  => 'invalid code, hints: [ req_id: 3Ibcf2LnRa-lgVExa ]',
         // ];
-        return $this->miniProgram->auth->session($code);
+        return $this->app->auth->session($code);
     }
 
     // +-----------------------------------------------------------------------------
@@ -133,7 +92,7 @@ class EasyWeChat
         }
         // 小程序码不存在时就生成
         try {
-            $response = $this->miniProgram->app_code->getUnlimit($scene, [
+            $response = $this->app->app_code->getUnlimit($scene, [
                 'page'  => $page,
             ]);
             if ($response instanceof \EasyWeChat\Kernel\Http\StreamResponse) {
@@ -269,6 +228,6 @@ class EasyWeChat
             'data'        => $data,
         ];
         // 返回一个数组
-        return $this->miniProgram->subscribe_message->send($data);
+        return $this->app->subscribe_message->send($data);
     }
 }
