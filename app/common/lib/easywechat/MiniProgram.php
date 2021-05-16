@@ -13,6 +13,7 @@ namespace app\common\lib\easywechat;
 use EasyWeChat\Factory;
 use EasyWeChat\Kernel\Messages\Image;
 use think\facade\Filesystem;
+use liang\helper\MicroEngine;
 
 class MiniProgram
 {
@@ -172,10 +173,10 @@ class MiniProgram
     /**
      * 获取客服消息会话接口地址
      */
-    public function replyApi()
+    public static function replyApi()
     {
-        $module  = module();
-        $uniacid = getUniacid();
+        $uniacid = MicroEngine::getUniacid();
+        $module  = MicroEngine::getModuleName();
         $domain  = request()->domain();
         return "{$domain}/app/index.php?i={$uniacid}&c=entry&m={$module}&a=wxapp&do=api&s=/customer/index";
     }
