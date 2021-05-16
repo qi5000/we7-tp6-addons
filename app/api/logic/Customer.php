@@ -7,7 +7,7 @@ namespace app\api\logic;
 /**
  * 客服消息逻辑层
  */
-class Message
+class Customer
 {
     /**
      * 小程序消息推送
@@ -24,13 +24,13 @@ class Message
             case 'miniprogrampage': // 小程序卡片
                 // 回复文字
                 $text  = '自动回复文字';
-                app('EasyWeChat')->replyText($openid, $text);
+                app('MiniProgram')->replyText($openid, $text);
                 // 自动回复图片
                 $image = '绝对路径图片地址';
                 // 发送图片消息
-                app('EasyWeChat')->replyImg($openid, $image);
+                app('MiniProgram')->replyImg($openid, $image);
                 break;
         }
-        app('EasyWeChat')->miniProgram->server->serve()->send();
+        app('MiniProgram')->miniProgram->server->serve()->send();
     }
 }

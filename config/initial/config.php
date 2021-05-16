@@ -4,6 +4,8 @@
 // |  系统配置
 // +----------------------------------------------------------------------
 
+use think\helper\Str;
+
 return [
 
     // +-----------------------------------------------------
@@ -13,11 +15,11 @@ return [
     [
         'type'  => 'message',
         'key'   => 'msg_token',
-        'value' => getRandString(20),
+        'value' => Str::random(20),
     ],
     [
         'type'  => 'message',
         'key'   => 'msg_url',
-        'value' => app('EasyWeChat')->replyApi(),
+        'value' => app\common\lib\easywechat\MiniProgram::replyApi(),
     ],
 ];
