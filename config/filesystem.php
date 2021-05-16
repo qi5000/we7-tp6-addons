@@ -3,6 +3,8 @@
 // 消除编辑器常量未定义提示
 defined('ATTACHMENT_ROOT') or define('ATTACHMENT_ROOT', '');
 
+use liang\helper\MicroEngine;
+
 return [
     // 默认磁盘
     'default' => env('filesystem.driver', 'local'),
@@ -28,20 +30,11 @@ return [
             // 磁盘类型
             'type'       => 'local',
             // 磁盘路径
-            'root'       => ATTACHMENT_ROOT . module() . '/' . getUniacid(),
+            'root'       => MicroEngine::getLocalStorageDir(),
             // 磁盘路径对应的外部URL路径
-            'url'        => implode('/', [request()->domain(), 'attachment', module(), getUniacid(), '']),
+            'url'        => MicroEngine::getFileAccessPrefix(),
             // 可见性
             'visibility' => 'public',
-        ],
-        // 小程序码
-        'miniCode' => [
-            // 磁盘类型
-            'type'       => 'local',
-            // 磁盘路径
-            'root'       => ATTACHMENT_ROOT . module() . '/' . getUniacid() . '/miniCode',
-            // 磁盘路径对应的外部URL路径
-            'url'        => implode('/', [request()->domain(), 'attachment', module(), getUniacid(), 'miniCode', '']),
         ],
     ],
 ];
