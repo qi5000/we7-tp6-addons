@@ -32,14 +32,12 @@ class Config extends MicroEngine
     // +------------------------------------------------
 
     /**
-     * 新增前模型
-     * 重写父类方法
+     * 新增前
      */
     public static function onBeforeInsert($model)
     {
         // 调用父类方法 追加uniacid
         parent::onBeforeInsert($model);
-        // 当value是字符串时,框架没有对数据进行json编码处理,此时需要自己手动处理
-        is_string($model->value) && $model->value = json_encode($model->value, JSON_UNESCAPED_UNICODE);
+        $model->value = encode($model->value);
     }
 }

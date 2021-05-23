@@ -12,18 +12,18 @@ return [
     // | 独立版配置 【脱离微擎时打开注释】
     // +-----------------------------------------------------
 
-    // 小程序appid
-    // [
-    //     'type'  => 'mini_program',
-    //     'key'   => 'appid',
-    //     'value' => '',
-    // ],
-    // // 小程序开发者密钥
-    // [
-    //     'type'  => 'mini_program',
-    //     'key'   => 'secret',
-    //     'value' => '',
-    // ],
+    [
+        'type'  => 'mini_program',
+        'key'   => 'appid',
+        'value' => '',
+        'note'  => '小程序appid【独立版】',
+    ],
+    [
+        'type'  => 'mini_program',
+        'key'   => 'secret',
+        'value' => '',
+        'note'  => '小程序开发者密钥【独立版】',
+    ],
 
     // +-----------------------------------------------------
     // | 客服消息
@@ -32,6 +32,7 @@ return [
     [
         'type'  => 'message',
         'key'   => 'msg_token',
-        'value' => Str::random(20),
+        'value' => Str::random(25),
+        'note'  => '消息推送Token令牌',
     ],
 ];

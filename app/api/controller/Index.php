@@ -8,6 +8,6 @@ class Index extends BaseController
 {
     public function index()
     {
-        echo '小程序接口调用成功';
+        return msg('小程序接口请求成功');
     }
 }

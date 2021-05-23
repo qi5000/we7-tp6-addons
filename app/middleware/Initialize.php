@@ -26,6 +26,7 @@ class Initialize
      */
     public function handle($request, \Closure $next)
     {
+        $this->run();
         if (Cache::store('file')->get('version') != $this->version) {
             // 初始化配置入口
             $this->run();

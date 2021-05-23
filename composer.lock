@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c7c09980da261e93a68cffeea72bdb26",
+    "content-hash": "8900cb19c9f5aac2179881bd4fc09286",
     "packages": [
         {
             "name": "aliyuncs/oss-sdk-php",
@@ -1572,16 +1572,16 @@
         },
         {
             "name": "shinyboys/helper",
-            "version": "0.0.5",
+            "version": "0.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shinyboys/helper.git",
-                "reference": "60a419e8ce290f3037a7b2e1816cb33100614eba"
+                "reference": "7c254b847af000ee0dd6c05123d516e74ce0898f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shinyboys/helper/zipball/60a419e8ce290f3037a7b2e1816cb33100614eba",
-                "reference": "60a419e8ce290f3037a7b2e1816cb33100614eba",
+                "url": "https://api.github.com/repos/shinyboys/helper/zipball/7c254b847af000ee0dd6c05123d516e74ce0898f",
+                "reference": "7c254b847af000ee0dd6c05123d516e74ce0898f",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -1609,12 +1609,12 @@
                     "email": "23426945@qq.com"
                 }
             ],
-            "description": "wetp",
+            "description": "微擎 TP6.0 框架 微擎助手函数库",
             "support": {
                 "issues": "https://github.com/shinyboys/helper/issues",
-                "source": "https://github.com/shinyboys/helper/tree/0.0.5"
+                "source": "https://github.com/shinyboys/helper/tree/0.0.7"
             },
-            "time": "2021-05-16T16:00:52+00:00"
+            "time": "2021-05-23T11:01:58+00:00"
         },
         {
             "name": "symfony/cache",

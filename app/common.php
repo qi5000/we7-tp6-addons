@@ -37,7 +37,7 @@ function fault(string $msg = "", $name = 'fault')
  */
 function data(array $data, string $msg = "获取成功", $name = 'success')
 {
-    $code = is_numeric($name) ? $name : config('code.' . $name);
+    $code  = is_numeric($name) ? $name : config('code.' . $name);
     return json(compact('code', 'msg', 'data'));
 }
 
