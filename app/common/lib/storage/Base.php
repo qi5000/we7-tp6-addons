@@ -70,7 +70,7 @@ abstract class Base
             $file = request()->file($name);
             if (!$file) throw new \Exception('没有文件上传');
             // 上传验证
-            validate(\app\validate\Upload::class)->check([$scene => $file]);
+            validate(\app\validate\Upload::class)->scene($scene)->check([$scene => $file]);
         } catch (\Exception $e) {
             return $this->fail($e->getMessage());
         }

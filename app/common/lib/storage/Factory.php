@@ -19,7 +19,7 @@ use app\common\model\Storage as StorageModel;
 /**
  * 本地存储
  */
-class UploadFactory
+class Factory
 {
     /**
      * 文件上传统一方法
@@ -27,10 +27,14 @@ class UploadFactory
      * @param string $name  文件字段域
      * @param string $scene 上传场景名称 image 图片
      */
-    public static function upload(string $name, string $scene = 'image')
+    public static function upload(string $name, string $scene = 'image', bool $isFullPath = false)
     {
         $config = StorageModel::where('in_use', 1)->findOrEmpty();
         $config->isEmpty() && fault('未查询到文件存储配置');
+        // 返回绝对路径的文件地址
+        if ($isFullPath === true) {
+            return (new Local)->upload($name, $scene, $isFullPath);
+        }
         $config = $config->toArray();
         switch ($config['type']) {
             case 0:

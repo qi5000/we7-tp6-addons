@@ -1,9 +1,9 @@
 <?php
-declare (strict_types = 1);
+
+declare(strict_types=1);
 
 namespace app\common\model;
 
-use think\Model;
 use think\model\concern\SoftDelete;
 
 /**
@@ -11,7 +11,7 @@ use think\model\concern\SoftDelete;
  * 
  * @mixin \think\Model
  */
-class Base extends Model
+class Base extends \think\Model
 {
     // 软删除
     use SoftDelete;
