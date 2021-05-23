@@ -21,7 +21,7 @@ use liang\helper\MicroEngine;
 
 class MiniProgram
 {
-    // 微信支付
+    // 微信小程序
     public $app;
 
     /**
@@ -119,7 +119,7 @@ class MiniProgram
      */
     private function getStoragePath(string $type)
     {
-        return Filesystem::getDiskConfig('miniCode', 'root') . ($type ? '/' . $type : '');
+        return Filesystem::getDiskConfig('w7', 'root') . '/miniCode' . ($type ? '/' . $type : '');
     }
 
     /**
@@ -131,7 +131,7 @@ class MiniProgram
     private function getCodeUrl(string $filename, string $type)
     {
         $type =  $type ? ltrim($type, '/') . '/' : '';
-        return Filesystem::getDiskConfig('miniCode', 'url') . $type . $filename;
+        return Filesystem::getDiskConfig('w7', 'url') . 'miniCode/' . $type . $filename;
     }
 
     /**
@@ -143,9 +143,9 @@ class MiniProgram
     {
         $link = '';
         foreach ($data as $key => $value) {
-            $link .= $key . '=' . $value . '&';
+            $link .= $key . '-' . $value . '!';
         }
-        return rtrim($link, '&');
+        return rtrim($link, '!');
     }
 
     // +-----------------------------------------------------------------------------

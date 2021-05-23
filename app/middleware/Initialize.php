@@ -40,10 +40,9 @@ class Initialize
      */
     public function run()
     {
-        // 系统配置
-        $this->config();
-        // 云存储
-        $this->storage();
+        // config 系统配置 storage 云存储
+        $method = ['config', 'storage'];
+        foreach ($method as $value) $this->$value();
     }
 
     // +-------------------------------------------------------------
