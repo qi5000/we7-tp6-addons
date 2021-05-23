@@ -37,6 +37,6 @@ class Config
     {
         $data = ConfigModel::type($type)->select();
         if ($data->isEmpty()) fault('该配置组不存在');
-        return $data;
+        return $data->column('value', 'key');
     }
 }

@@ -10,8 +10,12 @@ declare(strict_types=1);
 
 namespace app\common\lib\easywechat;
 
+// EasyWeChat
 use EasyWeChat\Factory;
 use EasyWeChat\Kernel\Messages\Image;
+// 逻辑层
+use app\common\logic\Alone;
+// 其他
 use think\facade\Filesystem;
 use liang\helper\MicroEngine;
 
@@ -25,10 +29,11 @@ class MiniProgram
      */
     public function __construct()
     {
-        global $_W;
+        // 获取小程序APPID和开发者密钥
+        $miniProgram = Alone::getMiniProgramConfig();
         $config = [
-            'app_id' => $_W['account']['key'],
-            'secret' => $_W['account']['secret'],
+            'app_id' => $miniProgram['appid'],
+            'secret' => $miniProgram['secret'],
             // 下面为可选项
             // 指定 API 调用返回结果的类型：array(default)/collection/object/raw/自定义类名
             'response_type' => 'array',
@@ -38,8 +43,6 @@ class MiniProgram
             ],
         ];
         $this->app = Factory::miniProgram($config);
-
-        \think\facade\Config::load('extra/page', 'page');
     }
 
     // +-------------------------------------------------------------------------------------
@@ -167,7 +170,7 @@ class MiniProgram
         if (empty($token)) die('未设置消息推送token令牌');
         if (empty($signature) || empty($tmpStr) || empty($nonce)) die('非法请求！！！');
         if ($tmpStr != $signature) die('签名验证错误');
-        isset($_GET['echostr']) ? die($_GET['echostr']) : new self;
+        isset($_GET['echostr']) ? die($_GET['echostr']) : '';
     }
 
     /**
@@ -175,10 +178,14 @@ class MiniProgram
      */
     public static function replyApi()
     {
+        $route = '/customer/reply';
+        $domain  = request()->domain();
+        // 独立版消息推送地址
+        if (!MicroEngine::isMicroEngine()) return "{$domain}/api.php{$route}";
+        // 微信模块消息推送地址
         $uniacid = MicroEngine::getUniacid();
         $module  = MicroEngine::getModuleName();
-        $domain  = request()->domain();
-        return "{$domain}/app/index.php?i={$uniacid}&c=entry&m={$module}&a=wxapp&do=api&s=/customer/index";
+        return "{$domain}/app/index.php?i={$uniacid}&c=entry&m={$module}&a=wxapp&do=api&s={$route}";
     }
 
     /**
