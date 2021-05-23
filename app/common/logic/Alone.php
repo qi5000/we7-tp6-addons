@@ -30,4 +30,17 @@ class Alone
             return '/static';
         }
     }
+
+    /**
+     * 获取当前登陆的管理员昵称
+     */
+    public static function getAdminName()
+    {
+        if (MicroEngine::isMicroEngine()) {
+            global $_W;
+            return $_W['username'];
+        } else {
+            return 'admin123';
+        }
+    }
 }

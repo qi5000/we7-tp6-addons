@@ -17,6 +17,9 @@ class Base extends \think\Model
     use SoftDelete;
     protected $deleteTime = 'delete_time';
 
+    // 隐藏属性
+    protected $hidden = ['update_time', 'delete_time'];
+
     // +------------------------------------------------
     // | 公共查询范围
     // +------------------------------------------------

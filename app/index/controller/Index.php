@@ -2,19 +2,22 @@
 
 namespace app\index\controller;
 
-use app\BaseController;
 use app\common\logic\Alone;
 
 /**
  * index
  */
-class Index extends BaseController
+class Index extends Base
 {
     public function index()
     {
-        return view();
+        $nickname = Alone::getAdminName();
+        return view('', compact('nickname'));
     }
 
+    /**
+     * 控制台
+     */
     public function console()
     {
         return view();
