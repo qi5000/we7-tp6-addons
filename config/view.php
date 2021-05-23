@@ -3,6 +3,11 @@
 // | 模板设置
 // +----------------------------------------------------------------------
 
+use app\common\logic\Alone;
+
+
+
+
 return [
     // 模板引擎类型使用Think
     'type'          => 'Think',
@@ -22,4 +27,8 @@ return [
     'taglib_begin'  => '{',
     // 标签库标签结束标记
     'taglib_end'    => '}',
+
+    'tpl_replace_string'  =>  [
+        '__layuiadmin__' => Alone::getStaticPath() . '/index/layuiadmin',
+    ]
 ];

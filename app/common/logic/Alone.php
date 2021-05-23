@@ -18,4 +18,16 @@ class Alone
         }
         return $config;
     }
+
+    /**
+     * 获取静态资源路径
+     */
+    public static function getStaticPath()
+    {
+        if (MicroEngine::isMicroEngine()) {
+            return '/addons/' . MicroEngine::getModuleName() . '/public/static';
+        } else {
+            return '/static';
+        }
+    }
 }
