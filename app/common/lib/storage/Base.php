@@ -8,6 +8,8 @@
 
 namespace app\common\lib\storage;
 
+use liang\helper\MicroEngine;
+
 abstract class Base
 {
     protected $msg   = 200;  //上传成功状态码
@@ -39,7 +41,7 @@ abstract class Base
      */
     public function storagePath()
     {
-        return implode('/', [$this->module(), $this->uniacid(), date('Ymd')]);
+        return MicroEngine::getCloudStoragePath();
     }
 
     // +------------------------------------------------

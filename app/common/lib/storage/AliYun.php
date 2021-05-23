@@ -1,6 +1,10 @@
 <?php
 
-namespace Storage;
+// +---------------------------------------------------------
+// | 文件存放在阿里云OSS
+// +---------------------------------------------------------
+
+namespace app\common\lib\storage;
 
 use OSS\OssClient;
 use OSS\Core\OssException;
@@ -24,8 +28,11 @@ class AliYun extends Base
 
     /**
      * 文件上传到阿里云对象存储 OSS
+     *
+     * @param string $name  字段域
+     * @param string $scene 验证场景
      */
-    public function upload($name, string $type = 'image')
+    public function upload(string $name, string $scene)
     {
         // 配置参数
         $bucket    = $this->config['bucket'];
@@ -34,16 +41,8 @@ class AliYun extends Base
         $accessKey = $this->config['accessKey'];
         $secretKey = $this->config['secretKey'];
         // 判断是否有文件上传
-        $file = $this->isUpload($name);
+        $file = $this->checkUpload($name, $scene);
         if (!$file instanceof \think\file\UploadedFile) return $file;
-        // 上传验证
-        if ($type == 'image') {
-            try {
-                validate(\app\validate\Upload::class)->check(['image' => $file]);
-            } catch (\think\exception\ValidateException $e) {
-                return $this->fail($e->getMessage());
-            }
-        }
         // 将文件上传到阿里云
         try {
             // 实例化对象

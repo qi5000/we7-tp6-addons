@@ -27,7 +27,7 @@ class Kodo extends Base
     }
 
     /**
-     * 图片上传到七牛云
+     * 图片上传到七牛云 Kodo
      *
      * @param string $name  字段域
      * @param string $scene 验证场景
