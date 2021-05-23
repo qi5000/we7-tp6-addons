@@ -15,7 +15,7 @@ use app\common\model\Storage;
 class Initialize
 {
     // 初始化配置版本号
-    private $version = '1.0.0';
+    private $version = '1.0.1';
 
     /**
      * 处理请求

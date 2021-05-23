@@ -5,6 +5,7 @@
 // +----------------------------------------------------------------------
 
 use think\helper\Str;
+use app\common\lib\easywechat\MiniProgram;
 
 return [
 
@@ -20,6 +21,6 @@ return [
     [
         'type'  => 'message',
         'key'   => 'msg_url',
-        'value' => app\common\lib\easywechat\MiniProgram::replyApi(),
+        'value' => MiniProgram::replyApi(),
     ],
 ];
