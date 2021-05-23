@@ -4,8 +4,19 @@ declare(strict_types=1);
 
 namespace app\api\logic;
 
+// 模型层
 use app\api\model\User as UserModel;
 
+// 基础类库层
+use app\api\lib\JwtAuth;
+use app\common\lib\easywechat\MiniProgram;
+
+/**
+ * api应用用户相关逻辑
+ * 
+ * @method login (string $code) static 用户登陆逻辑
+ * @method update(int $id, array $data) static 更新用户信息
+ */
 class User
 {
     // +----------------------------------------------------------------------
@@ -20,10 +31,10 @@ class User
     public static function login(string $code)
     {
         // 根据 jsCode 获取用户 session 信息
-        $res = app('EasyWeChat')->login($code);
-        // 判断是否有错误发生
-        if (isset($res['errcode'])) fault($res['errmsg'], $res['errcode']);
-        // 根据openid查询用户
+        $res = app(MiniProgram::class)->login($code);
+        // 用户信息获取失败,则抛出错误
+        isset($res['errcode']) && fault($res['errmsg'], $res['errcode']);
+        // 根据openid查询用户信息
         $user = UserModel::where('openid', $res['openid'])->findOrEmpty();
         // 启动事务
         $user->startTrans();
@@ -35,6 +46,7 @@ class User
             $user->rollback();
             fault('登录失败');
         }
+        // 登录成功将用户信息和token返回给前端
         $data  = [
             'userinfo' => $user->toArray(),
             'token'    => self::getToken($user->id),
@@ -53,9 +65,9 @@ class User
         // 附加数据
         $build = ['uid' => $uid];
         // 生成token
-        $token = app('jwt')->encode($build);
+        $token = app(JwtAuth::class)->encode($build);
         // 将token存入缓存
-        app('jwt')->cache($uid, $token);
+        app(JwtAuth::class)->cache($uid, $token);
         // 返回加密token
         return $token;
     }

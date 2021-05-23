@@ -33,7 +33,7 @@ function fault(string $msg = "", $name = 'fault')
  *
  * @param array   $data
  * @param string  $msg
- * @param integer $code
+ * @param mixed   $code
  */
 function data(array $data, string $msg = "获取成功", $name = 'success')
 {

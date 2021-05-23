@@ -52,3 +52,8 @@ public function __call($name, $arguments)
 http://me.cy/app/index.php?c=entry&a=wxapp&i=6&m=lingchi_bn&do=api&s=/index/index
 ~~~
 
+## 删除微擎相关文件
+
+~~~
+rm -rf developer.cer icon.jpg manifest.xml module.php preview.jpg site.php wxapp.php
+~~~
