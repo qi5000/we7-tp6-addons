@@ -9,5 +9,6 @@ namespace app\common\model;
  */
 class Storage extends MicroEngine
 {
+    // 只读字段
     protected $readonly = ['type'];
 }

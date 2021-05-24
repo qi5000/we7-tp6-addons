@@ -35,4 +35,5 @@ return [
         'value' => Str::random(25),
         'note'  => '消息推送Token令牌',
     ],
+
 ];

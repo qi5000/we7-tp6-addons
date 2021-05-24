@@ -16,7 +16,6 @@ class Base extends \think\Model
     // 软删除
     use SoftDelete;
     protected $deleteTime = 'delete_time';
-
     // 隐藏属性
     protected $hidden = ['update_time', 'delete_time'];
 
@@ -30,14 +29,6 @@ class Base extends \think\Model
     public function scopeUid($query, $value)
     {
         $query->where('user_id', $value);
-    }
-
-    /**
-     * 根据merch_id字段查询数据
-     */
-    public function scopeMid($query, $value)
-    {
-        $query->where('merch_id', $value);
     }
 
     /**

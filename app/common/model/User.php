@@ -9,6 +9,9 @@ namespace app\common\model;
  */
 class User extends MicroEngine
 {
+    // 只读字段
+    protected $readonly = ['openid'];
+
     // +---------------------------------------------------
     // | 搜索器
     // +---------------------------------------------------

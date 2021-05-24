@@ -78,7 +78,7 @@ abstract class Base
     }
 
     // +------------------------------------------------
-    // | 上传接口统一返回值
+    // | 文件上传接口统一返回值
     // +------------------------------------------------
 
     /**
@@ -97,41 +97,5 @@ abstract class Base
     {
         $code = $this->fault;
         return json(compact('code', 'msg'));
-    }
-
-    // +------------------------------------------------
-    // | 微擎相关功能方法
-    // +------------------------------------------------
-
-    /**
-     * 获取当前模块标识
-     */
-    private function module()
-    {
-        global $_W;
-        return $_W['current_module']['name'];
-    }
-
-    /**
-     * 获取当前微擎平台uniacid
-     */
-    protected function uniacid()
-    {
-        global $_W;
-        return $_W['uniacid'];
-    }
-
-    // +------------------------------------------------
-    // | 查看配置
-    // +------------------------------------------------
-
-    public function showConfig()
-    {
-        return [
-            // 本地存储目录
-            'localPath'   => $this->localPath(),
-            // 云存储文件路径
-            'storagePath' => $this->storagePath(),
-        ];
     }
 }

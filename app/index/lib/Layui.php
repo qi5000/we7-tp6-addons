@@ -6,6 +6,11 @@ namespace app\index\lib;
 
 class Layui
 {
+    /**
+     * 数据表格搜索
+     *
+     * @param string $fields
+     */
     public static function search(string $fields)
     {
         $array = array_filter(explode(',', $fields));
