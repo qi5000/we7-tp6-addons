@@ -7,7 +7,7 @@ namespace app\index\controller;
 use app\index\lib\Layui;
 use app\index\logic\User as LogicUser;
 
-class User extends Base
+class User extends Auth
 {
     /**
      * 数据表格接口

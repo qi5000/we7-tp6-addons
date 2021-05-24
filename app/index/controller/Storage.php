@@ -6,7 +6,7 @@ namespace app\index\controller;
 
 use app\index\logic\Storage as LogicStorage;
 
-class Storage extends Base
+class Storage extends Auth
 {
     /**
      * 文件存储配置页

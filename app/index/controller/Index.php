@@ -7,7 +7,7 @@ use app\common\logic\Alone;
 /**
  * index
  */
-class Index extends Base
+class Index extends Auth
 {
     public function index()
     {
