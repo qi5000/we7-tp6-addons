@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace app\api\controller;
 
-use app\api\logic\Customer as CustomerLogic;
 use app\common\lib\easywechat\MiniProgram;
 use app\common\logic\Config as ConfigLogic;
 
 /**
  * 小程序客服消息
  */
-class Customer
+class Message
 {
     /**
      * 消息推送URL地址
@@ -23,6 +22,6 @@ class Customer
         // 消息推送接入验证
         app(MiniProgram::class)->checkSignature($token);
         // 客服消息自动回复逻辑处理
-        CustomerLogic::reply();
+        \app\api\logic\Message::reply();
     }
 }

@@ -178,7 +178,7 @@ class MiniProgram
      */
     public static function replyApi()
     {
-        $route = '/customer/reply';
+        $route = '/message/reply';
         $domain  = request()->domain();
         // 判断当前环境
         if (MicroEngine::isMicroEngine()) {

@@ -8,6 +8,9 @@ use think\facade\Log;
 use think\helper\Str;
 use app\common\lib\easywechat\MiniProgram;
 
+/**
+ * 订阅消息公共逻辑
+ */
 class Subscribe
 {
     /**

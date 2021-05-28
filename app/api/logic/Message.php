@@ -9,7 +9,7 @@ use app\common\lib\easywechat\MiniProgram;
 /**
  * 客服消息逻辑层
  */
-class Customer
+class Message
 {
     /**
      * 小程序消息推送

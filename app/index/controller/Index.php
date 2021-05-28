@@ -3,19 +3,19 @@
 namespace app\index\controller;
 
 use app\common\logic\Alone;
-use app\api\logic\Subscribe;
 
 /**
- * index
+ * 混编后台管理系统
  */
 class Index extends Auth
 {
+    /**
+     * 主页
+     */
     public function index()
     {
-        Subscribe::demo();
-
-        // $nickname = Alone::getAdminName();
-        // return view('', compact('nickname'));
+        $nickname = Alone::getAdminName();
+        return view('', compact('nickname'));
     }
 
     /**
