@@ -70,6 +70,24 @@ class MiniProgram
         return $this->app->auth->session($code);
     }
 
+    // +-------------------------------------------------------------------------------------
+    // | 消息解密
+    // +-------------------------------------------------------------------------------------
+    // | https://easywechat.com/docs/4.x/mini-program/decrypt
+    // +-------------------------------------------------------------------------------------
+
+    /**
+     * 获取电话等功能, 信息是加密的, 需要解密
+     *
+     * @param string $session
+     * @param string $iv
+     * @param string $encryptedData
+     */
+    public function decryptData(string $session, string $iv, string $encryptedData)
+    {
+        return $this->app->encryptor->decryptData($session, $iv, $encryptedData);
+    }
+
     // +-----------------------------------------------------------------------------
     // | 小程序码
     // +-----------------------------------------------------------------------------

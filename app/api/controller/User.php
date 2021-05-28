@@ -15,7 +15,8 @@ class User extends JwtAuth
      */
     public function update(array $data)
     {
-        UserLogic::update(1, $data);
+        $uid = $this->getJwtData('uid');
+        UserLogic::update($uid, $data);
         msg('更新成功');
     }
 }

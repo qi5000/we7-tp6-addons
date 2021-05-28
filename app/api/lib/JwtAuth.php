@@ -18,11 +18,11 @@ class JwtAuth
      */
     public function __construct()
     {
-        $this->iss    = request()->domain();    //签发者 可选
-        $this->aud    = request()->domain();    //接收该JWT的一方，可选
-        $this->exp    = 864000;                 //过期时间,864000秒 = 10天
-        $this->key    = $this->module();        //访问秘钥
-        $this->prefix = $this->module() . '_';  //缓存前缀
+        $this->iss    = config('api.jwt.iss');     //签发者 可选
+        $this->aud    = config('api.jwt.aud');     //接收该JWT的一方，可选
+        $this->exp    = config('api.jwt.exp');     //过期时间,864000秒 = 10天
+        $this->key    = config('api.jwt.key');     //访问秘钥
+        $this->prefix = config('api.jwt.prefix');  //缓存前缀
     }
 
     // +------------------------------------------------------------------
@@ -54,7 +54,7 @@ class JwtAuth
      *
      * @param string $token
      */
-    public function decode($token)
+    public function decode(string $token)
     {
         try {
             JWT::$leeway = 0; //当前时间减去60，把时间留点余地
@@ -66,7 +66,7 @@ class JwtAuth
         } catch (\Firebase\JWT\ExpiredException $e) {  // token过期
             fault('登录过期');
         } catch (\Exception $e) {  //其他错误
-            fault('签名不正确');
+            fault($e->getMessage());
         }
     }
 
@@ -98,18 +98,5 @@ class JwtAuth
         $cacheToken = cache($this->prefix . $id);
         // true 有效 false 过期
         return $token === $cacheToken;
-    }
-
-    // +------------------------------------------------------------------
-    // | 功能封装
-    // +------------------------------------------------------------------
-
-    /**
-     * 获取当前模块标识
-     */
-    private function module()
-    {
-        global $_W;
-        return $_W['current_module']['name'];
     }
 }

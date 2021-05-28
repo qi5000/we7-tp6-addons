@@ -27,7 +27,6 @@ class Initialize
      */
     public function handle($request, \Closure $next)
     {
-        $this->run();
         if (Cache::store('file')->get('version') != $this->version) {
             // 初始化配置入口
             $this->run();
@@ -117,7 +116,6 @@ class Initialize
         foreach ($keys as $field) {
             $data[$field] = $value[$field];
         }
-        halt($data);
         return $data;
     }
 }

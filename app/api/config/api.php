@@ -1,13 +1,11 @@
 <?php
 
-use liang\helper\MicroEngine;
-
 return [
     'jwt' => [
-        'iss'    => '', // 签发者
-        'aud'    => '', // 接收者
-        'exp'    => '', // 过期时间
-        'key'    => '', // 访问密钥
-        'prefix' => (MicroEngine::isMicroEngine() ? MicroEngine::getModuleName() : 'jwt') . '_', // 缓存前缀
+        'iss'    => 'zhangsan',   // 签发者
+        'aud'    => 'zhangsan',   // 接收者
+        'exp'    => 864000,       // 过期时间,864000秒=10天
+        'key'    => 'liang',      // 访问密钥
+        'prefix' => 'jwt_',       // 缓存前缀
     ],
 ];

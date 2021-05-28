@@ -40,7 +40,7 @@ class Alone
             global $_W;
             return $_W['username'];
         } else {
-            return 'admin123';
+            return 'admin';
         }
     }
 }

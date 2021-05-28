@@ -68,9 +68,9 @@ class Initialize
      */
     private static function execute(string $name)
     {
-        $from = public_path() . 'static/image/' . $name;
+        $from  = public_path() . 'static/image/' . $name;
         $image = 'initialize/' . self::getRandName($name); //新的文件名
-        $to = Filesystem::getDiskConfig('w7', 'root') . '/' . $image;
+        $to    = Filesystem::getDiskConfig('w7', 'root') . '/' . $image;
         if (!file_exists(dirname($to))) mkdir(dirname($to), 0777, true);
         copy($from, $to);
         return $image;
