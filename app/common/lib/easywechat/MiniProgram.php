@@ -12,6 +12,7 @@ namespace app\common\lib\easywechat;
 
 // EasyWeChat
 use EasyWeChat\Factory;
+use EasyWeChat\Kernel\Messages\Text;
 use EasyWeChat\Kernel\Messages\Image;
 // 逻辑层
 use app\common\logic\Alone;
@@ -21,7 +22,6 @@ use liang\helper\MicroEngine;
 
 class MiniProgram
 {
-    // 微信小程序
     public $app;
 
     /**
@@ -180,12 +180,16 @@ class MiniProgram
     {
         $route = '/customer/reply';
         $domain  = request()->domain();
-        // 独立版消息推送地址
-        if (!MicroEngine::isMicroEngine()) return "{$domain}/api.php{$route}";
-        // 微信模块消息推送地址
-        $uniacid = MicroEngine::getUniacid();
-        $module  = MicroEngine::getModuleName();
-        return "{$domain}/app/index.php?i={$uniacid}&c=entry&m={$module}&a=wxapp&do=api&s={$route}";
+        // 判断当前环境
+        if (MicroEngine::isMicroEngine()) {
+            // 微信模块消息推送地址
+            $uniacid = MicroEngine::getUniacid();
+            $module  = MicroEngine::getModuleName();
+            return "{$domain}/app/index.php?i={$uniacid}&c=entry&m={$module}&a=wxapp&do=api&s={$route}";
+        } else {
+            // 独立版消息推送地址
+            return "{$domain}/api.php{$route}";
+        }
     }
 
     /**
@@ -196,7 +200,8 @@ class MiniProgram
      */
     public function replyText(string $openid, string $text)
     {
-        $this->miniProgram->customer_service->message($text)->to($openid)->send();
+        $content = new Text($text);
+        $this->app->customer_service->message($content)->to($openid)->send();
     }
 
     /**
@@ -210,7 +215,7 @@ class MiniProgram
         // 上传临时素材
         $result = $this->miniProgram->media->uploadImage($image);
         $content = new Image($result['media_id']);
-        $this->miniProgram->customer_service->message($content)->to($openid)->send();
+        $this->app->customer_service->message($content)->to($openid)->send();
     }
 
     // +-----------------------------------------------------------------------------
@@ -222,20 +227,22 @@ class MiniProgram
     /**
      * 发送订阅消息
      *
-     * @param string $tplId
-     * @param string $openid
-     * @param string $page
-     * @param array $data
+     * @param string $tplId     订阅消息模板 ID
+     * @param string $openid    接收者 openid
+     * @param string $page      跳转路径，仅限本小程序内的页面
+     * @param array  $data      模板内容
+     * @param string $state     跳转类型 formal 正式版 trial 体验版 developer 开发版
      */
-    public function subscribeMessage(string $tplId, string $openid, string $page, array $data)
+    public function subscribeMessage(string $tplId, string $openid, string $page, array $data, string $state = 'developer')
     {
         $data = [
-            'template_id' => $tplId,    // 所需下发的订阅模板id
-            'touser'      => $openid,   // 接收者（用户）的 openid
-            'page'        => $page,     // 点击模板卡片后的跳转页面，仅限本小程序内的页面。支持带参数,（示例index?foo=bar）。该字段不填则模板无跳转。
-            'data'        => $data,
+            'template_id'       => $tplId,    // 订阅消息模板id
+            'touser'            => $openid,   // 接收者（用户）的 openid
+            'page'              => $page,     // 模板卡片跳转路径，仅限本小程序内的页面。支持带参数,（示例index?foo=bar）。该字段不填则模板无跳转。
+            'data'              => $data,     // 模板内容
+            'miniprogram_state' => $state,    // formal 正式版 trial 体验版 developer 开发版
         ];
-        // 返回一个数组
+        // 返回数组
         return $this->app->subscribe_message->send($data);
     }
 }

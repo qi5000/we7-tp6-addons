@@ -24,7 +24,7 @@ class Config
     public static function getByKey(string $key)
     {
         $data = ConfigModel::key($key)->findOrEmpty();
-        if ($data->isEmpty()) fault('该配置项不存在');
+        if ($data->isEmpty()) fault('系统配置丢失');
         return $data->value;
     }
 
