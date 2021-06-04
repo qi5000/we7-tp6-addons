@@ -57,3 +57,17 @@ http://me.cy/app/index.php?c=entry&a=wxapp&i=6&m=lingchi_bn&do=api&s=/index/inde
 ~~~
 rm -rf developer.cer icon.jpg manifest.xml module.php preview.jpg site.php wxapp.php
 ~~~
+
+## 消息队列
+
+#### 引入扩展
+
+~~~
+composer require topthink/think-queue
+~~~
+
+#### 监听任务并执行
+
+~~~
+php think queue:listen --queue name --tries 5
+~~~

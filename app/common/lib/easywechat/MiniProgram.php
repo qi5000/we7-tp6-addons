@@ -10,15 +10,14 @@ declare(strict_types=1);
 
 namespace app\common\lib\easywechat;
 
+// 杂项
+use app\common\logic\Alone;
+use think\facade\Filesystem;
+use liang\helper\MicroEngine;
 // EasyWeChat
 use EasyWeChat\Factory;
 use EasyWeChat\Kernel\Messages\Text;
 use EasyWeChat\Kernel\Messages\Image;
-// 逻辑层
-use app\common\logic\Alone;
-// 其他
-use think\facade\Filesystem;
-use liang\helper\MicroEngine;
 
 class MiniProgram
 {
