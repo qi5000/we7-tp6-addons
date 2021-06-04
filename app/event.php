@@ -1,9 +1,9 @@
 <?php
 // 事件定义文件
-return [
-    'bind'      => [
-    ],
 
+return [
+    'bind'      => [],
+    // 事件监听
     'listen'    => [
         'AppInit'  => [],
         'HttpRun'  => [],
@@ -11,7 +11,8 @@ return [
         'LogLevel' => [],
         'LogWrite' => [],
     ],
-
+    // 事件订阅
     'subscribe' => [
+        app\subscribe\Record::class,
     ],
 ];

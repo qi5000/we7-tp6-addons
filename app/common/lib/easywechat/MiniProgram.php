@@ -256,9 +256,9 @@ class MiniProgram
         $data = [
             'template_id'       => $tplId,    // 订阅消息模板id
             'touser'            => $openid,   // 接收者（用户）的 openid
-            'page'              => $page,     // 模板卡片跳转路径，仅限本小程序内的页面。支持带参数,（示例index?foo=bar）。该字段不填则模板无跳转。
+            'page'              => $page,     // 跳转路径 仅限本小程序内的页面。支持带参数,（示例index?foo=bar）。该字段不填则模板无跳转。
             'data'              => $data,     // 模板内容
-            'miniprogram_state' => $state,    // formal 正式版 trial 体验版 developer 开发版
+            'miniprogram_state' => $state,    // 跳转类型 formal 正式版 trial 体验版 developer 开发版
         ];
         // 返回数组
         return $this->app->subscribe_message->send($data);
