@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace app\middleware;
 
-use app\common\logic\Initialize as LogicInitialize;
 use think\facade\Cache;
 use app\common\model\Config;
 use app\common\model\Storage;
+use app\common\logic\Initialize as LogicInitialize;
 
 /**
  * 初始化数据
