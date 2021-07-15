@@ -42,12 +42,6 @@ return [
             'realtime_write' => false,
         ],
         // 其它日志通道配置
-        'W7' => [
-            // 日志记录方式
-            'type'           => Driver\Log::class,
-            // 日志保存目录
-            'path'           => app()->getRootPath() . 'log',
-        ],
     ],
 
 ];

@@ -6,8 +6,8 @@ return [
     // 指令定义
     'commands' => [
         // 创建基础库类文件
-        'make:lib'   => Command\Lib::class,
+        'make:lib'   => command\Lib::class,
         // 创建逻辑层类文件
-        'make:logic' => Command\Logic::class,
+        'make:logic' => command\Logic::class,
     ],
 ];

@@ -1,6 +1,6 @@
 <?php
 
-namespace Exception;
+namespace exception;
 
 use think\db\exception\DataNotFoundException;
 use think\db\exception\ModelNotFoundException;
@@ -52,10 +52,10 @@ class ApiExceptionHandle extends Handle
     public function render($request, Throwable $e): Response
     {
         // 添加自定义异常处理机制
-        if ( $e instanceof HttpException ) {
+        if ($e instanceof HttpException) {
             return $this->json($e->getMessage(), $e->getStatusCode());
         }
-        if ( !empty($e->getMessage()) ) {
+        if (!empty($e->getMessage())) {
             return $this->json($e->getMessage(), $e->getCode());
         }
         // 其他错误交给系统处理
