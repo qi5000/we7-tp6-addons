@@ -12,3 +12,6 @@ module.php
 preview.jpg
 site.php
 wxapp.php
+
+# mac
+.DS_Store
