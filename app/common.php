@@ -5,6 +5,18 @@
 // +----------------------------------------------------------------------
 
 /**
+ * 操作成功
+ *
+ * @param string $msg
+ * @param string $name
+ */
+function success(string $msg = "操作成功", $name = 'success')
+{
+    $code = config('code.' . $name);
+    return json(compact('code', 'msg'));
+}
+
+/**
  * 返回操作结果
  *
  * @param string $msg
