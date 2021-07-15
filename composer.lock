@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21b4fce84d846cb55f304a4880a534fd",
+    "content-hash": "62c6411218f362c6f2db9f72007177e5",
     "packages": [
         {
             "name": "aliyuncs/oss-sdk-php",
@@ -1668,52 +1668,6 @@
                 "source": "https://github.com/ralouphie/getallheaders/tree/develop"
             },
             "time": "2019-03-08T08:55:37+00:00"
-        },
-        {
-            "name": "shinyboys/helper",
-            "version": "0.0.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/shinyboys/helper.git",
-                "reference": "7c254b847af000ee0dd6c05123d516e74ce0898f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/shinyboys/helper/zipball/7c254b847af000ee0dd6c05123d516e74ce0898f",
-                "reference": "7c254b847af000ee0dd6c05123d516e74ce0898f",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "liang\\": "src"
-                },
-                "files": [
-                    "src/helper.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "liang",
-                    "email": "23426945@qq.com"
-                }
-            ],
-            "description": "微擎 TP6.0 框架 微擎助手函数库",
-            "support": {
-                "issues": "https://github.com/shinyboys/helper/issues",
-                "source": "https://github.com/shinyboys/helper/tree/0.0.7"
-            },
-            "time": "2021-05-23T11:01:58+00:00"
         },
         {
             "name": "symfony/cache",
@@ -3739,5 +3693,5 @@
         "php": ">=7.1.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }

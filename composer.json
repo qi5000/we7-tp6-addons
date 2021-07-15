@@ -29,7 +29,6 @@
         "qcloud/cos-sdk-v5": "^2.1",
         "overtrue/wechat": "~4.0",
         "firebase/php-jwt": "^5.2",
-        "shinyboys/helper": "^0.0.7",
         "topthink/think-view": "^1.0",
         "topthink/think-queue": "^3.0"
     },

@@ -17,31 +17,7 @@ function success(string $msg = "操作成功", $name = 'success')
 }
 
 /**
- * 返回操作结果
- *
- * @param string $msg
- * @param string $name
- */
-function result(string $msg = "操作成功", $name = 'success')
-{
-    $code = is_numeric($name) ? $name : config('code.' . $name);
-    return json(compact('code', 'msg'));
-}
-
-/**
- * 操作成功
- *
- * @param string  $msg
- * @param mixed   $name
- */
-function msg(string $msg = "", $name = 'success')
-{
-    $code = is_numeric($name) ? $name : config('code.' . $name);
-    throw new \Exception($msg, $code);
-}
-
-/**
- * 返回错误信息
+ * 发生错误
  *
  * @param string  $msg
  * @param integer $code
@@ -70,18 +46,45 @@ function data(array $data, string $msg = "获取成功", $name = 'success')
 // +----------------------------------------------------------------------
 
 /**
- * 获取分页参数
- *
- * @param integer $page  默认页码
- * @param integer $limit 默认每页数据条数
- * @return array
- * @example page(...page())
+ * 对数据进行json_encode编码并且中文不转码
  */
-function page(int $page = 1, int $limit = 10)
+function encode($data)
 {
-    return [input('page', 1, 'intval') ?? $page, input('limit', 10, 'intval') ?? $limit];
+    return json_encode($data, JSON_UNESCAPED_UNICODE);
 }
 
+/**
+ * 计算两点地理坐标之间的距离
+ * 
+ * @param  $longitude1 起点经度
+ * @param  $latitude1  起点纬度
+ * @param  $longitude2 终点经度 
+ * @param  $latitude2  终点纬度
+ * @param  $unit       单位 1:米 2:公里
+ * @param  $decimal    精度 保留小数位数
+ */
+function getDistance($longitude1, $latitude1, $longitude2, $latitude2, $unit = 2, $decimal = 2)
+{
+    $EARTH_RADIUS = 6370.996; // 地球半径系数
+    $PI = 3.1415926;
+
+    $radLat1 = $latitude1 * $PI / 180.0;
+    $radLat2 = $latitude2 * $PI / 180.0;
+
+    $radLng1 = $longitude1 * $PI / 180.0;
+    $radLng2 = $longitude2 * $PI / 180.0;
+
+    $a = $radLat1 - $radLat2;
+    $b = $radLng1 - $radLng2;
+
+    $distance = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2)));
+    $distance = $distance * $EARTH_RADIUS * 1000;
+
+    if ($unit == 2) {
+        $distance = $distance / 1000;
+    }
+    return round($distance, $decimal);
+}
 
 /**
  * 用于搜索器
