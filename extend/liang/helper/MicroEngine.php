@@ -112,4 +112,22 @@ class MicroEngine
             return ($prefix ? $prefix . '/' : '') . date('Ymd');
         }
     }
+
+    /**
+     * 根据图片绝对路径地址转为URL地址
+     *
+     * @param string $root 图片绝对路径地址
+     */
+    public static function geImgUrlByRoot(string $root)
+    {
+        $domain = request()->domain();
+        if (self::isMicroEngine()) {
+            // 微擎
+            $image = mb_substr($root, mb_strrpos($root, 'attachment'));
+        } else {
+            // 独立版
+            $image = mb_substr($root, mb_strrpos($root, 'storage'));
+        }
+        return $domain . '/' . $image;
+    }
 }

@@ -48,6 +48,7 @@ class Initialize
      */
     private function run()
     {
+        halt(12);
         // config 系统配置 storage 云存储
         $method = ['config', 'storage'];
         foreach ($method as $value) $this->$value();

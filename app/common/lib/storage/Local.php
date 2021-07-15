@@ -24,7 +24,8 @@ class Local extends Base
         // 执行文件上传
         $savename = Filesystem::disk('w7')->putFile($scene, $file);
         if ($isFullPath === true) {
-            return Filesystem::getDiskConfig('w7', 'root') . '/' . str_replace('\\', '/', $savename);
+            // 返回绝对路径文件地址
+            return $this->msg(Filesystem::getDiskConfig('w7', 'root') . '/' . str_replace('\\', '/', $savename));
         } else {
             // 返回带域名的文件地址
             return $this->msg(Filesystem::getDiskConfig('w7', 'url') . str_replace('\\', '/', $savename));

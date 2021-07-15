@@ -6,6 +6,9 @@ namespace app\admin\controller;
 
 use app\common\logic\Upload as UploadLogic;
 
+/**
+ * 上传文件
+ */
 class Upload
 {
     /**
@@ -14,6 +17,16 @@ class Upload
     public function image()
     {
         return UploadLogic::image('file');
+    }
+
+    /**
+     * 上传图片
+     * 
+     * 返回绝对路径、URL访问的图片地址
+     */
+    public function root()
+    {
+        return UploadLogic::root('file');
     }
 
     /**

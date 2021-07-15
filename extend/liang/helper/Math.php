@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\common\lib;
+namespace liang\helper;
 
 class Math
 {
@@ -15,7 +15,7 @@ class Math
     public static function randFloat($min = 0, $max = 1)
     {
         $rand = $min + mt_rand() / mt_getrandmax() * ($max - $min);
-        return floatval(number_format($rand, 2));
+        return floatval(round($rand, 2));
     }
 
     /**
