@@ -8,10 +8,10 @@ use think\facade\Cache;
 use app\common\model\Config;
 use app\common\model\Storage;
 use app\common\logic\Initialize as LogicInitialize;
+use liang\helper\MicroEngine;
 
 /**
- * 初始化数据
- * 全局中间件
+ * 全局中间件 初始化数据
  */
 class Initialize
 {
@@ -27,11 +27,18 @@ class Initialize
      */
     public function handle($request, \Closure $next)
     {
-        if (Cache::store('file')->get('version') != $this->version) {
+        if (MicroEngine::isMicroEngine()) {
+            // 微擎版 兼容微擎多开
+            $name = 'version_uniacid_' . MicroEngine::getUniacid();
+        } else {
+            // 独立版
+            $name = 'version';
+        }
+        if (Cache::store('file')->get($name) != $this->version) {
             // 初始化配置入口
             $this->run();
             // 本次版本初始化纪录存入缓存
-            Cache::store('file')->set('version', $this->version);
+            Cache::store('file')->set($name, $this->version);
         }
         return $next($request);
     }
