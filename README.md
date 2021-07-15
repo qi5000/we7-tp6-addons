@@ -24,7 +24,11 @@ composer install
 #### 1. 修改 site.php 文件
 
 ~~~php
-require __DIR__ . '/public/admin.php';
+public function doWebAdmin()
+{
+    //这个操作被定义用来呈现 管理中心导航菜单
+    require __DIR__ . '/public/admin.php';
+}
 ~~~
 
 #### 2. 修改 wxapp.php 文件

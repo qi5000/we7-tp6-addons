@@ -1,8 +1,10 @@
 <?php
 
-// 引入微擎配置文件
+// 处理 Access Denied
 defined('IN_IA') or define('IN_IA', '');
-IN_IA && require __DIR__ . '/../../../data/config.php';
+// 引入微擎数据库配置文件
+$w7Config = __DIR__ . '/../../../data/config.php';
+is_file($w7Config) && require $w7Config;
 
 return [
     // 默认使用的数据库连接配置
@@ -25,21 +27,21 @@ return [
             // 数据库类型
             'type'            => env('database.type', 'mysql'),
             // 服务器地址
-            'hostname'        => env('database.hostname', $config['db']['master']['host'] ?? '127.0.0.1'),
+            'hostname'        => $config['db']['master']['host'] ?? env('database.hostname', '127.0.0.1'),
             // 数据库名
             'database'        => env('database.database', $config['db']['master']['database'] ?? ''),
             // 用户名
-            'username'        => env('database.username', $config['db']['master']['username'] ?? 'root'),
+            'username'        => $config['db']['master']['username'] ?? env('database.username', 'root'),
             // 密码
-            'password'        => env('database.password', $config['db']['master']['password'] ?? ''),
+            'password'        => $config['db']['master']['password'] ?? env('database.password', ''),
             // 端口
-            'hostport'        => env('database.hostport', $config['db']['master']['port'] ?? '3306'),
+            'hostport'        => $config['db']['master']['port'] ?? env('database.hostport', '3306'),
             // 数据库连接参数
             'params'          => [],
             // 数据库编码默认采用utf8mb4
-            'charset'         => env('database.charset', 'utf8mb4'),
+            'charset'         => 'utf8mb4',
             // 数据库表前缀
-            'prefix'          => env('database.prefix', isset($config['db']['master']['tablepre']) ? $config['db']['master']['tablepre'] . 'overlord_' : ''),
+            'prefix'          => env('database.prefix', isset($config['db']['master']['tablepre']) ? $config['db']['master']['tablepre'] . 'applet_' : ''),
 
             // 数据库部署方式:0 集中式(单一服务器),1 分布式(主从服务器)
             'deploy'          => 0,
