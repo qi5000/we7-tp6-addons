@@ -95,21 +95,16 @@ http://me.cy/app/index.php?c=entry&a=wxapp&i=3&m=lingchi_lottery_draw&do=admin&s
 
 #### 后台管理系统正式环境
 
++ 动态参数: eid、version_id (通过TP模板赋值获取)
+
 ~~~
 http://me.cy/web/index.php?c=site&a=entry&eid=39&version_id=1&s=/test/index
 ~~~
 
-
 ## 消息队列
-
-#### 引入扩展
-
-~~~
-composer require topthink/think-queue
-~~~
 
 #### 监听任务并执行
 
 ~~~
-php think queue:listen --queue name --tries 5
+php think queue:listen --queue lingchi_lottery_draw --tries 5
 ~~~
