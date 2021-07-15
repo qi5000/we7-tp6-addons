@@ -1,25 +1,10 @@
 <?php
 
-// 安装模块时
-// 创建模块的数据表
+// 安装模块执行 创建模块的数据表
 
 $sql = "
 
-CREATE TABLE `ims_liang_user` (
-    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
-    `uniacid` int(11) NOT NULL DEFAULT '0' COMMENT '平台id',
-    `unionid` varchar(30) NOT NULL DEFAULT '' COMMENT '开发平台唯一标识',
-    `openid` varchar(50) NOT NULL DEFAULT '' COMMENT '用户openid',
-    `nickName` varchar(255) NOT NULL DEFAULT '' COMMENT '微信昵称',
-    `gender` tinyint(1) NOT NULL DEFAULT '0' COMMENT '性别 0 未知 1 男 2 女',
-    `avatarUrl` varchar(255) NOT NULL DEFAULT '' COMMENT '微信头像',
-    `create_time` int(11) NOT NULL COMMENT '添加时间',
-    `update_time` int(11) DEFAULT NULL COMMENT '修改时间',
-    `delete_time` int(11) DEFAULT NULL COMMENT '软删除',
-    PRIMARY KEY (`id`) USING BTREE
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
-
-  CREATE TABLE `ims_liang_config` (
+CREATE TABLE IF NOT EXISTS `ims_applet_config` (
     `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `uniacid` int(11) DEFAULT NULL COMMENT '平台ID',
     `type` varchar(60) DEFAULT NULL COMMENT '配置分组',
@@ -31,9 +16,9 @@ CREATE TABLE `ims_liang_user` (
     `update_time` int(11) DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE KEY `unique_key` (`uniacid`,`key`) USING BTREE
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
-CREATE TABLE `ims_liang_storage` (
+CREATE TABLE IF NOT EXISTS `ims_applet_storage` (
     `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键且自增',
     `uniacid` int(11) NOT NULL COMMENT '平台ID',
     `type` tinyint(1) NOT NULL COMMENT '云存储类型 1 七牛云 2 阿里云 3 腾讯云',
@@ -48,7 +33,21 @@ CREATE TABLE `ims_liang_storage` (
     `create_time` int(11) DEFAULT NULL COMMENT '添加时间',
     `update_time` int(11) DEFAULT NULL COMMENT '修改时间',
     PRIMARY KEY (`id`) USING BTREE
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='云存储配置';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='云存储配置';
+
+CREATE TABLE IF NOT EXISTS `ims_applet_user` (
+    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
+    `uniacid` int(11) NOT NULL DEFAULT '0' COMMENT '平台id',
+    `unionid` varchar(30) DEFAULT '' COMMENT '开发平台唯一标识',
+    `openid` varchar(50) NOT NULL DEFAULT '' COMMENT '用户openid',
+    `nickName` varchar(255) CHARACTER SET utf8mb4 NOT NULL DEFAULT '' COMMENT '微信昵称',
+    `gender` tinyint(1) NOT NULL DEFAULT '0' COMMENT '性别 0 未知 1 男 2 女',
+    `avatarUrl` varchar(255) NOT NULL DEFAULT '' COMMENT '微信头像',
+    `create_time` int(11) NOT NULL COMMENT '添加时间',
+    `update_time` int(11) DEFAULT NULL COMMENT '修改时间',
+    `delete_time` int(11) DEFAULT NULL COMMENT '软删除',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 ";
 
