@@ -9,8 +9,9 @@ use app\common\lib\Filesystem;
 class User
 {
     /**
-     * 微信用户头像本地化处理
-     * 推荐在用户更新信息时头像做本地化处理
+     * 用户头像本地化并返回可访问的图片地址
+     * 
+     * 推荐在用户更新信息时将头像做本地化处理
      *
      * @param string $openid  	微信用户openid
      * @param string $avatarUrl 微信头像URL地址

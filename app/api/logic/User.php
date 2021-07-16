@@ -9,13 +9,11 @@ use app\common\model\User as UserModel;
 
 // 基础类库层
 use app\api\lib\JwtAuth;
+use app\api\lib\User as LibUser;
 use app\common\lib\easywechat\MiniProgram;
 
 /**
- * api应用用户相关逻辑
- * 
- * @method login (string $code) static 用户登陆逻辑
- * @method update(int $id, array $data) static 更新用户信息
+ * 小程序接口 用户相关逻辑
  */
 class User
 {
@@ -107,11 +105,15 @@ class User
         $user->isEmpty() && fault('用户不存在');
         $user->startTrans();
         try {
+            // 用户头像本地化处理
+            LibUser::avatarLocal($user->openid, $data['avatarUrl']);
             $user->save($data);
             $user->commit();
         } catch (\Exception $e) {
             $user->rollback();
+            fault($e->getMessage());
             fault('更新失败');
         }
+        return $user->toArray();
     }
 }

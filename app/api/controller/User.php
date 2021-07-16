@@ -15,8 +15,7 @@ class User extends Auth
      */
     public function update(array $data)
     {
-        halt($this->uid);
         UserLogic::update($this->uid, $data);
-        return success('更新成功');
+        return data($data, '更新成功');
     }
 }
