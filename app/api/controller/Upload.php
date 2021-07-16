@@ -6,6 +6,9 @@ namespace app\api\controller;
 
 use app\common\logic\Upload as UploadLogic;
 
+/**
+ * 上传文件
+ */
 class Upload
 {
     /**

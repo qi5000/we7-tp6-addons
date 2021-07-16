@@ -40,4 +40,12 @@ class Config extends MicroEngine
         parent::onBeforeInsert($model);
         $model->value = encode($model->value);
     }
+
+    /**
+     * 更新前
+     */
+    public static function onBeforeUpdate($model)
+    {
+        $model->value = encode($model->value);
+    }
 }

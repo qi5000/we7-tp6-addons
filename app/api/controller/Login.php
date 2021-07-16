@@ -16,4 +16,15 @@ class Login
         $data = UserLogic::login($code);
         return data($data, '登录成功');
     }
+
+    /**
+     * 模拟登陆
+     *
+     * @param integer $uid 用户id
+     */
+    public function simulate(int $uid)
+    {
+        $data = UserLogic::simulate($uid);
+        return data($data, '模拟登陆成功');
+    }
 }

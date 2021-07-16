@@ -2,12 +2,10 @@
 
 namespace app\api\controller;
 
-use app\BaseController;
-
-class Index extends BaseController
+class Index extends Auth
 {
     public function index()
     {
-        return msg('小程序接口请求成功');
+        return success('小程序接口请求成功');
     }
 }

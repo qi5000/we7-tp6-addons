@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace app\api\logic;
 
 // 模型层
-use app\api\model\User as UserModel;
+use app\common\model\User as UserModel;
 
 // 基础类库层
 use app\api\lib\JwtAuth;
@@ -49,9 +49,28 @@ class User
         // 登录成功将用户信息和token返回给前端
         $data  = [
             'userinfo' => $user->toArray(),
-            'token'    => self::getToken($user->id),
+            'token'    => self::getToken(intval($user->id)),
         ];
         return $data;
+    }
+
+    // +----------------------------------------------------------------------
+    // | 开发环境 模拟登陆
+    // +----------------------------------------------------------------------
+
+    /**
+     * 模拟登陆
+     *
+     * @param integer $uid 用户id
+     */
+    public static function simulate(int $uid)
+    {
+        $user = UserModel::findOrEmpty($uid);
+        $user->isEmpty() && fault('用户不存在');
+        return [
+            'user'  => $user,
+            'token' => self::getToken(intval($uid)),
+        ];
     }
 
     /**

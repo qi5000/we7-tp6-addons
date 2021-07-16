@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "62c6411218f362c6f2db9f72007177e5",
+    "content-hash": "2fe4eca4770a7e25d8d2b5017138302e",
     "packages": [
         {
             "name": "aliyuncs/oss-sdk-php",
@@ -3625,63 +3625,6 @@
                 }
             ],
             "time": "2021-03-27T19:49:03+00:00"
-        },
-        {
-            "name": "topthink/think-trace",
-            "version": "v1.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/top-think/think-trace.git",
-                "reference": "9a9fa8f767b6c66c5a133ad21ca1bc96ad329444"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/top-think/think-trace/zipball/9a9fa8f767b6c66c5a133ad21ca1bc96ad329444",
-                "reference": "9a9fa8f767b6c66c5a133ad21ca1bc96ad329444",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "require": {
-                "php": ">=7.1.0",
-                "topthink/framework": "^6.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "think": {
-                    "services": [
-                        "think\\trace\\Service"
-                    ],
-                    "config": {
-                        "trace": "src/config.php"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "think\\trace\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "liu21st",
-                    "email": "liu21st@gmail.com"
-                }
-            ],
-            "description": "thinkphp debug trace",
-            "support": {
-                "issues": "https://github.com/top-think/think-trace/issues",
-                "source": "https://github.com/top-think/think-trace/tree/v1.4"
-            },
-            "time": "2020-06-29T05:27:28+00:00"
         }
     ],
     "aliases": [],

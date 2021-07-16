@@ -6,7 +6,7 @@ namespace app\api\controller;
 
 use app\api\logic\User as UserLogic;
 
-class User extends JwtAuth
+class User extends Auth
 {
     /**
      * wx.getUserProfile
@@ -15,8 +15,8 @@ class User extends JwtAuth
      */
     public function update(array $data)
     {
-        $uid = $this->getJwtData('uid');
-        UserLogic::update($uid, $data);
-        msg('更新成功');
+        halt($this->uid);
+        UserLogic::update($this->uid, $data);
+        return success('更新成功');
     }
 }
