@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace app\common\model;
 
-use liang\helper\MicroEngine as HelperMicroEngine;
+use liang\MicroEngine as MicroEngineHelper;
 
 /**
  * 全局微擎基础模型
@@ -22,7 +22,7 @@ class MicroEngine extends Base
 
     protected static function init()
     {
-        if (HelperMicroEngine::isMicroEngine()) {
+        if (MicroEngineHelper::isMicroEngine()) {
             global $_W;
             self::$uniacid = $_W['uniacid'];
         }
@@ -37,7 +37,7 @@ class MicroEngine extends Base
      */
     public function scopeUniacid($query)
     {
-        if (HelperMicroEngine::isMicroEngine()) {
+        if (MicroEngineHelper::isMicroEngine()) {
             $query->where('uniacid', self::$uniacid);
         }
     }
@@ -51,7 +51,7 @@ class MicroEngine extends Base
      */
     public static function onBeforeInsert($model)
     {
-        if (HelperMicroEngine::isMicroEngine()) {
+        if (MicroEngineHelper::isMicroEngine()) {
             $model->uniacid = self::$uniacid;
         }
     }

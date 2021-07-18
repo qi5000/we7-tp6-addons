@@ -2,7 +2,7 @@
 
 namespace app\common\logic;
 
-use liang\helper\MicroEngine;
+use liang\MicroEngine;
 
 class Alone
 {

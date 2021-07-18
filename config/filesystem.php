@@ -3,7 +3,7 @@
 // 消除编辑器常量未定义提示
 defined('ATTACHMENT_ROOT') or define('ATTACHMENT_ROOT', '');
 
-use liang\helper\MicroEngine;
+use liang\MicroEngine;
 
 return [
     // 默认磁盘

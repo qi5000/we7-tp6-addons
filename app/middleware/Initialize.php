@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace app\middleware;
 
+use liang\MicroEngine;
 use think\facade\Cache;
 use app\common\model\Config;
 use app\common\model\Storage;
 use app\common\logic\Initialize as LogicInitialize;
-use liang\helper\MicroEngine;
+
 
 /**
  * 全局中间件 初始化数据

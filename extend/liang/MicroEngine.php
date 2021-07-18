@@ -6,7 +6,7 @@
 // | Author: liang <23426945@qq.com>
 // +----------------------------------------------------------------------
 
-namespace liang\helper;
+namespace liang;
 
 class MicroEngine
 {
