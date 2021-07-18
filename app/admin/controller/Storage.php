@@ -6,6 +6,9 @@ namespace app\admin\controller;
 
 use app\admin\logic\Storage as LogicStorage;
 
+/**
+ * 文件存储
+ */
 class Storage
 {
     /**

@@ -12,7 +12,7 @@ use app\common\logic\Upload as UploadLogic;
 class Upload
 {
     /**
-     * 上传图片
+     * 上传图片(带域名)
      */
     public function image()
     {

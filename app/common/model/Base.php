@@ -16,6 +16,7 @@ class Base extends \think\Model
     // 软删除
     use SoftDelete;
     protected $deleteTime = 'delete_time';
+    protected $defaultSoftDelete = null;
     // 隐藏属性
     protected $hidden = ['create_time', 'update_time', 'delete_time'];
 

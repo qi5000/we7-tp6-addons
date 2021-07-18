@@ -87,14 +87,18 @@ function getDistance($longitude1, $latitude1, $longitude2, $latitude2, $unit = 2
 }
 
 /**
- * 用于搜索器
+ * 用于构建模型搜索器参数
  * 去掉数组空字符串,返回所有键
  *
- * @param array $where
  * @param array $keys
+ * @param array $where
  */
-function where_filter(array $where, &$keys)
+function where_filter(&$keys, array $where)
 {
+    // 使用示例
+    // $where = where_filter($keys, $where);
+    // ModelUser::withSearch($keys, $where)->select();
+
     // 去掉数组里的空字符串和null
     $where = array_filter($where, function ($k) {
         return ($k === '' || $k === null) ? false : true;

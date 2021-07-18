@@ -6,6 +6,9 @@ namespace app\admin\controller;
 
 use app\admin\logic\Config as LogicConfig;
 
+/**
+ * 配置相关
+ */
 class Config
 {
     // +------------------------------------------------------------

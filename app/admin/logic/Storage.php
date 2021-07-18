@@ -6,14 +6,17 @@ namespace app\admin\logic;
 
 use app\common\model\Storage as ModelStorage;
 
+/**
+ * admin应用 文件存储配置
+ */
 class Storage
 {
     /**
      * 获取文件存储配置
      */
-    public static function getLists()
+    public static function getLists(): array
     {
-        $list = ModelStorage::select();
+        $list = ModelStorage::order('type', 'asc')->select();
         $type = ModelStorage::where('in_use', 1)->value('type');
         return compact('type', 'list');
     }
@@ -21,10 +24,9 @@ class Storage
     /**
      * 更新文件存储配置
      *
-     * @param integer $type 0 本地 1 七牛云 2 阿里云
-     * @param array   $data 文件存储配置
+     * @param int $type 0 本地 1 七牛云 2 阿里云
      */
-    public static function update(int $type, array $data)
+    public static function update(int $type, array $data): void
     {
         in_array($type, [0, 1, 2]) || fault('type值非法');
         foreach ($data as $value) {
