@@ -18,7 +18,7 @@ class Message
     public function reply()
     {
         // 读取系统配置的客服消息token
-        $token = ConfigLogic::getByKey('msg_token');
+        $token = ConfigLogic::getValueByKey('msg_token');
         // 消息推送接入验证
         app(MiniProgram::class)->checkSignature($token);
         // 客服消息自动回复逻辑处理

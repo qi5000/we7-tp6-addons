@@ -11,9 +11,10 @@ declare(strict_types=1);
 namespace app\common\lib\easywechat;
 
 // 杂项
+use liang\MicroEngine;
 use app\common\logic\Alone;
 use think\facade\Filesystem;
-use liang\helper\MicroEngine;
+
 // EasyWeChat
 use EasyWeChat\Factory;
 use EasyWeChat\Kernel\Messages\Text;

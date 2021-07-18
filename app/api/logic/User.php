@@ -17,6 +17,18 @@ use app\common\lib\easywechat\MiniProgram;
  */
 class User
 {
+    /**
+     * 个人中心
+     *
+     * @param integer $uid 用户id
+     */
+    public static function getMine(int $uid)
+    {
+        $user = UserModel::field('nickName,avatarUrl')->findOrEmpty($uid);
+        $user->isEmpty() && fault('用户不存在');
+        return $user->toArray();
+    }
+
     // +----------------------------------------------------------------------
     // | wx.login 小程序登录
     // +----------------------------------------------------------------------
