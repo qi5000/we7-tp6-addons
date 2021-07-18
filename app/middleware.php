@@ -11,7 +11,7 @@ return [
     // \think\middleware\SessionInit::class,
 
     // 初始化数据
-    \app\middleware\Initialize::class,
+    \app\common\middleware\Initialize::class,
     // 跨域请求支持
     // \think\middleware\AllowCrossDomain::class,
 ];
