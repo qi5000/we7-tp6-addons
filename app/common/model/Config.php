@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace app\common\model;
 
 /**
- * 系统配置公共模型
+ * 系统配置模型
  */
 class Config extends MicroEngine
 {

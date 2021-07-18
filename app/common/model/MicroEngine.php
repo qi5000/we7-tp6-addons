@@ -7,7 +7,7 @@ namespace app\common\model;
 use liang\MicroEngine as MicroEngineHelper;
 
 /**
- * 全局微擎基础模型
+ * 微擎基础模型
  */
 class MicroEngine extends Base
 {
