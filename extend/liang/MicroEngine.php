@@ -118,7 +118,7 @@ class MicroEngine
      *
      * @param string $root 图片绝对路径地址
      */
-    public static function geImgUrlByRoot(string $root)
+    public static function getUrlByRoot(string $root)
     {
         $domain = request()->domain();
         if (self::isMicroEngine()) {

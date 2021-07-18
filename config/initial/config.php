@@ -84,8 +84,8 @@ return [
     ],
     [
         'type'  => 'service_message',
-        'key'   => 'message_reply_img',
-        'value' => 'service_message/message_reply_img.jpg',
+        'key'   => 'reply_img',
+        'value' => 'service_message/reply_img.jpg',
         'note'  => '客服消息自动回复图片',
         'image' => 2,
     ],
