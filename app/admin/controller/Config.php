@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace app\admin\controller;
 
-use app\admin\logic\Config as LogicConfig;
 use liang\MicroEngine;
+use app\admin\logic\Config as LogicConfig;
+use app\common\lib\easywechat\MiniProgram;
 
 /**
  * 配置相关
@@ -15,6 +16,16 @@ class Config
     // +------------------------------------------------------------
     // | 获取配置
     // +------------------------------------------------------------
+
+    /**
+     * 消息推送
+     */
+    public function message()
+    {
+        $data['msg_url']   = MiniProgram::replyApi();
+        $data['msg_token'] = LogicConfig::getValueBykey('msg_token');
+        return data($data, '消息推送');
+    }
 
     /**
      * 客服消息配置
