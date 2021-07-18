@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace app\api\logic;
 
-// 模型层
+// 模型
 use app\common\model\User as UserModel;
 
-// 基础类库层
+// 基础类库
 use app\api\lib\JwtAuth;
 use app\api\lib\User as LibUser;
 use app\common\lib\easywechat\MiniProgram;
@@ -117,13 +117,14 @@ class User
         $user->isEmpty() && fault('用户不存在');
         $user->startTrans();
         try {
-            // 用户头像本地化处理
-            LibUser::avatarLocal($user->openid, $data['avatarUrl']);
+            if (isset($data['avatarUrl'])) {
+                // 用户头像本地化处理
+                LibUser::avatarLocal($user->openid, $data['avatarUrl']);
+            }
             $user->save($data);
             $user->commit();
         } catch (\Exception $e) {
             $user->rollback();
-            fault($e->getMessage());
             fault('更新失败');
         }
         return $user->toArray();

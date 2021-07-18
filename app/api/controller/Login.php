@@ -9,7 +9,9 @@ use app\api\logic\User as UserLogic;
 class Login
 {
     /**
-     * 小程序登录接口
+     * 小程序登录
+     *
+     * @param string $code jsCode
      */
     public function index(string $code)
     {
@@ -18,7 +20,7 @@ class Login
     }
 
     /**
-     * 模拟登陆
+     * 模拟登陆 开发环境使用
      *
      * @param integer $uid 用户id
      */
