@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\api\logic;
 
 use app\common\lib\easywechat\MiniProgram;
+use app\common\logic\Config as ConfigLogic;
 
 /**
  * 客服消息逻辑层
@@ -12,27 +13,30 @@ use app\common\lib\easywechat\MiniProgram;
 class Message
 {
     /**
-     * 小程序消息推送
-     * 客服会话自动回复消息
+     * 文本消息
      */
-    public static function reply()
+    public static function text(array $message)
     {
-        // 用户发送的消息数据包
-        $message = json_decode(file_get_contents('php://input'), true);
-        // 接收者用户openid
-        $openid = $message['FromUserName'];
-        // 根据用户发送不同类型的内容回复不同的消息
-        switch ($message['MsgType']) {
-            case 'miniprogrampage': // 小程序卡片
-                // 回复文字
-                $text  = '自动回复文字';
-                app(MiniProgram::class)->replyText($openid, $text);
-                // 自动回复图片
-                $image = '绝对路径图片地址';
-                // 发送图片消息
-                app(MiniProgram::class)->replyImg($openid, $image);
-                break;
-        }
-        app(MiniProgram::class)->app->server->serve()->send();
+        $program = app(MiniProgram::class);
+        $program->replyText("恭喜，消息推送接入成功 ^_^\n\n欢迎使用微擎小程序TP6.0框架 !");
+    }
+
+    /**
+     * 消息卡片
+     */
+    public static function card(array $message)
+    {
+        $program = app(MiniProgram::class);
+
+        // 回复文字
+        $text  = '长按识别下方二维码添加客服微信';
+        $program->replyText($text);
+
+        // 回复图片
+        $image = ConfigLogic::getValueByKey('reply_img');
+        $program->replyImg($image);
+
+        // 消息日志
+        // event('message', $message);
     }
 }

@@ -20,8 +20,6 @@ class Message
         // 读取系统配置的客服消息token
         $token = ConfigLogic::getValueByKey('msg_token');
         // 消息推送接入验证
-        app(MiniProgram::class)->checkSignature($token);
-        // 客服消息自动回复逻辑处理
-        \app\api\logic\Message::reply();
+        app(MiniProgram::class)->response($token);
     }
 }

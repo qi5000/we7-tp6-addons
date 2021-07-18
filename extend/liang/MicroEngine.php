@@ -130,4 +130,23 @@ class MicroEngine
         }
         return $domain . '/' . $image;
     }
+
+    /**
+     * 获取客服消息会话接口地址
+     */
+    public static function getMsgUrl()
+    {
+        $route = '/message/reply';
+        $domain  = request()->domain();
+        // 判断当前环境
+        if (self::isMicroEngine()) {
+            // 微信模块消息推送地址
+            $uniacid = self::getUniacid();
+            $module  = self::getModuleName();
+            return "{$domain}/app/index.php?i={$uniacid}&c=entry&m={$module}&a=wxapp&do=api&s={$route}";
+        } else {
+            // 独立版消息推送地址
+            return "{$domain}/api.php{$route}";
+        }
+    }
 }

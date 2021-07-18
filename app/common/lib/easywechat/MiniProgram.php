@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace app\common\lib\easywechat;
 
 // 杂项
-use liang\MicroEngine;
 use app\common\logic\Alone;
 use think\facade\Filesystem;
 
@@ -173,10 +172,37 @@ class MiniProgram
     // +-----------------------------------------------------------------------------
 
     /**
+     * 消息推服务器URL地址
+     *
+     * @param string $token 访问令牌Token
+     */
+    public function response(string $token)
+    {
+        // 消息推送接入验证
+        $this->checkSignature($token);
+        // 用户发送的消息数据包
+        $message = json_decode(file_get_contents('php://input'), true);
+        // 接收者用户openid
+        $this->openid = $message['FromUserName'];
+        // 根据用户发送不同类型的内容回复不同的消息
+        switch ($message['MsgType']) {
+            case 'text': // 文本消息
+                call_user_func([\app\api\logic\Message::class, 'text'], $message);
+                break;
+            case 'miniprogrampage': // 小程序消息卡片
+                call_user_func([\app\api\logic\Message::class, 'card'], $message);
+                break;
+        }
+        $this->app->server->serve()->send();
+    }
+
+    /**
      * 消息推送接入验证
      * 开发者服务器接收消息推送
+     *
+     * @param string $token Token(令牌)
      */
-    public function checkSignature(string $token)
+    private function checkSignature(string $token)
     {
         $nonce     = $_GET["nonce"] ?? '';
         $signature = $_GET["signature"] ?? '';
@@ -192,48 +218,27 @@ class MiniProgram
     }
 
     /**
-     * 获取客服消息会话接口地址
-     */
-    public static function replyApi()
-    {
-        $route = '/message/reply';
-        $domain  = request()->domain();
-        // 判断当前环境
-        if (MicroEngine::isMicroEngine()) {
-            // 微信模块消息推送地址
-            $uniacid = MicroEngine::getUniacid();
-            $module  = MicroEngine::getModuleName();
-            return "{$domain}/app/index.php?i={$uniacid}&c=entry&m={$module}&a=wxapp&do=api&s={$route}";
-        } else {
-            // 独立版消息推送地址
-            return "{$domain}/api.php{$route}";
-        }
-    }
-
-    /**
      * 回复文本消息
      *
-     * @param string $openid 接收者openid
-     * @param string $text   回复的文本内容
+     * @param string $text 回复的文本内容
      */
-    public function replyText(string $openid, string $text)
+    public function replyText(string $text)
     {
         $content = new Text($text);
-        $this->app->customer_service->message($content)->to($openid)->send();
+        $this->app->customer_service->message($content)->to($this->openid)->send();
     }
 
     /**
      * 回复图片消息
      *
-     * @param string $openid 接收者openid
-     * @param string $image  图片绝对路径
+     * @param string $image 图片绝对路径
      */
-    public function replyImg(string $openid, string $image)
+    public function replyImg(string $image)
     {
         // 上传临时素材
-        $result = $this->miniProgram->media->uploadImage($image);
+        $result = $this->app->media->uploadImage($image);
         $content = new Image($result['media_id']);
-        $this->app->customer_service->message($content)->to($openid)->send();
+        $this->app->customer_service->message($content)->to($this->openid)->send();
     }
 
     // +-----------------------------------------------------------------------------

@@ -20,7 +20,7 @@ class Config
      *
      * @param string $key 键名
      */
-    public static function getValueByKey(string $key): mixed
+    public static function getValueByKey(string $key)
     {
         $data = ConfigModel::key($key)->findOrEmpty();
         if ($data->isEmpty()) fault('系统配置丢失');

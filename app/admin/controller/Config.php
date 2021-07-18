@@ -6,7 +6,6 @@ namespace app\admin\controller;
 
 use liang\MicroEngine;
 use app\admin\logic\Config as LogicConfig;
-use app\common\lib\easywechat\MiniProgram;
 
 /**
  * 配置相关
@@ -22,7 +21,7 @@ class Config
      */
     public function message()
     {
-        $data['msg_url']   = MiniProgram::replyApi();
+        $data['msg_url']   = MicroEngine::getMsgUrl();
         $data['msg_token'] = LogicConfig::getValueBykey('msg_token');
         return data($data, '消息推送');
     }
