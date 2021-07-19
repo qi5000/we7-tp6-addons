@@ -6,6 +6,9 @@ namespace app\admin\validate;
 
 use think\Validate;
 
+/**
+ * 常见问题
+ */
 class Problem extends Validate
 {
     /**
