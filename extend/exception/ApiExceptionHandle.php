@@ -55,6 +55,10 @@ class ApiExceptionHandle extends Handle
         if ($e instanceof HttpException) {
             return $this->json($e->getMessage(), $e->getStatusCode());
         }
+        // 验证器异常处理机制
+        if ($e instanceof ValidateException) {
+            fault($e->getMessage());
+        }
         if (!empty($e->getMessage())) {
             return $this->json($e->getMessage(), $e->getCode());
         }

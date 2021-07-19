@@ -18,6 +18,32 @@ CREATE TABLE IF NOT EXISTS `ims_applet_config` (
     UNIQUE KEY `unique_key` (`uniacid`,`key`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
+CREATE TABLE IF NOT EXISTS `ims_applet_problem` (
+    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `uniacid` int(11) NOT NULL DEFAULT '0' COMMENT '微擎平台uniacid',
+    `classify_id` int(11) DEFAULT NULL COMMENT '问题分类id',
+    `title` varchar(255) DEFAULT NULL COMMENT '问题',
+    `answer` varchar(255) DEFAULT NULL COMMENT '回答',
+    `sort` int(11) DEFAULT NULL COMMENT '排序值，越大越靠前',
+    `status` tinyint(1) DEFAULT '1' COMMENT '状态 0 隐藏 1 显示 默认为 1',
+    `create_time` int(11) DEFAULT NULL COMMENT '添加时间',
+    `update_time` int(11) DEFAULT NULL COMMENT '修改时间',
+    `delete_time` int(11) DEFAULT NULL COMMENT '软删除',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='常见问题表';
+
+CREATE TABLE IF NOT EXISTS `ims_applet_problem_classify` (
+    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '问题分类id',
+    `uniacid` int(11) NOT NULL DEFAULT '0' COMMENT '微擎平台uniacid',
+    `name` varchar(60) DEFAULT NULL COMMENT '分类名称',
+    `sort` int(11) DEFAULT NULL COMMENT '排序值，越大越靠前',
+    `status` tinyint(1) DEFAULT NULL COMMENT '状态 0 隐藏 1 显示 默认为 1',
+    `create_time` int(11) DEFAULT NULL COMMENT '添加时间',
+    `update_time` int(11) DEFAULT NULL COMMENT '修改时间',
+    `delete_time` int(11) DEFAULT NULL COMMENT '软删除',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='常见问题分类表';
+
 CREATE TABLE IF NOT EXISTS `ims_applet_storage` (
     `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键且自增',
     `uniacid` int(11) NOT NULL COMMENT '平台ID',
