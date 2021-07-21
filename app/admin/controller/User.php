@@ -11,7 +11,7 @@ class User
     /**
      * 获取用户列表
      *
-     * @param array  $where
+     * @param array   $where
      * @param integer $page
      * @param integer $limit
      */

@@ -13,6 +13,8 @@ class MicroEngine extends Base
 {
     // 微擎平台uniacid
     protected static $uniacid;
+    // 只读字段
+    protected $readonly = ['uniacid'];
     // 定义全局的查询范围
     protected $globalScope = ['uniacid'];
 

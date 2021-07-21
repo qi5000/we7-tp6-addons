@@ -11,7 +11,6 @@ class Config extends MicroEngine
 {
     // 设置json类型字段
     protected $json = ['value'];
-
     // 设置JSON数据返回数组
     protected $jsonAssoc = true;
 

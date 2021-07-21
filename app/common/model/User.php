@@ -10,7 +10,7 @@ namespace app\common\model;
 class User extends MicroEngine
 {
     // 只读字段
-    protected $readonly = ['openid'];
+    protected $readonly = ['uniacid', 'openid'];
 
     // +---------------------------------------------------
     // | 搜索器

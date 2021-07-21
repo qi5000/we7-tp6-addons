@@ -25,6 +25,10 @@ class ProblemClassify extends MicroEngine
     // | 模型关联
     // +------------------------------------------------
 
+    /**
+     * 一对多关联
+     * 问题分类关联常见问题
+     */
     public function problem()
     {
         return $this->hasMany(Problem::class, 'classify_id', 'id');
