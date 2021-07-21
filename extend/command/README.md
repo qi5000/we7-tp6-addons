@@ -12,3 +12,10 @@ php think make:logic api@User
 php think make:lib Alipay
 
 php think make:lib api@WechatPay
+~~~
+
+#### 创建数据初始化类文件
+
+~~~
+php think make:init common@Config
+~~~
