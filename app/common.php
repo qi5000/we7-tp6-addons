@@ -4,6 +4,8 @@
 // | 全局公共函数
 // +----------------------------------------------------------------------
 
+use liang\MicroEngine;
+
 /**
  * 操作成功
  *
@@ -107,4 +109,81 @@ function where_filter(&$keys, array $where)
     $keys = array_keys($where);
     // 返回数组
     return $where;
+}
+
+// +----------------------------------------------------------------------
+// | 兼容独立版、微擎版路由地址
+// +----------------------------------------------------------------------
+
+/**
+ * 兼容微擎版、独立版
+ * 
+ * 前后台应用微擎路由通用生成方法
+ * 
+ * @author  liang
+ * @example u('index')
+ * @example u('user/login', ['id' => 1])
+ * @example u('merchType/getLists', ['id' => 2])
+ * 
+ */
+function u(...$param): string
+{
+    // 判断当前是否在微擎框架中
+    if (MicroEngine::isMicroEngine()) {
+        // 应用 模块 方法
+        $contro = request()->controller();
+        // 微擎框架自带参数
+        $weParam = request()->only(['i', 'c', 'a', 'eid', 'version_id', 'do', 'm'], 'get');
+        // 路由参数
+        $route = explode('/', $param[0] ?? ''); // ?? 处理编辑器报红
+        // parse_name 控制器驼峰命名转为下划线分隔命名
+        switch (count($route)) {
+            case 1: // u('index')
+                $path = ['', parse_name($contro), $route[0]];
+                break;
+            case 2: // u('index/index')
+                $path = ['', parse_name($route[0]), $route[1]];
+                break;
+        }
+        $s = implode('/', $path);
+        $url = request()->domain() . request()->baseFile() . '?' . queryString($weParam) . '&s=' . $s;
+        if (!empty($param[1])) $url .= '&' . queryString($param[1]);
+        return $url;
+    } else {
+        // 独立版
+        $contro = request()->controller();
+        $route = explode('/', $param[0] ?? '');
+        switch (count($route)) {
+            case 1: // u('index')
+                $path = ['', parse_name($contro), $route[0]];
+                break;
+            case 2: // u('index/index')
+                $path = ['', parse_name($route[0]), $route[1]];
+                break;
+        }
+        $s = implode('/', $path);
+        $param[0] = $s;
+        return request()->domain() . url(...$param);
+    }
+}
+
+/**
+ * 将数组数据转为查询字符串
+ */
+function queryString($data)
+{
+    $link = '';
+    foreach ($data as $key => $value) {
+        $link .= $key . '=' . trim($value) . '&';
+    }
+    return rtrim($link, '&');
+}
+
+/**
+ * 处理编辑器报红
+ */
+if (!function_exists('tablename')) {
+    function tablename(string $table)
+    {
+    }
 }

@@ -3,6 +3,8 @@
 namespace app\admin\controller;
 
 use app\BaseController;
+use app\common\logic\Platform as PlatformLogic;
+use liang\MicroEngine;
 
 /**
  * 后台管理系统
@@ -14,6 +16,18 @@ class Index extends BaseController
      */
     public function index()
     {
+        // 初始化平台数据(限制多开)
+        if (MicroEngine::isMicroEngine() && !PlatformLogic::initData()) {
+            global $_W;
+            $data = [
+                // 当前平台名称
+                'account_name' => $_W['account']['name'],
+                // 当前模块名称
+                'mobule_name' => $_W['current_module']['title'],
+            ];
+            return view('/limit', compact('data'));
+        }
+        // 后台主页
         return view('/index');
     }
 

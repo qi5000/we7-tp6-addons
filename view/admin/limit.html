@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单开限制</title>
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css">
+    <style>
+        .layui-container {
+            padding-top: 20px;
+        }
+
+        h2,
+        h3 {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .platform-name {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layui-container">
+        <h2>{$data.mobule_name}</h2>
+
+        <h3>当前所在平台: <span class="platform-name">{$data.account_name}</span></h3>
+
+        <h3>本产品不支持多开, 您已触发单开限制，您可以自主切换哪个平台使用。</h3>
+
+        <table id="table" lay-filter="table-filter"></table>
+
+        <script type="text/html" id="statusTpl">
+            {{#  if(d.status == 1){ }}
+                <button class="layui-btn layui-btn-danger layui-btn-xs">已绑定</button>
+            {{#  } }}
+        </script>
+        <script type="text/html" id="table-useradmin-webuser">
+            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="bind">
+                <i class="layui-icon"></i>绑定
+            </a>
+        </script>
+    </div>
+
+    <script src="https://www.layuicdn.com/layui/layui.js"></script>
+    <script>
+        layui.use('table', function () {
+            var $ = layui.$,
+                table = layui.table;
+
+            var tableId = 'table'
+
+            table.render({
+                elem: '#table'
+                , url: "{:u('platform/data')}"
+                , page: true //开启分页
+                , cols: [[ //表头
+                    { field: 'name', title: '平台名称', minWidth: 80, align: 'center' }
+                    , { field: 'uniacid', title: '平台 uniacid', minWidth: 80, align: 'center' }
+                    , { field: 'status', title: '状态', minWidth: 80, align: 'center', templet: '#statusTpl' }
+                    , { title: '操作', minWidth: 150, align: 'center', fixed: 'right', toolbar: '#table-useradmin-webuser' }
+                ]]
+            });
+
+            table.on('tool(' + tableId + '-filter)', function (obj) {
+                var data = obj.data;
+                console.log(data)
+                if (obj.event === 'bind') {
+                    $.ajax({
+                        url: "{:u('platform/bind')}",
+                        data: { uniacid: data.uniacid },
+                        success: res => {
+                            console.log(res)
+                            layer.msg(res.msg, {
+                                shade: .3
+                            }, () => {
+                                res.code == 200 && location.reload();
+                            })
+                        }
+                    })
+                }
+            })
+        });
+    </script>
+</body>
+
+</html>

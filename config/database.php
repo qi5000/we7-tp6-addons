@@ -62,5 +62,23 @@ return [
         ],
 
         // 更多的数据库配置信息
+        'w7' => [
+            // 数据库类型
+            'type'            => env('database.type', 'mysql'),
+            // 服务器地址
+            'hostname'        => $config['db']['master']['host'] ?? env('database.hostname', '127.0.0.1'),
+            // 数据库名
+            'database'        => $config['db']['master']['database'] ?? '',
+            // 用户名
+            'username'        => $config['db']['master']['username'] ?? env('database.username', 'root'),
+            // 密码
+            'password'        => $config['db']['master']['password'] ?? env('database.password', ''),
+            // 端口
+            'hostport'        => $config['db']['master']['port'] ?? env('database.hostport', '3306'),
+            // 数据库编码默认采用utf8mb4
+            'charset'         => 'utf8mb4',
+            // 数据库表前缀
+            'prefix'          => env('database.prefix', isset($config['db']['master']['tablepre']) ? $config['db']['master']['tablepre'] . 'applet_' : ''),
+        ],
     ],
 ];

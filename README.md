@@ -3,7 +3,7 @@ ThinkPHP 6.0.8
 
 [微擎开发手册](https://www.kancloud.cn/monday/w7cc/content)
 
-> 运行环境要求PHP7.2+，兼容PHP8.0。
+> 运行环境要求PHP7.2.5+，兼容PHP8.0。
 
 ## 将仓库拉取到本地
 
