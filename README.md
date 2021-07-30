@@ -26,6 +26,9 @@ composer install
 ~~~php
 public function doWebAdmin()
 {
+    if (version_compare(PHP_VERSION, '7.2.5', '<')) {
+        die('<br>检测到您到PHP版本过低, 系统无法使用<br><br>系统运行环境要求PHP版本不能低于 7.2.5<br><br>当前系统使用的PHP版本为: ' . PHP_VERSION);
+    }
     //这个操作被定义用来呈现 管理中心导航菜单
     require __DIR__ . '/public/admin.php';
 }
