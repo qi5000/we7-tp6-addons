@@ -6,25 +6,34 @@ namespace app\api\logic;
 
 use app\common\logic\Subscribe as LogicSubscribe;
 
+/**
+ * 订阅场景定义
+ */
 class Subscribe extends LogicSubscribe
 {
     /**
      * 使用示例
+     *
+     * @param string $openid 接收者openid
+     * @param array  $param  页面路径参数数组
      */
-    public static function demo(string $openid = 'oM9rw4gdW5I0IyANrtY1XqfENcMA')
+    public static function demo(string $openid, array $param = [])
     {
-        $param = [];
-        list($page, $tplId) = self::getPathAndTpl('index', 'test', $param);
-        $thing1 = '今日未签到';
-        $thing6 = '已连续签到5天';
-        $thing4 = '签到领金币';
-        $thing8 = '点击前往签到';
+        // 页面路径场景
+        $pageScene = 'index';
+        // 模板系统配置键
+        $configKey = 'test';
+
+        ############## 订阅消息数据格式 ##############
+        $thing3 = '联系方式';
+        $thing1 = '您的微信号发我下吧 ' . date('H:i:s');
         $data = [
+            'thing3' => ['value' => self::thing($thing3)],
             'thing1' => ['value' => self::thing($thing1)],
-            'thing6' => ['value' => self::thing($thing6)],
-            'thing4' => ['value' => self::thing($thing4)],
-            'thing8' => ['value' => self::thing($thing8)],
         ];
-        self::send($tplId,  $openid,  $page,  $data);
+        ############## 订阅消息数据格式 ##############
+
+        // 发送订阅消息
+        self::send($pageScene, $configKey, $param, $openid, $data);
     }
 }
