@@ -18,6 +18,14 @@ CREATE TABLE IF NOT EXISTS `ims_applet_config` (
     UNIQUE KEY `unique_key` (`uniacid`,`key`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
+CREATE TABLE IF NOT EXISTS `ims_applet_platform` (
+    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `uniacid` int(11) DEFAULT NULL COMMENT '微擎平台uniacid',
+    `name` varchar(255) DEFAULT NULL COMMENT '平台名称',
+    `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态 0 未绑定 1 已绑定',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='平台信息表(限制多开)';
+
 CREATE TABLE IF NOT EXISTS `ims_applet_problem` (
     `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `uniacid` int(11) NOT NULL DEFAULT '0' COMMENT '微擎平台uniacid',

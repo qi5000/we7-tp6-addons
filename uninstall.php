@@ -5,6 +5,9 @@
 $sql = <<<EOT
 
 DROP TABLE IF EXISTS `ims_applet_config`;
+DROP TABLE IF EXISTS `ims_applet_platform`;
+DROP TABLE IF EXISTS `ims_applet_problem`;
+DROP TABLE IF EXISTS `ims_applet_problem_classify`;
 DROP TABLE IF EXISTS `ims_applet_storage`;
 DROP TABLE IF EXISTS `ims_applet_user`;
 

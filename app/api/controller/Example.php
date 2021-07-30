@@ -20,7 +20,7 @@ class Example
         $openid = 'oNiWa5CB9VFKgr-TqssteGoieibY';
         // 发送订阅消息
         Subscribe::demo($openid, ['id' => 1, 'uid' => 6]);
-
+        // 当前时间
         return 'subscribe test success ' . date('Y-m-d H:i:s');
     }
 }
