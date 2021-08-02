@@ -14,7 +14,7 @@ class Alone
         if (MicroEngine::isMicroEngine()) {
             $config = MicroEngine::getMiniProgramConfig();
         } else {
-            $config = Config::getByType('mini_program');
+            $config = Config::getBatchByType('mini_program');
         }
         return $config;
     }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace app\api\logic;
 
 use app\common\lib\easywechat\MiniProgram;
-use app\common\logic\Config as ConfigLogic;
 use app\common\model\MessagePush as MessagePushModel;
 
 /**
