@@ -18,6 +18,18 @@ CREATE TABLE IF NOT EXISTS `ims_applet_config` (
     UNIQUE KEY `unique_key` (`uniacid`,`key`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
+CREATE TABLE IF NOT EXISTS `ims_applet_message_push` (
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `uniacid` int(11) DEFAULT NULL COMMENT '微擎平台uniacid',
+    `openid` varchar(50) DEFAULT NULL COMMENT '接收者用户openid',
+    `content` text COMMENT '回复内容 (场景类型 type 1 客服二维码)',
+    `status` tinyint(1) DEFAULT '0' COMMENT '状态 0 待发送 1 已发送 默认为 0',
+    `create_time` datetime DEFAULT NULL,
+    `update_time` datetime DEFAULT NULL,
+    `delete_time` datetime DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客服会话待发送纪录';
+
 CREATE TABLE IF NOT EXISTS `ims_applet_platform` (
     `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `uniacid` int(11) DEFAULT NULL COMMENT '微擎平台uniacid',

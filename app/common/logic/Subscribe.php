@@ -37,6 +37,7 @@ class Subscribe
         }
         // 写入日志文件
         self::log($result, $page);
+        return $result;
     }
 
     // +----------------------------------------------------------------------
@@ -80,25 +81,22 @@ class Subscribe
     /**
      * 将参数拼接到页面路径
      *
-     * @param string &$page
-     * @param array  $param
+     * @param string &$page 页面路径
+     * @param array  $param 额外参数
      */
     private static function queryString(string &$page, array $param)
     {
-        $link = '';
-        foreach ($param as $key => $value) {
-            $link .= $key . '=' . $value . '&';
-        }
-        $link = rtrim($link, '&');
+        $link = queryString($param);
         $page = $link ? $page . '?' . $link : $page;
     }
 
     /**
      * 订阅消息发送记录日志
      *
-     * @param array $data
+     * @param array  $data 发送订阅消息结果
+     * @param string $page 页面路径(包含参数)
      */
-    private static function log(array $data, $page)
+    private static function log(array $data, string $page)
     {
         $data['page'] = $page;
         Log::record(json_encode($data, JSON_UNESCAPED_UNICODE), 'subscribe');

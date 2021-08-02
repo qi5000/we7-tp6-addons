@@ -26,14 +26,14 @@ class Subscribe extends LogicSubscribe
 
         ############## 订阅消息数据格式 ##############
         $thing3 = '联系方式';
-        $thing1 = '您的微信号发我下吧 ' . date('H:i:s');
+        $thing1 = '微擎小程序TP框架 ' . date('H:i:s');
         $data = [
             'thing3' => ['value' => self::thing($thing3)],
             'thing1' => ['value' => self::thing($thing1)],
         ];
-        ############## 订阅消息数据格式 ##############
+        ############## 订阅消息数据格式 / ##############
 
         // 发送订阅消息
-        self::send($pageScene, $configKey, $param, $openid, $data);
+        return self::send($pageScene, $configKey, $param, $openid, $data);
     }
 }

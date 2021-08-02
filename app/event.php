@@ -13,6 +13,6 @@ return [
     ],
     // 事件订阅
     'subscribe' => [
-        app\subscribe\Record::class,
+        app\common\subscribe\Record::class,
     ],
 ];

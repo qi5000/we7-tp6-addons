@@ -38,15 +38,19 @@ class Message
         }
         // 待发送内容
         $content = $data->content;
+
+        ############## 自动回复逻辑处理 ##############
+        // type 1 客服二维码
         if (in_array($content['type'], [1])) {
             // 回复文字
             $text  = '长按识别下方二维码添加客服微信';
             $program->replyText($text);
             $program->replyImg($content['image']);
         }
+        ############## 自动回复逻辑处理 / ##############
+
+        // 状态修改为已发送
         $data->status = 1;
-        $data->save(); //状态修改为已发送
-        // 消息日志
-        event('message', $message);
+        $data->save();
     }
 }
