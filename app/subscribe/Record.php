@@ -24,11 +24,11 @@ class Record
     public function message(array $data)
     {
         $data = encode($data);
-        Log::record($data, 'message');
+        Log::write($data, 'message');
     }
 
     // public function subscribe(Event $event)
     // {
-    //     // $event->listen('message', [$this, 'message']);
+    //     $event->listen('subscribe', [$this, 'subscribe']);
     // }
 }

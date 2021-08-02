@@ -136,7 +136,7 @@ class MicroEngine
      */
     public static function getMsgUrl()
     {
-        $route = '/message/reply';
+        $route = '/common/message';
         $domain  = request()->domain();
         // 判断当前环境
         if (self::isMicroEngine()) {

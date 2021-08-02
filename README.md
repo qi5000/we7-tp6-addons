@@ -87,13 +87,13 @@ public function __call($name, $arguments)
 #### 小程序前端接口
 
 ~~~
-http://me.cy/app/index.php?c=entry&a=wxapp&i=3&m=lingchi_lottery_draw&do=api&s=/index/index
+http://liang8080.natapp1.cc/app/index.php?c=entry&a=wxapp&i=3&m=lingchi_lottery_draw&do=api&s=/index/index
 ~~~
 
 #### 后台管理系统开发环境
 
 ~~~
-http://me.cy/app/index.php?c=entry&a=wxapp&i=3&m=lingchi_lottery_draw&do=admin&s=/test/index
+http://liang8080.natapp1.cc/app/index.php?c=entry&a=wxapp&i=3&m=lingchi_lottery_draw&do=admin&s=/test/index
 ~~~
 
 #### 后台管理系统正式环境
@@ -101,7 +101,7 @@ http://me.cy/app/index.php?c=entry&a=wxapp&i=3&m=lingchi_lottery_draw&do=admin&s
 + 动态参数: eid、version_id (通过TP模板赋值获取)
 
 ~~~
-http://me.cy/web/index.php?c=site&a=entry&eid=39&version_id=1&s=/test/index
+http://liang8080.natapp1.cc/web/index.php?c=site&a=entry&eid=39&version_id=1&s=/test/index
 ~~~
 
 ## 消息队列

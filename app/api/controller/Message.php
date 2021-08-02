@@ -4,22 +4,19 @@ declare(strict_types=1);
 
 namespace app\api\controller;
 
-use app\common\lib\easywechat\MiniProgram;
-use app\common\logic\Config as ConfigLogic;
+use app\api\logic\MessageRecord as MessageRecordLogic;
 
 /**
- * 小程序客服消息
+ * 客服会话
  */
-class Message
+class Message extends Auth
 {
     /**
-     * 消息推送URL地址
+     * 获取客服二维码
      */
-    public function reply()
+    public function service()
     {
-        // 读取系统配置的客服消息token
-        $token = ConfigLogic::getValueByKey('msg_token');
-        // 客服消息自动回复、响应微信服务器
-        app(MiniProgram::class)->response($token);
+        MessageRecordLogic::service($this->uid);
+        return success('操作成功');
     }
 }

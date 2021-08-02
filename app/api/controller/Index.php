@@ -2,7 +2,7 @@
 
 namespace app\api\controller;
 
-class Index
+class Index extends Auth
 {
     public function index()
     {

@@ -11,11 +11,12 @@ use app\common\model\User as UserModel;
 use app\api\lib\JwtAuth;
 use app\api\lib\User as LibUser;
 use app\common\lib\easywechat\MiniProgram;
+use app\common\logic\User as LogicUser;
 
 /**
  * 小程序接口 用户相关逻辑
  */
-class User
+class User extends LogicUser
 {
     /**
      * 个人中心
