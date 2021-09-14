@@ -1,0 +1,17 @@
+/.idea
+/.vscode
+/vendor
+*.log
+.env
+
+# 微擎小程序模块
+developer.cer
+icon.jpg
+manifest.xml
+module.php
+preview.jpg
+site.php
+wxapp.php
+
+# mac
+.DS_Store

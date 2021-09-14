@@ -1,0 +1,18 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {%namespace%};
+
+class {%className%}
+{
+    /**
+     * 初始化
+     *
+     * @param array $data
+     */
+    public static function init(array $data)
+    {
+        
+    }
+}
