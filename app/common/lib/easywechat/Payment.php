@@ -63,24 +63,27 @@ class Payment
      */
     public function unify($openid, $out_trade_no, $total_fee, $body, $notify = null, $attach = [])
     {
-        // 附加数据
-        $link = '';
-        foreach ($attach as $key => $value) {
-            $link .= $key . '=' . $value . '&';
-        }
-        $link = rtrim($link, '&');
+        $config = MicroEngine::getMiniProgramConfig();
+        $extra = [
+            'uniacid' => MicroEngine::getUniacid(),
+            'appid'   => $config['appid'],
+            'secret'  => $config['secret'],
+        ];
+        $attach = array_merge($attach, $extra);
+        // 支付参数
+        $jssdk = $this->app->jssdk;
         $attributes = [
             'trade_type'   => 'JSAPI',
             'openid'       => $openid,
             'out_trade_no' => $out_trade_no,
             'total_fee'    => $total_fee * 100,
             'body'         => $body,
-            'notify_url'   => $notify,
-            'attach'       => $link,
+            'attach'       => queryString($attach),
         ];
+        if (!is_null($notify)) {
+            $attributes['notify_url'] = $notify;
+        }
         $result = $this->app->order->unify($attributes);
-        // 支付参数
-        $jssdk = $this->app->jssdk;
         if ($result['return_code'] == 'SUCCESS' && $result['result_code'] == 'SUCCESS') {
             $prepayId = $result['prepay_id'];
             $config   = $jssdk->sdkConfig($prepayId);

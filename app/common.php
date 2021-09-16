@@ -180,6 +180,22 @@ function queryString($data)
 }
 
 /**
+ * 查询字符串转为数组
+ * 
+ * @param string $params
+ */
+function queryStringToArray(string $params)
+{
+    $data = []; // 附加参数
+    $array = explode('&', $params);
+    foreach ($array as $value) {
+        $temp = explode('=', $value);
+        $data[$temp[0]] = $temp[1];
+    }
+    return $data;
+}
+
+/**
  * 处理编辑器报红
  */
 if (!function_exists('tablename')) {

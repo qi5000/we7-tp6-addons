@@ -7,4 +7,4 @@ require __DIR__ . '/vendor/autoload.php';
 // 执行HTTP应用并响应
 $http = (new App())->http->run();
 
-\app\api\controller\Notify::complete();
+\app\common\logic\Notify::main();

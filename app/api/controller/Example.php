@@ -34,7 +34,13 @@ class Example
             'total_fee' => 0.01,
             'openid'    => $this->openid,
         ];
-        $result = LogicPayment::create($data);
-        halt($result);
+        $params = LogicPayment::create($data);
+        // halt($params);
+        return data($params, '支付参数');
+    }
+
+    public function notify()
+    {
+        \app\common\logic\Notify::main();
     }
 }
