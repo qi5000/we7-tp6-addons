@@ -35,7 +35,6 @@ class Example
             'openid'    => $this->openid,
         ];
         $params = LogicPayment::create($data);
-        // halt($params);
         return data($params, '支付参数');
     }
 

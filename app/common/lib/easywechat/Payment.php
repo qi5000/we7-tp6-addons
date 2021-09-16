@@ -41,7 +41,6 @@ class Payment
             'key_path'   => $wechatMerch['key_path'],    // XXX: 绝对路径！！！！
             'notify_url' => MicroEngine::getNotifyUrl(), // 默认的订单回调地址,你也可以在下单时单独设置来想覆盖它
         ];
-        // halt($config);
         $this->app = Factory::payment($config);
     }
 
@@ -65,10 +64,13 @@ class Payment
     {
         $config = MicroEngine::getMiniProgramConfig();
         $extra = [
-            'uniacid' => MicroEngine::getUniacid(),
             'appid'   => $config['appid'],
             'secret'  => $config['secret'],
         ];
+        if (MicroEngine::isMicroEngine()) {
+            // 在微擎中
+            $extra['uniacid'] = MicroEngine::getUniacid();
+        }
         $attach = array_merge($attach, $extra);
         // 支付参数
         $jssdk = $this->app->jssdk;

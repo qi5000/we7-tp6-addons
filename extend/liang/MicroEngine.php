@@ -43,7 +43,7 @@ class MicroEngine
         if (self::isMicroEngine()) {
             return request()->domain() . '/addons/' . self::getModuleName() . '/notify.php';
         } else {
-            return request()->domain() . '/notify.php';
+            return request()->domain() . '/api.php/notify/main';
         }
     }
 
