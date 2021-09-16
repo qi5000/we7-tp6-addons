@@ -27,6 +27,7 @@ return [
             // 独立日志级别
             'apart_level'    => [
                 'message',
+                'payment',   // 下单失败错误日志
                 'subscribe', // 订阅消息发送日志
             ],
             // 最大日志文件数量

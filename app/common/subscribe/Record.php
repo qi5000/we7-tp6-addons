@@ -15,8 +15,14 @@ class Record
         Log::write($data, 'message');
     }
 
+    public function payment(array $data)
+    {
+        $data = encode($data);
+        Log::write($data, 'payment');
+    }
+
     // public function subscribe(Event $event)
     // {
-    //     $event->listen('subscribe', [$this, 'subscribe']);
+    //     $event->listen('payment', [$this, 'payment']);
     // }
 }
