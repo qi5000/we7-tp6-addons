@@ -8,8 +8,49 @@
 
 namespace liang;
 
+use app\common\logic\Config as ConfigLogic;
+
+/**
+ * 微擎功能类
+ */
 class MicroEngine
 {
+    // +----------------------------------------------------------------------
+    // | 获取兼容微擎、独立版的配置
+    // +----------------------------------------------------------------------
+
+    /**
+     * 获取小程序appid和开发者密钥
+     */
+    public static function getMiniProgramConfig()
+    {
+        if (self::isMicroEngine()) {
+            global $_W;
+            return [
+                'appid'  => $_W['account']['key'],
+                'secret' => $_W['account']['secret'],
+            ];
+        } else {
+            return ConfigLogic::getBatchByKeys(['appid', 'secret']);
+        }
+    }
+
+    /**
+     * 微信支付回调默认地址
+     */
+    public static function getNotifyUrl()
+    {
+        if (self::isMicroEngine()) {
+            return request()->domain() . '/addons/' . self::getModuleName() . '/notify.php';
+        } else {
+            return request()->domain() . '/notify.php';
+        }
+    }
+
+    // +----------------------------------------------------------------------
+    // | 微擎相关信息
+    // +----------------------------------------------------------------------
+
     /**
      * 检测当前是否在微擎框架中
      *
@@ -51,22 +92,6 @@ class MicroEngine
         global $_W;
         $uniacid = self::isMicroEngine() ? ['uniacid' => $_W['uniacid']] : [];
         return is_null($data) ? $uniacid : array_merge($uniacid, $data);
-    }
-
-    /**
-     * 获取小程序appid和开发者密钥
-     */
-    public static function getMiniProgramConfig()
-    {
-        if (self::isMicroEngine()) {
-            global $_W;
-            return [
-                'appid'  => $_W['account']['key'],
-                'secret' => $_W['account']['secret'],
-            ];
-        } else {
-            return [];
-        }
     }
 
     // +----------------------------------------------------------------------
