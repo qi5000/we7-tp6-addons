@@ -18,7 +18,6 @@ class Index extends BaseController
     {
         // 检测扩展是否开启
         if ($this->checkExtension() === false) return;
-
         // 初始化平台数据(限制多开)
         if (MicroEngine::isMicroEngine() && !PlatformLogic::initData()) {
             global $_W;
@@ -33,7 +32,6 @@ class Index extends BaseController
             // 后台主页
             $eid        = input('eid', '', 'trim');
             $version_id = input('version_id', '', 'trim');
-            return 123;
             return view('/index', compact('eid', 'version_id'));
         }
     }
