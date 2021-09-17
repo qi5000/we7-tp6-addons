@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace app\common\lib\easywechat;
 
+use think\facade\Log;
 use liang\MicroEngine;
 use EasyWeChat\Factory;
 use app\common\logic\Config as LogicConfig;
@@ -96,5 +97,40 @@ class Payment
             fault($result['return_msg']);
         }
         fault($result['err_code_des']);
+    }
+
+    // +-----------------------------------------------------------------------------
+    // | 企业付款到零钱
+    // +-----------------------------------------------------------------------------
+    // | https://www.easywechat.com/4.x/payment/transfer.html
+    // +-----------------------------------------------------------------------------
+
+    /**
+     * 企业付款到零钱
+     *
+     * @param   $trade_no 商家订单号
+     * @param   $openid   用户openid
+     * @param   $amount   提现金额,单位:元
+     * @param   $desc     备注
+     */
+    public function toBalance($trade_no, $openid, $amount, $desc = '提现')
+    {
+        try {
+            // 商户证书未配置会抛出异常
+            // SSL certificate not found
+            $result = $this->app->transfer->toBalance([
+                'partner_trade_no' => $trade_no,      // 商户订单号，需保持唯一性(只能是字母或者数字，不能包含有符号)
+                'openid'           => $openid,        // 提现用户openid
+                'check_name'       => 'NO_CHECK',     // NO_CHECK：不校验真实姓名, FORCE_CHECK：强校验真实姓名
+                're_user_name'     => '王小帅',        // 如果 check_name 设置为FORCE_CHECK，则必填用户真实姓名
+                'amount'           => $amount * 100,  // 企业付款金额，单位为分
+                'desc'             => $desc,          // 企业付款操作说明信息。必填
+            ]);
+            Log::write(encode($result), 'withdraw');
+        } catch (\Throwable $th) {
+            Log::write(encode(['error' => $th->getMessage()]), 'withdraw');
+            fault($th->getMessage());
+        }
+        return $result;
     }
 }

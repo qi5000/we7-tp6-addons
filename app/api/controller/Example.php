@@ -1,5 +1,9 @@
 <?php
 
+// +----------------------------------------------------------------------
+// | 本控制器只为测试功能
+// +----------------------------------------------------------------------
+
 declare(strict_types=1);
 
 namespace app\api\controller;
@@ -41,5 +45,15 @@ class Example
     public function notify()
     {
         \app\common\logic\Notify::main();
+    }
+
+    /**
+     * 提现
+     */
+    public function withdraw()
+    {
+        $amount = 0.3;
+        $result = LogicPayment::toBalance($this->openid, $amount);
+        halt($result);
     }
 }
