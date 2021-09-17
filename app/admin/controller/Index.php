@@ -32,7 +32,7 @@ class Index extends BaseController
             // 后台主页
             $eid        = input('eid', '', 'trim');
             $version_id = input('version_id', '', 'trim');
-            return view('/index', compact('eid', 'version_id'));
+            return view('index', compact('eid', 'version_id'));
         }
     }
 
