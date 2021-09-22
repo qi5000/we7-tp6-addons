@@ -51,7 +51,7 @@ class MiniProgram
     // +-------------------------------------------------------------------------------------
 
     /**
-     * 根据 jsCode 获取用户 session 信息
+     * 根据 jsCode 获取用户session信息
      *
      * @param string $code
      */
@@ -67,6 +67,43 @@ class MiniProgram
         //     'errmsg'  => 'invalid code, hints: [ req_id: 3Ibcf2LnRa-lgVExa ]',
         // ];
         return $this->app->auth->session($code);
+    }
+
+    // +-------------------------------------------------------------------------------------
+    // | 内容安全检测
+    // +-------------------------------------------------------------------------------------
+    // | https://www.easywechat.com/4.x/basic-services/content_security.html
+    // +-------------------------------------------------------------------------------------
+
+    /**
+     * 文本安全内容检测
+     *
+     * @param string $content 文本内容
+     */
+    public function checkText(string $content)
+    {
+        if (empty($content)) return true;
+        $result = $this->miniProgram->content_security->checkText($content);
+        if (isset($result['errcode']) && $result['errcode'] == 87014) {
+            return false; //含有非法内容
+        } else {
+            return true; // 内容安全
+        }
+    }
+
+    /**
+     * 图片安全内容检测
+     *
+     * @param string $image 绝对路径的图片地址
+     */
+    public function checkImage(string $image)
+    {
+        $result = $this->miniProgram->content_security->checkImage($image);
+        if (isset($result['errcode']) && $result['errcode'] == 87014) {
+            return false; //含有非法内容
+        } else {
+            return true; // 内容安全
+        }
     }
 
     // +-------------------------------------------------------------------------------------
