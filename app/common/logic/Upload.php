@@ -29,12 +29,18 @@ class Upload
     {
         $result = Factory::upload($name, 'image', true);
         $array = $result->getData();
-        if ($array['code'] == 200) {
-            $array['domain'] = MicroEngine::getUrlByRoot($array['url']);
-            return json($array);
+        if ($array['code'] != 200) return $result;
+        if (isset($array['data'])) {
+            // 多图片上传
+            $domain = [];
+            foreach ($array['data'] as $value) {
+                $domain[] = MicroEngine::getUrlByRoot($value);
+            }
+            $array['domain'] = $domain;
         } else {
-            return $result;
+            $array['domain'] = MicroEngine::getUrlByRoot($array['url']);
         }
+        return json($array);
     }
 
     /**
