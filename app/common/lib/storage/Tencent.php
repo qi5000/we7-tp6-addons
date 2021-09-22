@@ -43,7 +43,10 @@ class Tencent extends Base
         $secretKey = $this->config['secretKey'];
         // 判断是否有文件上传
         $file = $this->checkUpload($name, $scene);
-        if (!$file instanceof \think\file\UploadedFile) return $file;
+        if (!is_array($file)) {
+            // 单文件上传
+            if (!$file instanceof \think\file\UploadedFile) return $file;
+        }
         $cosClient = new Client(
             [
                 'region' => $region,
@@ -56,19 +59,41 @@ class Tencent extends Base
         );
         // 执行文件上传
         try {
-            // 文件在存储空间中的存放位置
-            //此处的 key 为对象键，对象键是对象在存储桶中的唯一标识
-            $key = $this->buildSaveName($file);
-            //本地文件绝对路径
-            $srcPath = $file->getRealPath();
-            $resource = fopen($srcPath, 'rb');
-            if ($resource) {
-                $result = $cosClient->Upload($bucket, $key, $resource);
-            }
-            if (empty($domain)) {
-                $url = 'https://' . $result['Location'];
+            if (is_array($file)) {
+                $uploads = [];
+                foreach ($file['success'] as $value) {
+                    // 文件在存储空间中的存放位置
+                    //此处的 key 为对象键，对象键是对象在存储桶中的唯一标识
+                    $key = $this->buildSaveName($value);
+                    //本地文件绝对路径
+                    $srcPath = $value->getRealPath();
+                    $resource = fopen($srcPath, 'rb');
+                    if ($resource) {
+                        $result = $cosClient->Upload($bucket, $key, $resource);
+                    }
+                    if (empty($domain)) {
+                        $url = 'https://' . $result['Location'];
+                    } else {
+                        $url = $domain . '/' . $result['Key'];
+                    }
+                    $uploads[] = $url;
+                }
+                return $this->data($uploads, $file['error']);
             } else {
-                $url = $domain . '/' . $result['Key'];
+                // 文件在存储空间中的存放位置
+                //此处的 key 为对象键，对象键是对象在存储桶中的唯一标识
+                $key = $this->buildSaveName($file);
+                //本地文件绝对路径
+                $srcPath = $file->getRealPath();
+                $resource = fopen($srcPath, 'rb');
+                if ($resource) {
+                    $result = $cosClient->Upload($bucket, $key, $resource);
+                }
+                if (empty($domain)) {
+                    $url = 'https://' . $result['Location'];
+                } else {
+                    $url = $domain . '/' . $result['Key'];
+                }
             }
         } catch (\Exception $e) {
             return $this->fail($e->getMessage());
