@@ -96,29 +96,32 @@ class MiniProgram
     /**
      * 生成小程序码
      *
-     * @param string $page         页面路径
+     * @param string $page         页面路径索引
      * @param string|array $scene  场景(额外参数)
      * @param string $type         小程序码类型(目录名)
      */
     public function miniCode(string $page, $scene, string $type = '')
     {
+        // 页面路径
+        $path = config('page.' . $page);
+        is_null($path) && fault('该页面路径未定义: ' . $page);
         // 小程序码存放目录
-        $path = $this->getStoragePath($type);
+        $storage = $this->getStoragePath($type);
         // 数组数据转为查询字符串
         if (is_array($scene)) $scene = $this->queryString($scene);
         // 小程序码已存在就不再重复生成
-        if (file_exists($path . '/' . $scene . '.jpg')) {
+        if (file_exists($storage . '/' . $scene . '.jpg')) {
             $filename = $scene . '.jpg';
             return $this->getCodeUrl($filename, $type);
         }
         // 小程序码不存在时就生成
         try {
             $response = $this->app->app_code->getUnlimit($scene, [
-                'page'  => $page,
+                'page'  => $path,
             ]);
             if ($response instanceof \EasyWeChat\Kernel\Http\StreamResponse) {
                 // 保存小程序码到本地服务器
-                $filename = $response->save($path, $scene);
+                $filename = $response->save($storage, $scene);
                 // 返回可访问的小程序码URL地址
                 return $this->getCodeUrl(strval($filename), $type);
             } else {

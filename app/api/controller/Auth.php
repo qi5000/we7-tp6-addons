@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace app\api\controller;
 
 use app\BaseController;
-use app\api\lib\JwtAuth as JwtAuthLib;
+use app\api\lib\JwtAuth;
 
 /**
- * JWT验证基础控制器
+ * JWT鉴权控制器
+ * 
+ * @author liang 23426945@qq.com
  */
 class Auth extends BaseController
 {
@@ -22,13 +24,10 @@ class Auth extends BaseController
         // 初步校验token
         empty($token) && fault('token不能为空');
         // 解析token,返回生成token时的附加数据
-        $this->jwt = app(JwtAuthLib::class)->decode($token)->data;
+        $this->jwt = app(JwtAuth::class)->decode($token)->data;
+        // 获取JWt附加数据中的用户id并转为整型
+        $this->uid = (int) $this->jwt->uid;
         // 携带的token缓存中的token进行比对(单点登录校验)
-        app(JwtAuthLib::class)->checkToken($this->jwt->uid, $token) || fault('登录状态已过期', 401);
-        try {
-            $this->uid = (int) $this->jwt->uid;
-        } catch (\Exception $e) {
-            fault($e->getMessage(), 999);
-        }
+        app(JwtAuth::class)->checkToken($this->uid, $token) || fault('登录状态已过期', 401);
     }
 }

@@ -26,6 +26,8 @@ class Config
 
     /**
      * 改变配置值
+     *
+     * @param array $value
      */
     private static function changeValue(array $value): array
     {

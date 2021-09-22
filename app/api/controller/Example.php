@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace app\api\controller;
 
+use app\common\logic\MiniCode;
 use app\common\logic\Subscribe;
 use app\common\logic\Payment as LogicPayment;
 
@@ -55,5 +56,11 @@ class Example
         $amount = 0.3;
         $result = LogicPayment::toBalance($this->openid, $amount);
         halt($result);
+    }
+
+    public function minicode()
+    {
+        dump(MiniCode::index());
+        halt(MiniCode::detail(['id' => 10, 'user_id' => 12]));
     }
 }

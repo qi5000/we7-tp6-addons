@@ -5,5 +5,6 @@
 // +----------------------------------------------------------------------
 
 return [
-    'index' => 'pages/index/index', // 首页
+    'index'  => 'pages/index/index',   // 首页
+    'detail' => 'pages/index/index',   // 活动详情页
 ];
