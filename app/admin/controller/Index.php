@@ -7,7 +7,7 @@ use app\BaseController;
 use app\common\logic\Platform as PlatformLogic;
 
 /**
- * 后台管理系统
+ * 后台首页
  */
 class Index extends BaseController
 {

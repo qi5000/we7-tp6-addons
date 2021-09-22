@@ -7,6 +7,9 @@ namespace app\admin\logic;
 use app\common\model\Problem as ModelProblem;
 use app\common\model\ProblemClassify as ModelProblemClassify;
 
+/**
+ * 常见问题
+ */
 class Problem
 {
     /**

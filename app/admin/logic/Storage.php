@@ -7,7 +7,7 @@ namespace app\admin\logic;
 use app\common\model\Storage as ModelStorage;
 
 /**
- * admin应用 文件存储配置
+ * 文件存储
  */
 class Storage
 {

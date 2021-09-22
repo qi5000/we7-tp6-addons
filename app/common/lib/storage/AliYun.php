@@ -12,7 +12,8 @@ use OSS\Core\OssException;
 /**
  * 阿里云对象存储 OSS
  * 
- * composer require aliyuncs/oss-sdk-php
+ * @author  liang 23426945@qq.com
+ * @package composer require aliyuncs/oss-sdk-php
  */
 class AliYun extends Base
 {
@@ -55,7 +56,7 @@ class AliYun extends Base
                 foreach ($file['success'] as $value) {
                     // 文件在存储空间中的存放位置
                     $path = $this->buildSaveName($value);
-                    //执行上传: (bucket名称, 上传的目录, 临时文件路径)
+                    // 执行上传: (bucket名称, 上传的目录, 临时文件路径)
                     $result = $ossClient->uploadFile($bucket, $path, $value->getRealPath());
                     // 配置了自有域名使用则自有域名
                     // 否则使用阿里云OSS提供的默认域名
@@ -70,7 +71,7 @@ class AliYun extends Base
             } else {
                 // 文件在存储空间中的存放位置
                 $path = $this->buildSaveName($file);
-                //执行上传: (bucket名称, 上传的目录, 临时文件路径)
+                // 执行上传: (bucket名称, 上传的目录, 临时文件路径)
                 $result = $ossClient->uploadFile($bucket, $path, $file->getRealPath());
                 // 配置了自有域名使用则自有域名
                 // 否则使用阿里云OSS提供的默认域名

@@ -18,6 +18,8 @@ use app\common\model\Storage as StorageModel;
 
 /**
  * 本地存储
+ * 
+ * @author  liang 23426945@qq.com
  */
 class Factory
 {

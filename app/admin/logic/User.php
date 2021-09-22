@@ -6,6 +6,9 @@ namespace app\admin\logic;
 
 use app\common\model\User as ModelUser;
 
+/**
+ * 用户相关
+ */
 class User
 {
     /**

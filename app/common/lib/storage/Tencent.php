@@ -11,7 +11,8 @@ use Qcloud\Cos\Client;
 /**
  * 腾讯云对象存储 COS
  * 
- * composer require qcloud/cos-sdk-v5
+ * @author  liang 23426945@qq.com
+ * @package composer require qcloud/cos-sdk-v5
  */
 class Tencent extends Base
 {
@@ -31,7 +32,7 @@ class Tencent extends Base
     public function upload(string $name, string $scene)
     {
         // 配置参数
-        //存储桶名称 格式：BucketName-APPID
+        // 存储桶名称 格式：BucketName-APPID
         $bucket    = $this->config['bucket'];
         // 自定义CDN加速域名
         $domain    = $this->config['domain'];
@@ -63,9 +64,9 @@ class Tencent extends Base
                 $uploads = [];
                 foreach ($file['success'] as $value) {
                     // 文件在存储空间中的存放位置
-                    //此处的 key 为对象键，对象键是对象在存储桶中的唯一标识
+                    // 此处的 key 为对象键，对象键是对象在存储桶中的唯一标识
                     $key = $this->buildSaveName($value);
-                    //本地文件绝对路径
+                    // 本地文件绝对路径
                     $srcPath = $value->getRealPath();
                     $resource = fopen($srcPath, 'rb');
                     if ($resource) {
@@ -81,9 +82,9 @@ class Tencent extends Base
                 return $this->data($uploads, $file['error']);
             } else {
                 // 文件在存储空间中的存放位置
-                //此处的 key 为对象键，对象键是对象在存储桶中的唯一标识
+                // 此处的 key 为对象键，对象键是对象在存储桶中的唯一标识
                 $key = $this->buildSaveName($file);
-                //本地文件绝对路径
+                // 本地文件绝对路径
                 $srcPath = $file->getRealPath();
                 $resource = fopen($srcPath, 'rb');
                 if ($resource) {

@@ -8,7 +8,7 @@ use liang\MicroEngine;
 use app\admin\logic\Config as LogicConfig;
 
 /**
- * 配置相关
+ * 系统配置
  */
 class Config
 {

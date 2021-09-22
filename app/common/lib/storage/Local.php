@@ -10,6 +10,8 @@ use think\facade\Filesystem;
 
 /**
  * 本地存储
+ * 
+ * @author  liang 23426945@qq.com
  */
 class Local extends Base
 {

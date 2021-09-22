@@ -12,6 +12,11 @@ use app\common\lib\easywechat\MiniProgram;
 use liang\MicroEngine;
 use app\validate\Upload;
 
+/**
+ * 文件上传抽象类
+ * 
+ * @author  liang 23426945@qq.com
+ */
 abstract class Base
 {
     protected $msg   = 200;  //上传成功状态码
@@ -128,6 +133,9 @@ abstract class Base
 
     /**
      * 上传成功
+     *
+     * @param string $url  文件URl地址
+     * @param string $msg
      */
     public function msg(string $url, string $msg = '上传成功')
     {

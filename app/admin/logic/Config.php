@@ -8,7 +8,7 @@ use app\common\model\Config as ModelConfig;
 use app\common\logic\Config as LogicConfig;
 
 /**
- * admin应用 config逻辑层
+ * 系统配置
  */
 class Config extends LogicConfig
 {

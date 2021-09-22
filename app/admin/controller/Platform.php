@@ -6,6 +6,9 @@ namespace app\admin\controller;
 
 use app\common\logic\Platform as LogicPlatform;
 
+/**
+ * 模块多开
+ */
 class Platform
 {
     /**

@@ -12,7 +12,8 @@ use Qiniu\Storage\UploadManager;
 /**
  * 七牛云对象存储 Kodo
  * 
- * composer require qiniu/php-sdk
+ * @author  liang 23426945@qq.com
+ * @package composer require qiniu/php-sdk
  */
 class Kodo extends Base
 {
