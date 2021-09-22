@@ -41,7 +41,10 @@ class Kodo extends Base
         $secretKey = $this->config['secretKey'];
         // 判断是否有文件上传
         $file = $this->checkUpload($name, $scene);
-        if (!$file instanceof \think\file\UploadedFile) return $file;
+        if (is_object($file)) {
+            // 单文件上传
+            if (!$file instanceof \think\file\UploadedFile) return $file;
+        }
         // 将文件上传到七牛云
         try {
             // 初始化鉴权对象
@@ -50,12 +53,25 @@ class Kodo extends Base
             $token     = $auth->uploadToken($bucket);
             // 上传管理类 构建UplaodManager对象
             $uploadMgr = new UploadManager();
-            // 文件在存储空间中的存放位置
-            $path = $this->buildSaveName($file);
-            // 执行文件上传到七牛云
-            $info = $uploadMgr->putFile($token, $path, $file->getRealPath());
-            // 文件URL地址
-            $url = $domain . '/' . $info[0]['key'];
+            if (is_object($file)) {
+                // 文件在存储空间中的存放位置
+                $path = $this->buildSaveName($file);
+                // 执行文件上传到七牛云
+                $info = $uploadMgr->putFile($token, $path, $file->getRealPath());
+                // 文件URL地址
+                $url = $domain . '/' . $info[0]['key'];
+            } else {
+                $uploads = [];
+                foreach ($file['success'] as $value) {
+                    // 文件在存储空间中的存放位置
+                    $path = $this->buildSaveName($value);
+                    $info = $uploadMgr->putFile($token, $path, $value->getRealPath());
+                    // 文件URL地址
+                    $url = $domain . '/' . $info[0]['key'];
+                    $uploads[] = $url;
+                }
+                return $this->data($uploads, $file['error']);
+            }
         } catch (\Exception $e) {
             return $this->fail($e->getMessage());
         }

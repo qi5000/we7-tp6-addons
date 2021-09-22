@@ -71,20 +71,60 @@ abstract class Base
         try {
             $file = request()->file($name);
             if (!$file) throw new \Exception('没有文件上传');
-            // 上传验证
-            validate(Upload::class)->scene($scene)->check([$scene => $file]);
         } catch (\Exception $e) {
             return $this->fail($e->getMessage());
         }
-        if (!app(MiniProgram::class)->checkImage($file->getRealPath())) {
-            return $this->fail('系统检测到图片内包含非法内容');
+        if (is_array($file)) {
+            // 多文件上传
+            $error = [];
+            $success = [];
+            foreach ($file as $value) {
+                try {
+                    // 上传验证
+                    validate(Upload::class)->scene($scene)->check([$scene => $value]);
+                    if (!app(MiniProgram::class)->checkImage($value->getRealPath())) {
+                        fault('系统检测到图片内包含非法内容');
+                    }
+                    $success[] = $value;
+                } catch (\Exception $e) {
+                    $error[] = [
+                        'file'    => $value->getOriginalName(),
+                        'message' => $e->getMessage(),
+                    ];
+                }
+            }
+            return compact('success', 'error');
+        } else {
+            // 单文件上传
+            try {
+                // 上传验证
+                validate(Upload::class)->scene($scene)->check([$scene => $file]);
+            } catch (\Exception $e) {
+                return $this->fail($e->getMessage());
+            }
+            if (!app(MiniProgram::class)->checkImage($file->getRealPath())) {
+                return $this->fail('系统检测到图片内包含非法内容');
+            }
+            return $file;
         }
-        return $file;
     }
 
     // +------------------------------------------------
     // | 文件上传接口统一返回值
     // +------------------------------------------------
+
+    /**
+     * 多文件上传
+     *
+     * @param array  $data
+     * @param string $msg
+     * @param array  $error
+     */
+    public function data(array $data, array $error = [], string $msg = '上传成功')
+    {
+        $code = $this->msg;
+        return json((compact('code', 'msg', 'data', 'error')));
+    }
 
     /**
      * 上传成功
