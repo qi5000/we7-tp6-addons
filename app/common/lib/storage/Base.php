@@ -8,6 +8,7 @@
 
 namespace app\common\lib\storage;
 
+use app\common\lib\easywechat\MiniProgram;
 use liang\MicroEngine;
 use app\validate\Upload;
 
@@ -74,6 +75,9 @@ abstract class Base
             validate(Upload::class)->scene($scene)->check([$scene => $file]);
         } catch (\Exception $e) {
             return $this->fail($e->getMessage());
+        }
+        if (!app(MiniProgram::class)->checkImage($file->getRealPath())) {
+            return $this->fail('系统检测到图片内包含非法内容');
         }
         return $file;
     }

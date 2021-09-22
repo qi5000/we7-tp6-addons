@@ -10,8 +10,9 @@ declare(strict_types=1);
 
 namespace app\common\lib\easywechat;
 
-// 杂项
-use app\common\logic\Alone;
+use liang\MicroEngine;
+
+use think\facade\Log;
 use think\facade\Filesystem;
 
 // EasyWeChat
@@ -28,8 +29,8 @@ class MiniProgram
      */
     public function __construct()
     {
-        // 获取小程序APPID和开发者密钥
-        $miniProgram = Alone::getMiniProgramConfig();
+        // 小程序APPID和开发者密钥
+        $miniProgram = MicroEngine::getMiniProgramConfig();
         $config = [
             'app_id' => $miniProgram['appid'],
             'secret' => $miniProgram['secret'],
@@ -83,7 +84,7 @@ class MiniProgram
     public function checkText(string $content)
     {
         if (empty($content)) return true;
-        $result = $this->miniProgram->content_security->checkText($content);
+        $result = $this->app->content_security->checkText($content);
         if (isset($result['errcode']) && $result['errcode'] == 87014) {
             return false; //含有非法内容
         } else {
@@ -98,7 +99,8 @@ class MiniProgram
      */
     public function checkImage(string $image)
     {
-        $result = $this->miniProgram->content_security->checkImage($image);
+        $result = $this->app->content_security->checkImage($image);
+        Log::write(encode($result), 'security');
         if (isset($result['errcode']) && $result['errcode'] == 87014) {
             return false; //含有非法内容
         } else {
