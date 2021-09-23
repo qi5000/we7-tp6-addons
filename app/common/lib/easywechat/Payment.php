@@ -20,7 +20,6 @@ use app\common\logic\Config as LogicConfig;
  */
 class Payment
 {
-    // 微信支付
     public $app;
 
     /**
