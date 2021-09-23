@@ -130,4 +130,27 @@ class User extends LogicUser
         }
         return $user->toArray();
     }
+
+    // +----------------------------------------------------------------------
+    // | wx.getUserProfile 获取用户昵称、头像等信息
+    // +----------------------------------------------------------------------
+
+    /**
+     * 获取手机号(消息解密)
+     *
+     * @param string $iv
+     * @param string $encryptedData
+     */
+    public static function decryptPhoneNumber(int $id, string $iv, string $encryptedData)
+    {
+        // 获取用户会话密钥
+        $session = self::getSessionKeyById($id);
+        // 根据会话密钥和加密信息解密数据获取手机号
+        $result = app(MiniProgram::class)->decryptData($session, $iv, $encryptedData);
+        if (isset($result['phoneNumber'])) {
+            return $result['phoneNumber'];
+        } else {
+            fault('解密失败');
+        }
+    }
 }

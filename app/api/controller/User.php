@@ -27,4 +27,16 @@ class User extends Auth
         UserLogic::update($this->uid, $data);
         return data($data, '更新成功');
     }
+
+    /**
+     * 获取手机号(消息解密)
+     *
+     * @param string $iv
+     * @param string $encryptedData
+     */
+    public function decryptPhoneNumber(string $iv, string $encryptedData)
+    {
+        $phone = UserLogic::decryptPhoneNumber($this->uid, $iv, $encryptedData);
+        return data(['phone' => $phone], '获取手机号');
+    }
 }

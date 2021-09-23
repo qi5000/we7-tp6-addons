@@ -28,6 +28,6 @@ class Auth extends BaseController
         // 获取JWt附加数据中的用户id并转为整型
         $this->uid = (int) $this->jwt->uid;
         // 携带的token缓存中的token进行比对(单点登录校验)
-        app(JwtAuth::class)->checkToken($this->uid, $token) || fault('登录状态已过期', 401);
+        // app(JwtAuth::class)->checkToken($this->uid, $token) || fault('登录状态已过期', 401);
     }
 }
