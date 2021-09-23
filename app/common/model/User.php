@@ -21,6 +21,6 @@ class User extends MicroEngine
      */
     public function searchNickNameAttr($query, $value, $data)
     {
-        $query->whereLike('nickName', "%{$value}%");
+        $query->whereLike('nickName', '%' . $value . '%');
     }
 }

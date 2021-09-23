@@ -27,7 +27,7 @@ class Problem extends MicroEngine
 
     /**
      * 一对一相对关联
-     * 常见问题反向关联问题分类
+     * 常见问题反向关联所属问题分类
      */
     public function classify()
     {
