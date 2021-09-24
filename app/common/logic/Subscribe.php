@@ -133,7 +133,7 @@ class Subscribe
     private static function log(array $data, string $page)
     {
         $data['page'] = $page;
-        Log::record(json_encode($data, JSON_UNESCAPED_UNICODE), 'subscribe');
+        Log::write(encode($data), 'subscribe');
     }
 
     // +----------------------------------------------------------------------

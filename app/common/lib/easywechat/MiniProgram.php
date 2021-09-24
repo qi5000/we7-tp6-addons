@@ -25,7 +25,7 @@ class MiniProgram
     public $app;
 
     /**
-     * 构造方法生成相关操作实例
+     * 初始化配置
      */
     public function __construct()
     {
