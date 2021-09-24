@@ -8,9 +8,9 @@
 
 namespace app\common\lib\storage;
 
-use app\common\lib\easywechat\MiniProgram;
 use liang\MicroEngine;
 use app\validate\Upload;
+use app\common\lib\easywechat\MiniProgram;
 
 /**
  * 文件上传抽象类
