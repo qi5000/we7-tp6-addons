@@ -6,10 +6,13 @@ namespace app\common\init;
 
 use app\common\model\Storage as ModelStorage;
 
+/**
+ * 文件存储
+ */
 class Storage
 {
     /**
-     * 文件存储初始化
+     * 初始化配置
      *
      * @param array $data
      */

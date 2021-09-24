@@ -7,10 +7,13 @@ namespace app\common\init;
 use app\common\logic\Initialize;
 use app\common\model\Config as ModelConfig;
 
+/**
+ * 系统配置
+ */
 class Config
 {
     /**
-     * 初始化
+     * 初始化配置
      *
      * @param array $data
      */
