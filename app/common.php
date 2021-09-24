@@ -1,10 +1,15 @@
 <?php
-
-// +----------------------------------------------------------------------
-// | 全局公共函数
-// +----------------------------------------------------------------------
+// +-----------------------------------------------------------
+// | 全局自定义函数
+// +-----------------------------------------------------------
+// | Author: liang <23426945@qq.com>
+// +-----------------------------------------------------------
 
 use liang\MicroEngine;
+
+// +-----------------------------------------------------------
+// | 接口数据格式
+// +-----------------------------------------------------------
 
 /**
  * 操作成功
@@ -12,21 +17,21 @@ use liang\MicroEngine;
  * @param string $msg
  * @param string $name
  */
-function success(string $msg = "操作成功", $name = 'success')
+function success(string $msg = "操作成功", $state = 'success')
 {
-    $code = config('code.' . $name);
+    $code = config('code.' . $state);
     return json(compact('code', 'msg'));
 }
 
 /**
- * 发生错误
+ * 操作失败、有错误发生
  *
  * @param string  $msg
  * @param integer $code
  */
-function fault(string $msg = "", $name = 'fault')
+function fault(string $msg = "", $state = 'fault')
 {
-    $code = is_numeric($name) ? $name : config('code.' . $name);
+    $code = config('code.' . $state);
     throw new \Exception($msg, $code);
 }
 
@@ -37,23 +42,15 @@ function fault(string $msg = "", $name = 'fault')
  * @param string  $msg
  * @param mixed   $code
  */
-function data(array $data, string $msg = "获取成功", $name = 'success')
+function data(array $data, string $msg = "获取成功", $state = 'success')
 {
-    $code  = is_numeric($name) ? $name : config('code.' . $name);
+    $code = config('code.' . $state);
     return json(compact('code', 'msg', 'data'));
 }
 
-// +----------------------------------------------------------------------
+// +-----------------------------------------------------------
 // | 功能相关
-// +----------------------------------------------------------------------
-
-/**
- * 对数据进行json_encode编码并且中文不转码
- */
-function encode($data)
-{
-    return json_encode($data, JSON_UNESCAPED_UNICODE);
-}
+// +-----------------------------------------------------------
 
 /**
  * 计算两点地理坐标之间的距离
@@ -88,19 +85,18 @@ function getDistance($longitude1, $latitude1, $longitude2, $latitude2, $unit = 2
     return round($distance, $decimal);
 }
 
+// +----------------------------------------------------------------------
+// | 数据格式转换
+// +----------------------------------------------------------------------
+
 /**
- * 用于构建模型搜索器参数
- * 去掉数组空字符串,返回所有键
+ * 模型搜索器参数构造函数
  *
  * @param array $keys
  * @param array $where
  */
 function where_filter(&$keys, array $where)
 {
-    // 使用示例
-    // $where = where_filter($keys, $where);
-    // ModelUser::withSearch($keys, $where)->select();
-
     // 去掉数组里的空字符串和null
     $where = array_filter($where, function ($k) {
         return ($k === '' || $k === null) ? false : true;
@@ -111,60 +107,12 @@ function where_filter(&$keys, array $where)
     return $where;
 }
 
-// +----------------------------------------------------------------------
-// | 兼容独立版、微擎版路由地址
-// +----------------------------------------------------------------------
-
 /**
- * 兼容微擎版、独立版
- * 
- * 前后台应用微擎路由通用生成方法
- * 
- * @author  liang
- * @example u('index')
- * @example u('user/login', ['id' => 1])
- * @example u('merchType/getLists', ['id' => 2])
- * 
+ * 对数据进行json_encode编码并且中文不转码
  */
-function u(...$param): string
+function encode($data)
 {
-    // 判断当前是否在微擎框架中
-    if (MicroEngine::isMicroEngine()) {
-        // 应用 模块 方法
-        $contro = request()->controller();
-        // 微擎框架自带参数
-        $weParam = request()->only(['i', 'c', 'a', 'eid', 'version_id', 'do', 'm'], 'get');
-        // 路由参数
-        $route = explode('/', $param[0] ?? ''); // ?? 处理编辑器报红
-        // parse_name 控制器驼峰命名转为下划线分隔命名
-        switch (count($route)) {
-            case 1: // u('index')
-                $path = ['', parse_name($contro), $route[0]];
-                break;
-            case 2: // u('index/index')
-                $path = ['', parse_name($route[0]), $route[1]];
-                break;
-        }
-        $s = implode('/', $path);
-        $url = request()->domain() . request()->baseFile() . '?' . queryString($weParam) . '&s=' . $s;
-        if (!empty($param[1])) $url .= '&' . queryString($param[1]);
-        return $url;
-    } else {
-        // 独立版
-        $contro = request()->controller();
-        $route = explode('/', $param[0] ?? '');
-        switch (count($route)) {
-            case 1: // u('index')
-                $path = ['', parse_name($contro), $route[0]];
-                break;
-            case 2: // u('index/index')
-                $path = ['', parse_name($route[0]), $route[1]];
-                break;
-        }
-        $s = implode('/', $path);
-        $param[0] = $s;
-        return request()->domain() . url(...$param);
-    }
+    return json_encode($data, JSON_UNESCAPED_UNICODE);
 }
 
 /**
@@ -195,6 +143,33 @@ function queryStringToArray(string $params)
     return $data;
 }
 
+// +----------------------------------------------------------------------
+// | 数据格式化
+// +----------------------------------------------------------------------
+
+/**
+ * 将时间戳格式化为日期时间
+ *
+ * @param $timestamp
+ * @param $format
+ */
+function formatTime($timestamp, $format = 'Y-m-d H:i:s')
+{
+    return $timestamp ? date($format, $timestamp) : '';
+}
+
+/**
+ * 格式化金额
+ */
+function formatMoney($money)
+{
+    return floatval(sprintf('%.2f', $money));
+}
+
+// +----------------------------------------------------------------------
+// | 其他自定义函数
+// +----------------------------------------------------------------------
+
 /**
  * 处理编辑器报红
  */
@@ -215,4 +190,17 @@ function appletImg($img)
     } else {
         return request()->domain() . "/wxapp/{$img}";
     }
+}
+
+/**
+ * 发布消息队列任务时使用
+ * 用于topthink/think-queue
+ * 
+ * @param  string $class
+ * @param  string $action
+ * @return string app\queue\task@fire
+ */
+function getJob(string $class, string $action)
+{
+    return implode('@', [$class, $action]);
 }

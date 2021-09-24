@@ -1,11 +1,11 @@
 <?php
 
-namespace app\queue;
+namespace app\service;
 
 use think\queue\Job;
 use think\facade\Log;
 
-class Task
+class Subscribe
 {
     /**
      * 队列任务
