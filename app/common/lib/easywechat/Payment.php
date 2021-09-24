@@ -132,4 +132,27 @@ class Payment
         }
         return $result;
     }
+
+    // +-----------------------------------------------------------------------------
+    // | 退款
+    // +-----------------------------------------------------------------------------
+    // | https://www.easywechat.com/4.x/payment/refund.html
+    // +-----------------------------------------------------------------------------
+
+    /**
+     * 根据商户订单号退款
+     *
+     * @param string  $number           商户订单号
+     * @param string  $refundNumber     商户退款单号
+     * @param integer $totalFee         订单金额
+     * @param integer $refundFee        退款金额
+     * @param string  $refund_desc      退款说明
+     */
+    public function byOutTradeNumber(string $number, string $refundNumber, int $totalFee, int $refundFee, string $refund_desc = '退款')
+    {
+        // 参数分别为：商户订单号、商户退款单号、订单金额、退款金额、其他参数
+        return $this->app->refund->byOutTradeNumber($number, $refundNumber, $totalFee, $refundFee, [
+            'refund_desc' => $refund_desc,
+        ]);
+    }
 }

@@ -10,6 +10,9 @@ namespace app\common\logic;
 
 use app\common\lib\easywechat\MiniProgram;
 
+/**
+ * 小程序
+ */
 class MiniCode
 {
     /**
