@@ -45,9 +45,8 @@ class Subscribe
         //....这里执行具体的任务
         try {
             $this->json($data);
-            // 任务逻辑
+            // 调用任务逻辑方法
             call_user_func(...$class);
-            // fault('法外狂徒张三' . mt_rand(100, 999));
             // 消息队列执行日志
             $log['state'] = 'success';
             $log['msg'] = '任务执行成功';
