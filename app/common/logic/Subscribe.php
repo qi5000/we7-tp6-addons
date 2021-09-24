@@ -135,4 +135,18 @@ class Subscribe
         $data['page'] = $page;
         Log::record(json_encode($data, JSON_UNESCAPED_UNICODE), 'subscribe');
     }
+
+    // +----------------------------------------------------------------------
+    // | 订阅消息消息队列任务逻辑示例
+    // +----------------------------------------------------------------------
+
+    /**
+     * 任务执行逻辑示例 
+     *
+     * @param integer $activity_id
+     */
+    public static function drawNotice(int $activity_id)
+    {
+        fault('活动id: ' . $activity_id);
+    }
 }

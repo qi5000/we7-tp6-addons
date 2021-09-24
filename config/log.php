@@ -26,11 +26,13 @@ return [
             'single'         => false,
             // 独立日志级别
             'apart_level'    => [
+                'queue',     // 消息队列任务执行日志
                 'message',
                 'payment',   // 下单失败错误日志
                 'withdraw',  // 提现记录日志
                 'security',  // 内容安全检测日志
                 'subscribe', // 订阅消息发送日志
+
             ],
             // 最大日志文件数量
             'max_files'      => 0,

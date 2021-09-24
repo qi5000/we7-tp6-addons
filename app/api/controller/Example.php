@@ -11,6 +11,8 @@ namespace app\api\controller;
 use app\common\logic\MiniCode;
 use app\common\logic\Subscribe;
 use app\common\logic\Payment as LogicPayment;
+use app\common\logic\User;
+use app\queue\job\Subscribe as JobSubscribe;
 
 /**
  * 使用示例
@@ -62,5 +64,14 @@ class Example
     {
         dump(MiniCode::index());
         halt(MiniCode::detail(['id' => 10, 'user_id' => 12]));
+    }
+
+    /**
+     * 消息队列
+     */
+    public function queue()
+    {
+        $id = mt_rand(1000, 9999);
+        JobSubscribe::drawNotice($id);
     }
 }

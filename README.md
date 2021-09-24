@@ -93,7 +93,7 @@ public function __call($name, $arguments)
 + 小程序接口全部放在 api 应用下, 通过改变URL地址中的 s 参数值来访问不同的控制器方法
 
 ~~~
-http://liang8080.natapp1.cc/app/index.php?c=entry&a=wxapp&i=2&m=liang_tp_applet&do=api&s=/index/index
+http://liang8080.natapp1.cc/app/index.php?c=entry&a=wxapp&i=2&m=liang_tp_applet&do=api&s=/example/queue
 ~~~
 
 >[success] 后台管理系统开发环境
