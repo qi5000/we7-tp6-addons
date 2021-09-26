@@ -7,7 +7,7 @@ namespace app\validate;
 use think\Validate;
 
 /**
- * 文件上传验证
+ * 文件上传
  */
 class Upload extends Validate
 {

@@ -19,7 +19,9 @@ class User
         $where = where_filter($keys, $where);
         $model = ModelUser::withSearch($keys, $where);
         $count = $model->count();
-        $list  = $model->page($page, $limit)->select()->hidden(['update_time', 'delete_time']);
+        $list  = $model->page($page, $limit)->select()->hidden([
+            'session_key', 'update_time', 'delete_time'
+        ]);
         return compact('count', 'list');
     }
 }

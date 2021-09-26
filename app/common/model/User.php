@@ -23,4 +23,12 @@ class User extends MicroEngine
     {
         $query->whereLike('nickName', '%' . $value . '%');
     }
+
+    /**
+     * 根据注册时间范围查询
+     */
+    public function searchCreateTimeRangeAttr($query, $value, $data)
+    {
+        $query->whereBetweenTime('create_time', ...$value);
+    }
 }
