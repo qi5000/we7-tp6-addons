@@ -204,3 +204,17 @@ function getJob(string $class, string $action)
 {
     return implode('@', [$class, $action]);
 }
+
+/**
+ * 推送消息队列任务
+ *
+ * @param string  $class
+ * @param string  $action
+ * @param array   $data
+ * @param integer $delay
+ */
+function addQueue(string $class, string $action, array $data, int $delay = 0)
+{
+    $job = implode('@', [$class, $action]);
+    queue($job, $data, $delay, MicroEngine::getModuleName());
+}

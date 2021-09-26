@@ -1,12 +1,16 @@
 <?php
+// +----------------------------------------------------------------------
+// | 发布订阅消息队列任务
+// +----------------------------------------------------------------------
+// | Author: liang <23426945@qq.com>
+// +----------------------------------------------------------------------
 
 namespace app\queue\job;
 
-use liang\MicroEngine;
 use app\queue\service\Subscribe as ServiceSubscribe;
 
 /**
- * 发布订阅消息相关消息队列任务
+ * 订阅消息
  */
 class Subscribe
 {
@@ -20,8 +24,6 @@ class Subscribe
             'scerct'      => 'dgwassgas',
             'activity_id' => $activity_id,
         ];
-        $job = getJob(ServiceSubscribe::class, 'drawNotice');
-        queue($job, $data, 0, MicroEngine::getModuleName());
-        halt($data, MicroEngine::getModuleName());
+        addQueue(ServiceSubscribe::class, 'drawNotice', $data);
     }
 }
