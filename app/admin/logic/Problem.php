@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace app\admin\logic;
 
 use app\common\model\Problem as ModelProblem;
-use app\common\model\ProblemClassify as ModelProblemClassify;
+use app\common\model\ProblemClassify as ModelClassify;
 
 /**
  * 常见问题
@@ -13,19 +13,22 @@ use app\common\model\ProblemClassify as ModelProblemClassify;
 class Problem
 {
     /**
-     * 获取问题列表
+     * 获取常见问题列表
+     *
+     * @param array   $where
+     * @param integer $page
+     * @param integer $limit
      */
-    public static function getLists(int $page, int $limit): array
+    public static function getLists(array $where, int $page, int $limit): array
     {
-        $model = ModelProblem::with([
+        $where = where_filter($keys, $where);
+        $model = ModelProblem::withSearch($keys, $where);
+        $count = $model->count();
+        $list  = $model->with([
             'classify' => function ($query) {
                 $query->bind(['classify_name' => 'name']);
             }
-        ]);
-        $count = $model->count();
-        $list  = $model->order('sort', 'desc')->select()->hidden([
-            'create_time', 'delete_time'
-        ])->toArray();
+        ])->order('sort', 'desc')->select()->hidden(['create_time', 'delete_time'])->toArray();
         return compact('count', 'list');
     }
 
@@ -34,7 +37,7 @@ class Problem
      *
      * @param array $data
      */
-    public static function save(array $data): void
+    public static function save(array $data)
     {
         $model = new ModelProblem;
         // 启动事务
@@ -53,7 +56,7 @@ class Problem
      *
      * @param integer $id
      */
-    public static function read(int $id): array
+    public static function read(int $id)
     {
         $model = ModelProblem::findOrEmpty($id);
         $model->isEmpty() && fault('数据不存在');
@@ -66,7 +69,7 @@ class Problem
      * @param integer $id
      * @param array   $data
      */
-    public static function update(int $id, array $data): void
+    public static function update(int $id, array $data)
     {
         $model = ModelProblem::findOrEmpty($id);
         $model->isEmpty() && fault('数据不存在');
@@ -78,15 +81,17 @@ class Problem
      *
      * @param int|array $id
      */
-    public static function delete($id): void
+    public static function delete($id)
     {
         if (is_array($id)) {
-            $model = ModelProblem::whereIn('id', $id)->findOrEmpty();
+            // 批量删除
+            ModelProblem::destroy($id);
         } else {
+            // 单个删除
             $model = ModelProblem::findOrEmpty($id);
+            $model->isEmpty() && fault('数据不存在');
+            $model->delete();
         }
-        $model->isEmpty() && fault('数据不存在');
-        $model->delete();
     }
 
     // +----------------------------------------------------------------
@@ -94,14 +99,16 @@ class Problem
     // +----------------------------------------------------------------
 
     /**
-     * 分类列表
+     * 获取问题分类列表
      *
+     * @param array   $where
      * @param integer $page
      * @param integer $limit
      */
-    public static function getClassifyLists(int $page = 1, int $limit = 10)
+    public static function getClassifyLists(array $where, int $page, int $limit)
     {
-        $model = ModelProblemClassify::scope('sort');
+        $where = where_filter($keys, $where);
+        $model = ModelClassify::withSearch($keys, $where)->scope('sort');
         $count = $model->count();
         $list = $model->page($page, $limit)->select()->hidden([
             'create_time', 'delete_time'
@@ -112,9 +119,9 @@ class Problem
     /**
      * 选择分类
      */
-    public static function selectClassify(): array
+    public static function selectClassify()
     {
-        $data = ModelProblemClassify::field('id,name')
+        $data = ModelClassify::field('id,name')
             ->scope('sort')
             ->select();
         return $data->toArray();
@@ -127,7 +134,7 @@ class Problem
      */
     public static function saveClassify(array $data)
     {
-        $model = ModelProblemClassify::where('name', $data['name'])->findOrEmpty();
+        $model = ModelClassify::where('name', $data['name'])->findOrEmpty();
         $model->isEmpty() || fault('该分类名称已存在');
         // 启动事务
         $model->startTrans();
@@ -145,9 +152,9 @@ class Problem
      *
      * @param integer $id
      */
-    public static function readClassify(int $id): array
+    public static function readClassify(int $id)
     {
-        $model = ModelProblemClassify::findOrEmpty($id);
+        $model = ModelClassify::findOrEmpty($id);
         $model->isEmpty() && fault('数据不存在');
         return $model->toArray();
     }
@@ -158,9 +165,9 @@ class Problem
      * @param integer $id
      * @param array   $data
      */
-    public static function updateClassify(int $id, array $data): void
+    public static function updateClassify(int $id, array $data)
     {
-        $model = ModelProblemClassify::findOrEmpty($id);
+        $model = ModelClassify::findOrEmpty($id);
         $model->isEmpty() && fault('数据不存在');
         // 启动事务
         $model->startTrans();
@@ -178,14 +185,16 @@ class Problem
      *
      * @param int|array $id
      */
-    public static function deleteClassify($id): void
+    public static function deleteClassify($id)
     {
         if (is_array($id)) {
-            $model = ModelProblemClassify::whereIn('id', $id)->findOrEmpty();
+            // 批量删除
+            ModelClassify::destroy($id);
         } else {
-            $model = ModelProblemClassify::findOrEmpty($id);
+            // 单个删除
+            $model = ModelClassify::findOrEmpty($id);
+            $model->isEmpty() && fault('数据不存在');
+            $model->delete();
         }
-        $model->isEmpty() && fault('数据不存在');
-        $model->delete();
     }
 }

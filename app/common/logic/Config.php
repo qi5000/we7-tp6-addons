@@ -7,7 +7,7 @@ namespace app\common\logic;
 use app\common\model\Config as ConfigModel;
 
 /**
- * 系统配置公共逻辑层
+ * 系统配置
  */
 class Config
 {

@@ -16,11 +16,15 @@ use app\validate\ProblemClassify as ProblemClassifyValidate;
 class Problem
 {
     /**
-     * 常见问题
+     * 获取常见问题列表
+     *
+     * @param array   $where
+     * @param integer $page
+     * @param integer $limit
      */
-    public function getLists(int $page = 1, int $limit = 10)
+    public function getLists(array $where = [], int $page = 1, int $limit = 10)
     {
-        $data = LogicProblem::getLists($page, $limit);
+        $data = LogicProblem::getLists($where, $page, $limit);
         return data($data, '常见问题');
     }
 
@@ -39,7 +43,7 @@ class Problem
     /**
      * 编辑问题
      *
-     * @param integer $id
+     * @param integer $id 问题id
      */
     public function read(int $id)
     {
@@ -50,8 +54,8 @@ class Problem
     /**
      * 更新问题
      *
-     * @param integer $id
-     * @param array   $data
+     * @param integer $id   问题id
+     * @param array   $data 更新的数据
      */
     public function update(int $id, array $data)
     {
@@ -76,11 +80,15 @@ class Problem
     // +----------------------------------------------------------------
 
     /**
-     * 分类列表
+     * 获取问题分类列表
+     *
+     * @param array   $where
+     * @param integer $page
+     * @param integer $limit
      */
-    public function getClassifyLists(int $page = 1, int $limit = 10)
+    public function getClassifyLists(array $where = [], int $page = 1, int $limit = 10)
     {
-        $data = LogicProblem::getClassifyLists($page, $limit);
+        $data = LogicProblem::getClassifyLists($where, $page, $limit);
         return data($data, '分类列表');
     }
 
