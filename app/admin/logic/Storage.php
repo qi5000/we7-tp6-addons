@@ -14,7 +14,7 @@ class Storage
     /**
      * 获取文件存储配置
      */
-    public static function getLists(): array
+    public static function getLists()
     {
         $list = ModelStorage::order('type', 'asc')->select();
         $type = ModelStorage::where('in_use', 1)->value('type');
@@ -24,15 +24,23 @@ class Storage
     /**
      * 更新文件存储配置
      *
-     * @param int $type 0 本地 1 七牛云 2 阿里云
+     * @param int $type 0 本地 1 七牛云 2 阿里云 3 腾讯云
      */
-    public static function update(int $type, array $data): void
+    public static function update(int $type, array $data)
     {
-        in_array($type, [0, 1, 2]) || fault('type值非法');
-        foreach ($data as $value) {
-            $value['in_use'] = 0;
-            ModelStorage::update($value, ['id' => $value['id']]);
+        in_array($type, [0, 1, 2, 3]) || fault('type值非法');
+        $model = ModelStorage::findOrEmpty($data['id']);
+        // 启动事务
+        $model->startTrans();
+        $model->isEmpty() && fault('数据不存在');
+        try {
+            ModelStorage::where('type', '<>', $type)->update(['in_use' => 0]);
+            $data['in_use'] = 1;
+            $model->save($data);
+            $model->commit();
+        } catch (\Exception $e) {
+            $model->rollback();
+            fault('修改失败');
         }
-        ModelStorage::where('type', $type)->update(['in_use' => 1]);
     }
 }

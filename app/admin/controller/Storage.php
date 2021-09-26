@@ -14,7 +14,7 @@ class Storage
     /**
      * 获取文件存储配置
      */
-    public function index()
+    public function getLists()
     {
         $data = LogicStorage::getLists();
         return data($data, '文件存储配置');
