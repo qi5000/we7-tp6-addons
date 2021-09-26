@@ -5,6 +5,13 @@ ThinkPHP 6.0.9
 
 > 运行环境要求PHP7.2.5+，兼容PHP8.0。
 
+## 环境要求
+
++ linux
++ mysql5.7
++ php7.2.5+
++ redis
+
 ## 将仓库拉取到本地
 
 ~~~dos
