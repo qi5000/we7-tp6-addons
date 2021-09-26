@@ -38,6 +38,13 @@ cd wechat-applet && composer install
 
 public function doWebAdmin()
 {
+    // 给模块指定PHP版本使用
+    if (!isset($_GET['module'])) {
+        global $_W;
+        header('Location: ' . $_SERVER['REQUEST_URI'] . '&module=' . $_W['current_module']['name']);
+        exit;
+    }
+    // PHP版本检测
     if (version_compare(PHP_VERSION, '7.2.5', '<')) {
         die('检测到您到PHP版本过低, 系统无法正常使用<br><br>系统运行环境要求PHP版本不能低于 7.2.5, 当前PHP版本:' . PHP_VERSION);
     }
